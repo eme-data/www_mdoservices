@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg baseProfile="tiny" height="512" version="1.2" width="512" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs /><rect fill="#004A99" height="512" width="512" x="0" y="0" /><path d="M100,400 L100,100 L150,250 L200,100 L200,400 Z" fill="#FFFFFF" /><path d="M220,100 L270,100 Q320,100 320,250 Q320,400 270,400 L220,400 Z" fill="#FFFFFF" /><path d="M340,250 A80,150 0 1,1 339,250 Z" fill="#FFFFFF" /></svg>

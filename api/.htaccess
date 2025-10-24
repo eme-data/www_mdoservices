@@ -1,0 +1,59 @@
+# MDO Services API - .htaccess Configuration
+# This file handles routing for the PHP API endpoints
+
+# Enable rewrite engine
+RewriteEngine On
+RewriteBase /api/
+
+# Allow OPTIONS requests (for CORS preflight)
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# Set UTF-8 encoding
+AddDefaultCharset UTF-8
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect configuration files
+<FilesMatch "^(config\.php|config\.local\.php|Database\.php|utils\.php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Protect log files
+<Files "*.log">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Enable error logging (disable display_errors in production)
+php_flag display_errors Off
+php_flag log_errors On
+
+# Set max execution time and memory
+php_value max_execution_time 60
+php_value memory_limit 128M
+
+# File upload settings
+php_value upload_max_filesize 5M
+php_value post_max_size 6M
+
+# Security headers
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+
+    # Enable XSS protection
+    Header set X-XSS-Protection "1; mode=block"
+
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # Remove X-Powered-By header
+    Header unset X-Powered-By
+</IfModule>
+
+# Custom error pages (optional)
+# ErrorDocument 404 /api/error/404.php
+# ErrorDocument 500 /api/error/500.php

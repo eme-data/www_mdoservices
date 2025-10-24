@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useNavigate } from "react-router-dom"
-import { fetchPricingItems, createPricingItem, updatePricingItem, deletePricingItem, updatePricingOrder } from "@/lib/supabase"
+import { fetchPricingItems, createPricingItem, updatePricingItem, deletePricingItem, updatePricingOrder } from "@/lib/api"
 import { calculatePrices } from "@/lib/partner-pricing-utils"
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useSensors, useSensor, PointerSensor, KeyboardSensor } from '@dnd-kit/core'

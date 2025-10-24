@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { motion } from 'framer-motion'
-import { fetchPostBySlug } from '@/lib/supabase'
+import { fetchPostBySlug } from '@/lib/api'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { ArrowLeft, CalendarDays, UserCircle, Tag, AlertTriangle } from 'lucide-react'
 import { Button } from "@/components/ui/button"

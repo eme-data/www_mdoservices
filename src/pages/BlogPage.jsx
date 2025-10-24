@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { motion } from 'framer-motion'
-import { fetchPublishedPosts } from '@/lib/supabase'
+import { fetchPublishedPosts } from '@/lib/api'
 import { BlogPostCard } from '@/components/BlogPostCard'
 import { PageLayout } from '@/components/layout/PageLayout' 
 import { Loader2, AlertTriangle } from 'lucide-react'

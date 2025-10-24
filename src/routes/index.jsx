@@ -15,6 +15,8 @@ import NinjaRMMDetails from "@/pages/NinjaRMMDetails"
 import ProxmoxDetails from "@/pages/ProxmoxDetails"
 import PartnerSpace from "@/pages/PartnerSpace"
 import PartnerPricing from "@/pages/PartnerPricing"
+import ForgotPassword from "@/pages/ForgotPassword"
+import ResetPassword from "@/pages/ResetPassword"
 import TelecomSolutions from "@/pages/TelecomSolutions"
 import ThreeCXDetails from "@/pages/ThreeCXDetails"
 import WazoDetails from "@/pages/WazoDetails"
@@ -58,6 +60,8 @@ export function AppRoutes() {
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       <Route path="/partner" element={<PartnerSpace />} />
       <Route path="/partner/pricing" element={<PartnerPricing />} />
+      <Route path="/partner/forgot-password" element={<ForgotPassword />} />
+      <Route path="/partner/reset-password" element={<ResetPassword />} />
     </Routes>
   )
 }

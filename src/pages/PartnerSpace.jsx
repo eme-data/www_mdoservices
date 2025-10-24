@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
 import { Lock } from "lucide-react"
 import { login } from "@/lib/api"
@@ -84,6 +84,15 @@ export default function PartnerSpace() {
             >
               {isLoading ? "Connexion..." : "Accéder"}
             </Button>
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/partner/forgot-password"
+              className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
+            >
+              Mot de passe oublié ?
+            </Link>
           </div>
         </form>
       </div>

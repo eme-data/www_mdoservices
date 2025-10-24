@@ -126,6 +126,48 @@ export function isAuthenticated() {
   return !!getAuthToken();
 }
 
+/**
+ * Request password reset
+ * @param {string} email
+ * @returns {Promise<void>}
+ */
+export async function requestPasswordReset(email) {
+  const response = await apiRequest('/auth/request-reset', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+
+  return response;
+}
+
+/**
+ * Verify password reset token
+ * @param {string} token
+ * @returns {Promise<{valid: boolean, email?: string, message?: string}>}
+ */
+export async function verifyResetToken(token) {
+  const data = await apiRequest(`/auth/verify-reset-token?token=${encodeURIComponent(token)}`, {
+    method: 'GET',
+  });
+
+  return data;
+}
+
+/**
+ * Reset password with token
+ * @param {string} token
+ * @param {string} password
+ * @returns {Promise<void>}
+ */
+export async function resetPassword(token, password) {
+  const response = await apiRequest('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ token, password }),
+  });
+
+  return response;
+}
+
 // ============================================================
 // Posts API
 // ============================================================

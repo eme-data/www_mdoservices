@@ -33,8 +33,10 @@ import BlogPostPage from "@/pages/BlogPostPage"
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/tekup" element={<HomePageTekup />} />
+      {/* Nouveau design Tekup activé sur la page d'accueil */}
+      <Route path="/" element={<HomePageTekup />} />
+      {/* Ancien design accessible sur /classic pour référence */}
+      <Route path="/classic" element={<HomePage />} />
       <Route path="/solutions" element={<Solutions />} />
       <Route path="/solutions/microsoft-365" element={<Microsoft365Details />} />
       <Route path="/solutions/google-workspace" element={<GoogleWorkspaceDetails />} />

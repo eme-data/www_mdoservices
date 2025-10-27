@@ -1,6 +1,7 @@
 import React from "react"
 import { Routes, Route } from "react-router-dom"
 import HomePage from "@/pages/HomePage"
+import HomePageTekup from "@/pages/HomePageTekup"
 import Solutions from "@/pages/Solutions"
 // import Support from "@/pages/Support" // Route Support supprimée
 import Contact from "@/pages/Contact.jsx"
@@ -33,6 +34,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/tekup" element={<HomePageTekup />} />
       <Route path="/solutions" element={<Solutions />} />
       <Route path="/solutions/microsoft-365" element={<Microsoft365Details />} />
       <Route path="/solutions/google-workspace" element={<GoogleWorkspaceDetails />} />

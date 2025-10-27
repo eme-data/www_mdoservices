@@ -37,36 +37,27 @@ try {
 
     // Check if token exists
     if (!$resetRequest) {
-        sendSuccess([
-            'valid' => false,
-            'reason' => 'invalid',
-            'message' => 'Lien de réinitialisation invalide'
-        ]);
+        logMessage("Invalid password reset token attempted", 'WARNING');
+        sendError('Lien de réinitialisation invalide', 400);
     }
 
     // Check if token has been used
     if ($resetRequest['used']) {
-        sendSuccess([
-            'valid' => false,
-            'reason' => 'used',
-            'message' => 'Ce lien a déjà été utilisé'
-        ]);
+        logMessage("Used password reset token attempted", 'WARNING');
+        sendError('Ce lien a déjà été utilisé', 400);
     }
 
     // Check if token is expired
     if (strtotime($resetRequest['expires_at']) < time()) {
-        sendSuccess([
-            'valid' => false,
-            'reason' => 'expired',
-            'message' => 'Ce lien a expiré. Veuillez demander un nouveau lien'
-        ]);
+        logMessage("Expired password reset token attempted", 'WARNING');
+        sendError('Ce lien a expiré. Veuillez demander un nouveau lien', 400);
     }
 
-    // Token is valid
+    // Token is valid - return success with email
     sendSuccess([
         'valid' => true,
         'email' => $resetRequest['email']
-    ]);
+    ], 'Token valide');
 
 } catch (Exception $e) {
     logMessage("Token verification error: " . $e->getMessage(), 'ERROR');

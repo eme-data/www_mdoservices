@@ -96,7 +96,16 @@ function getJsonInput() {
  */
 function validateRequired($data, $requiredFields) {
     foreach ($requiredFields as $field) {
-        if (!isset($data[$field]) || trim($data[$field]) === '') {
+        if (!isset($data[$field])) {
+            sendError("Field '$field' is required", 400);
+        }
+
+        // Only use trim() on strings
+        if (is_string($data[$field])) {
+            if (trim($data[$field]) === '') {
+                sendError("Field '$field' is required", 400);
+            }
+        } elseif (is_null($data[$field]) || $data[$field] === '') {
             sendError("Field '$field' is required", 400);
         }
     }
@@ -172,11 +181,39 @@ function verifyJWT($token) {
 }
 
 /**
+ * Get all HTTP headers (cross-platform compatible)
+ * @return array
+ */
+function getAllHttpHeaders() {
+    // Use getallheaders() if available (Apache)
+    if (function_exists('getallheaders')) {
+        return getallheaders();
+    }
+
+    // Fallback for nginx and other servers
+    $headers = [];
+    foreach ($_SERVER as $name => $value) {
+        if (substr($name, 0, 5) == 'HTTP_') {
+            // Convert HTTP_AUTHORIZATION to Authorization
+            $headerName = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))));
+            $headers[$headerName] = $value;
+        }
+    }
+
+    // Handle Authorization header separately (sometimes not in HTTP_* variables)
+    if (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $headers['Authorization'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+    }
+
+    return $headers;
+}
+
+/**
  * Get JWT token from Authorization header
  * @return string|null
  */
 function getAuthToken() {
-    $headers = getallheaders();
+    $headers = getAllHttpHeaders();
 
     if (isset($headers['Authorization'])) {
         $authHeader = $headers['Authorization'];
@@ -251,4 +288,83 @@ function logMessage($message, $level = 'INFO') {
     $logEntry = "[$timestamp] [$level] $message" . PHP_EOL;
 
     file_put_contents($logFile, $logEntry, FILE_APPEND);
+}
+
+/**
+ * Validate string input length
+ * @param string $input Input string
+ * @param string $fieldName Field name for error message
+ * @param int $maxLength Maximum allowed length (default: 10000)
+ * @return bool
+ */
+function validateInputLength($input, $fieldName, $maxLength = 10000) {
+    if (!is_string($input)) {
+        return true; // Not a string, skip length validation
+    }
+
+    if (strlen($input) > $maxLength) {
+        sendError("Field '$fieldName' exceeds maximum length of $maxLength characters", 400);
+    }
+
+    return true;
+}
+
+/**
+ * Validate JSON input size (prevent large payload attacks)
+ * @param int $maxSize Maximum size in bytes (default: 1MB)
+ */
+function validateJsonInputSize($maxSize = 1048576) {
+    $contentLength = $_SERVER['CONTENT_LENGTH'] ?? 0;
+
+    if ($contentLength > $maxSize) {
+        sendError('Request payload too large', 413);
+    }
+}
+
+/**
+ * Rate limiting based on IP address
+ * @param string $action Action identifier (e.g., 'login', 'password-reset')
+ * @param int $maxAttempts Maximum attempts allowed
+ * @param int $timeWindow Time window in seconds (default: 15 minutes)
+ * @return bool True if within limit, sends error and exits if exceeded
+ */
+function checkRateLimit($action, $maxAttempts, $timeWindow = 900) {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $rateLimitFile = __DIR__ . '/../logs/rate_limit_' . md5($action . $ip) . '.json';
+
+    // Load or initialize rate limit data
+    $data = [];
+    if (file_exists($rateLimitFile)) {
+        $content = file_get_contents($rateLimitFile);
+        $data = json_decode($content, true) ?: [];
+    }
+
+    $now = time();
+    $windowStart = $now - $timeWindow;
+
+    // Remove expired attempts
+    if (isset($data['attempts'])) {
+        $data['attempts'] = array_filter($data['attempts'], function($timestamp) use ($windowStart) {
+            return $timestamp > $windowStart;
+        });
+    } else {
+        $data['attempts'] = [];
+    }
+
+    // Check if limit exceeded
+    if (count($data['attempts']) >= $maxAttempts) {
+        $oldestAttempt = min($data['attempts']);
+        $waitTime = ceil(($oldestAttempt + $timeWindow - $now) / 60);
+
+        logMessage("Rate limit exceeded for action '$action' from IP: $ip", 'WARNING');
+        sendError("Trop de tentatives. Veuillez réessayer dans $waitTime minute(s).", 429);
+    }
+
+    // Add current attempt
+    $data['attempts'][] = $now;
+
+    // Save rate limit data
+    file_put_contents($rateLimitFile, json_encode($data));
+
+    return true;
 }

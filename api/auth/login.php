@@ -19,6 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
+    // Check rate limit (5 attempts per 15 minutes)
+    checkRateLimit('login', 5, 900);
+
+    // Validate payload size
+    validateJsonInputSize();
+
     // Get input data
     $input = getJsonInput();
 
@@ -31,6 +37,10 @@ try {
 
     $username = sanitizeString($input['username']);
     $password = $input['password'];
+
+    // Validate input lengths
+    validateInputLength($username, 'username', 100);
+    validateInputLength($password, 'password', 255);
 
     // Get user from database
     $db = new Database();

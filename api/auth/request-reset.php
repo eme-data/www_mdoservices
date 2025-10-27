@@ -19,6 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
+    // Check rate limit (3 attempts per 15 minutes)
+    checkRateLimit('password-reset', 3, 900);
+
+    // Validate payload size
+    validateJsonInputSize();
+
     // Get input data
     $input = getJsonInput();
 
@@ -30,6 +36,9 @@ try {
     validateRequired($input, ['email']);
 
     $email = filter_var(trim($input['email']), FILTER_SANITIZE_EMAIL);
+
+    // Validate email length
+    validateInputLength($email, 'email', 255);
 
     // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -95,6 +104,20 @@ try {
 
 /**
  * Send password reset email
+ *
+ * IMPORTANT: This function uses PHP's native mail() function which:
+ * - May not work on all hosting environments (requires proper mail server configuration)
+ * - Can be unreliable and emails may end up in spam folders
+ * - Has no built-in error handling or retry mechanism
+ *
+ * RECOMMENDED ALTERNATIVES:
+ * 1. PHPMailer (https://github.com/PHPMailer/PHPMailer) - Full-featured SMTP library
+ * 2. Symfony Mailer - Modern email sending component
+ * 3. SendGrid/Mailgun/AWS SES - Professional email services with APIs
+ * 4. Hostinger's SMTP server (if using Hostinger) with proper authentication
+ *
+ * For production, configure SMTP settings in config.php and use a proper email library.
+ *
  * @param string $email
  * @param string $username
  * @param string $resetUrl

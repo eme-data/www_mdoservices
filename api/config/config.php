@@ -6,10 +6,19 @@
  * Never commit config.local.php to version control!
  */
 
-// Error reporting (disable in production)
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
+// Error reporting configuration
+// Development: Reports all errors but logs them instead of displaying
+// Production: Should set error_reporting(0) for security
+if (defined('ENVIRONMENT') && ENVIRONMENT === 'production') {
+    error_reporting(0);
+    ini_set('display_errors', 0);
+} else {
+    // Development/Staging: Log all errors but don't display them
+    error_reporting(E_ALL);
+    ini_set('display_errors', 0);
+}
 ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
 
 // Timezone
 date_default_timezone_set('Europe/Paris');
@@ -23,9 +32,18 @@ define('DB_PASS', 'your_database_password');
 define('DB_CHARSET', 'utf8mb4');
 
 // JWT Secret Key for authentication tokens
-// IMPORTANT: Generate a strong random key for production!
+// CRITICAL SECURITY WARNING:
+// The default JWT_SECRET below is NOT SECURE and MUST be changed in config.local.php
+// Generate a secure key with: openssl rand -base64 64
+// or: php -r "echo bin2hex(random_bytes(32));"
+// NEVER use the default value in production - all tokens can be forged!
 define('JWT_SECRET', 'your-super-secret-jwt-key-change-this-in-production');
 define('JWT_EXPIRATION', 86400); // 24 hours in seconds
+
+// Security check: Warn if using default JWT secret
+if (JWT_SECRET === 'your-super-secret-jwt-key-change-this-in-production') {
+    error_log('CRITICAL SECURITY WARNING: Using default JWT_SECRET! Change it in config.local.php immediately!');
+}
 
 // CORS Configuration
 define('CORS_ALLOWED_ORIGINS', [

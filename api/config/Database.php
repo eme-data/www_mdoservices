@@ -25,7 +25,10 @@ class Database {
      * @return PDO
      */
     public function getConnection() {
-        $this->conn = null;
+        // Return existing connection if available
+        if ($this->conn !== null) {
+            return $this->conn;
+        }
 
         try {
             $dsn = "mysql:host={$this->host};dbname={$this->db_name};charset={$this->charset}";
@@ -104,6 +107,9 @@ class Database {
      * @return string
      */
     public function lastInsertId() {
+        if ($this->conn === null) {
+            throw new Exception("No active database connection");
+        }
         return $this->conn->lastInsertId();
     }
 
@@ -118,6 +124,9 @@ class Database {
      * Commit transaction
      */
     public function commit() {
+        if ($this->conn === null) {
+            throw new Exception("No active database connection to commit");
+        }
         $this->conn->commit();
     }
 
@@ -125,6 +134,9 @@ class Database {
      * Rollback transaction
      */
     public function rollback() {
+        if ($this->conn === null) {
+            throw new Exception("No active database connection to rollback");
+        }
         $this->conn->rollBack();
     }
 }

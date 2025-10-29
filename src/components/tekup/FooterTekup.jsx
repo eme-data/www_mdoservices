@@ -79,9 +79,13 @@ export function FooterTekup() {
               Expert IT & Cloud en Occitanie. Nous accompagnons les entreprises dans leur transformation numérique depuis 2020.
             </p>
             <div className="space-y-3">
-              <a href="tel:+33537040280" className="flex items-center gap-3 text-blue-200 hover:text-white transition-colors">
+              <a href="tel:+33582952277" className="flex items-center gap-3 text-blue-200 hover:text-white transition-colors">
                 <Phone className="w-5 h-5" />
-                <span>05 37 04 02 80</span>
+                <span>05.82.95.22.77</span>
+              </a>
+              <a href="tel:+33666030361" className="flex items-center gap-3 text-blue-200 hover:text-white transition-colors">
+                <Phone className="w-5 h-5" />
+                <span>06.66.03.03.61 (Mobile)</span>
               </a>
               <a href="mailto:contact@mdoservices.fr" className="flex items-center gap-3 text-blue-200 hover:text-white transition-colors">
                 <Mail className="w-5 h-5" />

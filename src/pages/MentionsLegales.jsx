@@ -28,7 +28,8 @@ export default function MentionsLegales() {
               <p>Siège social : 27 rue pierre Mazaud, 09200 Saint-Girons, France</p>
               <p>Numéro SIRET : 51409907600028</p>
               <p>Adresse e-mail : contact@mdoservices.fr</p>
-              <p>Numéro de téléphone : +33 5 82 95 22 77</p>
+              <p>Téléphone : +33 5 82 95 22 77</p>
+              <p>Mobile : +33 6 66 03 03 61</p>
             </section>
 
             <section>

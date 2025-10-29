@@ -29,6 +29,8 @@ import CloudServices from "@/pages/CloudServices"
 import RendezVousPage from "@/pages/RendezVousPage"
 import BlogPage from "@/pages/BlogPage"
 import BlogPostPage from "@/pages/BlogPostPage"
+import BlogAdmin from "@/pages/partner/BlogAdmin"
+import BlogPostForm from "@/pages/partner/BlogPostForm"
 
 export function AppRoutes() {
   return (
@@ -64,6 +66,9 @@ export function AppRoutes() {
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       <Route path="/partner" element={<PartnerSpace />} />
       <Route path="/partner/pricing" element={<PartnerPricing />} />
+      <Route path="/partner/blog" element={<BlogAdmin />} />
+      <Route path="/partner/blog/new" element={<BlogPostForm />} />
+      <Route path="/partner/blog/edit/:id" element={<BlogPostForm />} />
       <Route path="/partner/forgot-password" element={<ForgotPassword />} />
       <Route path="/partner/reset-password" element={<ResetPassword />} />
     </Routes>

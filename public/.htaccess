@@ -3,7 +3,9 @@
   RewriteBase /
 
   # Redirect www to non-www (unified domain)
+  # BUT: Skip redirection for API requests (POST body would be lost)
   RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteCond %{REQUEST_URI} !^/api/ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
   # Force HTTPS

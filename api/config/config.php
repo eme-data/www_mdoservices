@@ -23,13 +23,19 @@ ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
 // Timezone
 date_default_timezone_set('Europe/Paris');
 
+// Load local configuration FIRST (before defining defaults)
+// This allows config.local.php to define the constants
+if (file_exists(__DIR__ . '/config.local.php')) {
+    require_once __DIR__ . '/config.local.php';
+}
+
 // Database Configuration
-// These are default values - override them in config.local.php
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'your_database_name');
-define('DB_USER', 'your_database_user');
-define('DB_PASS', 'your_database_password');
-define('DB_CHARSET', 'utf8mb4');
+// Define defaults ONLY if not already defined in config.local.php
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_NAME')) define('DB_NAME', 'your_database_name');
+if (!defined('DB_USER')) define('DB_USER', 'your_database_user');
+if (!defined('DB_PASS')) define('DB_PASS', 'your_database_password');
+if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
 
 // JWT Secret Key for authentication tokens
 // CRITICAL SECURITY WARNING:
@@ -37,8 +43,8 @@ define('DB_CHARSET', 'utf8mb4');
 // Generate a secure key with: openssl rand -base64 64
 // or: php -r "echo bin2hex(random_bytes(32));"
 // NEVER use the default value in production - all tokens can be forged!
-define('JWT_SECRET', 'your-super-secret-jwt-key-change-this-in-production');
-define('JWT_EXPIRATION', 86400); // 24 hours in seconds
+if (!defined('JWT_SECRET')) define('JWT_SECRET', 'your-super-secret-jwt-key-change-this-in-production');
+if (!defined('JWT_EXPIRATION')) define('JWT_EXPIRATION', 86400); // 24 hours in seconds
 
 // Security check: Warn if using default JWT secret
 if (JWT_SECRET === 'your-super-secret-jwt-key-change-this-in-production') {
@@ -46,25 +52,24 @@ if (JWT_SECRET === 'your-super-secret-jwt-key-change-this-in-production') {
 }
 
 // CORS Configuration
-define('CORS_ALLOWED_ORIGINS', [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://www.mdoservices.fr',
-    'https://mdoservices.fr'
-]);
+if (!defined('CORS_ALLOWED_ORIGINS')) {
+    define('CORS_ALLOWED_ORIGINS', [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'https://www.mdoservices.fr',
+        'https://mdoservices.fr'
+    ]);
+}
 
 // Session Configuration
-define('SESSION_LIFETIME', 86400); // 24 hours
+if (!defined('SESSION_LIFETIME')) define('SESSION_LIFETIME', 86400); // 24 hours
 
 // File Upload Configuration
-define('UPLOAD_MAX_SIZE', 5242880); // 5MB
-define('UPLOAD_ALLOWED_TYPES', ['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
+if (!defined('UPLOAD_MAX_SIZE')) define('UPLOAD_MAX_SIZE', 5242880); // 5MB
+if (!defined('UPLOAD_ALLOWED_TYPES')) {
+    define('UPLOAD_ALLOWED_TYPES', ['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
+}
 
 // API Configuration
-define('API_VERSION', 'v1');
-define('API_BASE_PATH', '/api');
-
-// Load local configuration if exists
-if (file_exists(__DIR__ . '/config.local.php')) {
-    require_once __DIR__ . '/config.local.php';
-}
+if (!defined('API_VERSION')) define('API_VERSION', 'v1');
+if (!defined('API_BASE_PATH')) define('API_BASE_PATH', '/api');

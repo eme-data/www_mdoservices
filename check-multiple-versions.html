@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Versions Multiples</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        .warning { color: orange; font-weight: bold; }
+        .info { color: blue; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #f8f9fa;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+        .version-box {
+            border: 3px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .version-box.tekup {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .version-box.old {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Diagnostic des Versions Multiples du Site</h1>
+
+    <div class="card" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+        <h2>⚠️ PROBLÈME DÉTECTÉ</h2>
+        <p><strong>Symptôme :</strong> Parfois site original, parfois site Tekup</p>
+        <p><strong>Causes possibles :</strong></p>
+        <ul>
+            <li>Cache CDN Hostinger (x-hcdn-cache-status)</li>
+            <li>Plusieurs fichiers index.html dans différents dossiers</li>
+            <li>Build non uploadé complètement</li>
+            <li>Problème de .htaccess qui route vers le mauvais fichier</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>📊 Informations de la Page Actuelle</h2>
+        <table>
+            <tr>
+                <th>Propriété</th>
+                <th>Valeur</th>
+            </tr>
+            <tr>
+                <td>URL</td>
+                <td><script>document.write(window.location.href);</script></td>
+            </tr>
+            <tr>
+                <td>Timestamp</td>
+                <td><script>document.write(new Date().toLocaleString());</script></td>
+            </tr>
+            <tr>
+                <td>User Agent</td>
+                <td><script>document.write(navigator.userAgent.substring(0, 80));</script></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🧪 Tests de Chargement Multiples</h2>
+        <p>Cliquez plusieurs fois sur les boutons ci-dessous pour voir si vous obtenez des résultats différents :</p>
+        <button onclick="testHomePage()">🔄 Tester Page d'Accueil</button>
+        <button onclick="testIndexHtml()">🔄 Tester /index.html</button>
+        <button onclick="clearCacheAndTest()">🗑️ Forcer Nouveau Chargement (No-Cache)</button>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="card">
+        <h2>🔍 Détection du Thème Actuel</h2>
+        <div id="theme-detection"></div>
+    </div>
+
+    <script>
+        let testCounter = 0;
+
+        // Detect current theme
+        function detectCurrentTheme() {
+            const themeDiv = document.getElementById('theme-detection');
+            let html = '';
+
+            // Check if Tekup elements exist
+            const hasTekupFooter = document.querySelector('[class*="tekup"]') ||
+                                   document.querySelector('[class*="Tekup"]');
+            const hasTekupNav = document.querySelector('nav[class*="tekup"]');
+
+            // Check for old site elements
+            const hasOldElements = document.querySelector('.hero') ||
+                                   document.querySelector('.features');
+
+            // Check title
+            const title = document.title;
+
+            html += '<div class="version-box ' + (title.includes('Tekup') ? 'tekup' : 'old') + '">';
+            html += '<h3>Cette Page :</h3>';
+            html += '<table>';
+            html += '<tr><td>Titre</td><td>' + title + '</td></tr>';
+            html += '<tr><td>Éléments Tekup détectés</td><td>' + (hasTekupFooter || hasTekupNav ? '<span class="success">✅ OUI</span>' : '<span class="error">❌ NON</span>') + '</td></tr>';
+            html += '<tr><td>Anciens éléments détectés</td><td>' + (hasOldElements ? '<span class="error">⚠️ OUI</span>' : '<span class="success">✅ NON</span>') + '</td></tr>';
+            html += '</table>';
+
+            if (hasTekupFooter || hasTekupNav) {
+                html += '<p class="success"><strong>✅ VERSION TEKUP chargée</strong></p>';
+            } else {
+                html += '<p class="error"><strong>❌ VERSION ORIGINALE chargée</strong></p>';
+            }
+
+            html += '</div>';
+
+            themeDiv.innerHTML = html;
+        }
+
+        async function testHomePage() {
+            await testUrl('https://mdoservices.fr/', 'Page d\'accueil');
+        }
+
+        async function testIndexHtml() {
+            await testUrl('https://mdoservices.fr/index.html', 'index.html direct');
+        }
+
+        async function clearCacheAndTest() {
+            await testUrl('https://mdoservices.fr/?nocache=' + Date.now(), 'No-cache', true);
+        }
+
+        async function testUrl(url, label, noCache = false) {
+            const resultsDiv = document.getElementById('test-results');
+            testCounter++;
+
+            resultsDiv.innerHTML = '<p class="info">⏳ Test #' + testCounter + ' en cours : ' + label + '...</p>' + resultsDiv.innerHTML;
+
+            try {
+                const headers = {};
+                if (noCache) {
+                    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+                    headers['Pragma'] = 'no-cache';
+                }
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: headers,
+                    cache: noCache ? 'no-store' : 'default'
+                });
+
+                const html = await response.text();
+
+                let version = 'INCONNUE';
+                let versionClass = '';
+
+                if (html.includes('Tekup') || html.includes('tekup')) {
+                    version = 'TEKUP';
+                    versionClass = 'tekup';
+                } else {
+                    version = 'ORIGINALE';
+                    versionClass = 'old';
+                }
+
+                // Check cache headers
+                const cacheStatus = response.headers.get('x-hcdn-cache-status') || 'N/A';
+                const age = response.headers.get('age') || 'N/A';
+
+                let html_result = '<div class="version-box ' + versionClass + '" style="margin: 10px 0;">';
+                html_result += '<h4>Test #' + testCounter + ' : ' + label + '</h4>';
+                html_result += '<table>';
+                html_result += '<tr><td>URL</td><td style="font-size:11px;">' + url + '</td></tr>';
+                html_result += '<tr><td>Version détectée</td><td><strong>' + version + '</strong></td></tr>';
+                html_result += '<tr><td>Cache CDN Status</td><td>' + cacheStatus + '</td></tr>';
+                html_result += '<tr><td>Age (cache)</td><td>' + age + '</td></tr>';
+                html_result += '<tr><td>Timestamp</td><td>' + new Date().toLocaleTimeString() + '</td></tr>';
+                html_result += '</table>';
+
+                // Extract title from HTML
+                const titleMatch = html.match(/<title>(.*?)<\/title>/i);
+                if (titleMatch) {
+                    html_result += '<p><strong>Titre de la page :</strong> ' + titleMatch[1] + '</p>';
+                }
+
+                html_result += '</div>';
+
+                resultsDiv.innerHTML = html_result + resultsDiv.innerHTML;
+
+            } catch (error) {
+                resultsDiv.innerHTML = '<div class="version-box" style="border-color:#dc3545;"><p class="error">❌ Erreur Test #' + testCounter + ' : ' + error.message + '</p></div>' + resultsDiv.innerHTML;
+            }
+        }
+
+        // Auto-detect on load
+        window.addEventListener('load', () => {
+            detectCurrentTheme();
+        });
+    </script>
+
+    <div class="card">
+        <h2>🎯 Analyse des Résultats</h2>
+        <p><strong>Si vous voyez des résultats différents entre les tests :</strong></p>
+        <ul>
+            <li><strong>Cache CDN</strong> : x-hcdn-cache-status = HIT signifie que le cache sert l'ancienne version</li>
+            <li><strong>Solution</strong> : Purger le cache Hostinger via le panel</li>
+        </ul>
+
+        <p><strong>Si tous les tests montrent la même version :</strong></p>
+        <ul>
+            <li>Mais que vous voyez quand même des versions différentes en naviguant</li>
+            <li><strong>Alors</strong> : Il y a plusieurs fichiers index.html ou le cache de votre navigateur</li>
+        </ul>
+    </div>
+
+    <div class="card" style="background: #f8d7da; border-left: 4px solid #dc3545;">
+        <h2>⚠️ SÉCURITÉ</h2>
+        <p><strong>SUPPRIMEZ CE FICHIER après diagnostic !</strong></p>
+        <p>Fichier : <code>/public_html/check-multiple-versions.html</code></p>
+    </div>
+</body>
+</html>

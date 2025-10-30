@@ -97,7 +97,7 @@ try {
 // Test 6: Exécuter la requête exacte de list.php
 echo "<h2>Test 6: Exécution de la requête list.php</h2>";
 try {
-    $query = "SELECT id, title, slug, excerpt, content, image_url, author, published_at, created_at
+    $query = "SELECT id, title, slug, excerpt, content, cover_image_url, author_name, published_at, created_at
               FROM posts
               WHERE published_at IS NOT NULL
               ORDER BY published_at DESC";
@@ -155,7 +155,7 @@ try {
 
     echo "<p class='success'>✅ Database class instanciée</p>";
 
-    $query = "SELECT id, title, slug, excerpt, content, image_url, author, published_at, created_at
+    $query = "SELECT id, title, slug, excerpt, content, cover_image_url, author_name, published_at, created_at
               FROM posts
               WHERE published_at IS NOT NULL
               ORDER BY published_at DESC";

@@ -88,7 +88,9 @@ try {
     logMessage("Successful login for user: {$user['username']} (ID: {$user['id']})", 'INFO');
 
     // Return response (without password hash)
-    sendSuccess([
+    // Note: Return token and user at root level (not wrapped in 'data') for frontend compatibility
+    sendResponse([
+        'success' => true,
         'token' => $token,
         'user' => [
             'id' => $user['id'],
@@ -96,7 +98,7 @@ try {
             'email' => $user['email'],
             'is_admin' => (bool)$user['is_admin']
         ]
-    ], 'Login successful');
+    ], 200);
 
 } catch (Exception $e) {
     logMessage("Login error: " . $e->getMessage(), 'ERROR');

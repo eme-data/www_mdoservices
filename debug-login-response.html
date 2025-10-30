@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Login Response</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+        .card {
+            background: #252526;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #3e3e42;
+        }
+        button {
+            background: #0e639c;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+        button:hover {
+            background: #1177bb;
+        }
+        pre {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+            border: 1px solid #3e3e42;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .error { color: #f48771; }
+        .success { color: #89d185; }
+        .warning { color: #e5c07b; }
+        .info { color: #61afef; }
+        h1, h2, h3 { color: #569cd6; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+    <h1>🐛 Debug Login Response - Capture Complète</h1>
+
+    <div class="card">
+        <h2>🚀 Lancer le Test</h2>
+        <button onclick="debugLogin()">Capturer la Réponse Complète</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        async function debugLogin() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="card"><p class="warning">⏳ Capture en cours...</p></div>';
+
+            const url = 'https://mdoservices.fr/api/auth/login.php';
+            const payload = {
+                username: 'admin',
+                password: 'password'
+            };
+
+            let html = '';
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                // Capture all headers
+                html += '<div class="card">';
+                html += '<h2>📡 Réponse HTTP</h2>';
+                html += '<p><strong>URL:</strong> ' + url + '</p>';
+                html += '<p><strong>Status:</strong> <span class="' + (response.ok ? 'success' : 'error') + '">' + response.status + ' ' + response.statusText + '</span></p>';
+                html += '<h3>Headers de Réponse:</h3>';
+                html += '<pre>';
+                for (let [key, value] of response.headers.entries()) {
+                    html += key + ': ' + value + '\n';
+                }
+                html += '</pre>';
+                html += '</div>';
+
+                // Get response as text first
+                const responseText = await response.text();
+
+                html += '<div class="card">';
+                html += '<h2>📄 Corps de la Réponse (texte brut)</h2>';
+                html += '<p><strong>Longueur:</strong> ' + responseText.length + ' caractères</p>';
+                html += '<p><strong>Premiers 100 caractères:</strong></p>';
+                html += '<pre>' + responseText.substring(0, 100).replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
+                html += '<h3>Réponse Complète:</h3>';
+                html += '<pre>' + responseText.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
+                html += '</div>';
+
+                // Try to parse as JSON
+                html += '<div class="card">';
+                html += '<h2>🔍 Analyse</h2>';
+
+                if (responseText.trim().startsWith('{')) {
+                    html += '<p class="success">✅ La réponse commence par "{" - c\'est du JSON</p>';
+                    try {
+                        const data = JSON.parse(responseText);
+                        html += '<p class="success">✅ JSON valide parsé avec succès</p>';
+                        html += '<h3>Données parsées:</h3>';
+                        html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+
+                        // Check format
+                        if (data.token && !data.data) {
+                            html += '<p class="success">✅ FORMAT CORRECT : token est à la racine</p>';
+                        } else if (data.data && data.data.token) {
+                            html += '<p class="error">❌ ANCIEN FORMAT : token est dans data.token</p>';
+                        }
+                    } catch (e) {
+                        html += '<p class="error">❌ JSON invalide : ' + e.message + '</p>';
+                    }
+                } else if (responseText.trim().startsWith('<!')) {
+                    html += '<p class="error">❌ La réponse commence par "&lt;!" - c\'est du HTML</p>';
+                    html += '<p class="error">Cela signifie que PHP génère une page d\'erreur au lieu de JSON</p>';
+
+                    // Try to extract error message
+                    const titleMatch = responseText.match(/<title>(.*?)<\/title>/i);
+                    if (titleMatch) {
+                        html += '<p class="error"><strong>Titre de la page d\'erreur:</strong> ' + titleMatch[1] + '</p>';
+                    }
+
+                    const h1Match = responseText.match(/<h1>(.*?)<\/h1>/i);
+                    if (h1Match) {
+                        html += '<p class="error"><strong>Message d\'erreur:</strong> ' + h1Match[1] + '</p>';
+                    }
+
+                    // Common error patterns
+                    if (responseText.includes('404')) {
+                        html += '<div style="background:#3d0f0f;padding:15px;margin:10px 0;border-radius:4px;">';
+                        html += '<h3 class="error">🚨 PROBLÈME : Erreur 404</h3>';
+                        html += '<p>Le fichier <code>login.php</code> n\'existe pas ou n\'est pas accessible.</p>';
+                        html += '<p><strong>Solutions:</strong></p>';
+                        html += '<ul>';
+                        html += '<li>Vérifiez que le fichier existe dans <code>/public_html/api/auth/login.php</code></li>';
+                        html += '<li>Vérifiez les permissions du fichier (644)</li>';
+                        html += '<li>Vérifiez qu\'il n\'y a pas de .htaccess qui bloque l\'accès</li>';
+                        html += '</ul>';
+                        html += '</div>';
+                    }
+
+                    if (responseText.includes('500') || responseText.includes('Internal Server Error')) {
+                        html += '<div style="background:#3d0f0f;padding:15px;margin:10px 0;border-radius:4px;">';
+                        html += '<h3 class="error">🚨 PROBLÈME : Erreur 500</h3>';
+                        html += '<p>PHP génère une erreur lors de l\'exécution de login.php</p>';
+                        html += '<p><strong>Solutions:</strong></p>';
+                        html += '<ul>';
+                        html += '<li>Vérifiez les logs PHP dans cPanel ou Hostinger</li>';
+                        html += '<li>Vérifiez la syntaxe du fichier login.php</li>';
+                        html += '<li>Il y a peut-être une erreur de syntaxe dans le code PHP</li>';
+                        html += '</ul>';
+                        html += '</div>';
+                    }
+
+                    if (responseText.includes('Parse error') || responseText.includes('syntax error')) {
+                        html += '<div style="background:#3d0f0f;padding:15px;margin:10px 0;border-radius:4px;">';
+                        html += '<h3 class="error">🚨 PROBLÈME : Erreur de Syntaxe PHP</h3>';
+                        html += '<p>Le fichier login.php contient une erreur de syntaxe</p>';
+                        html += '<p>Cherchez "Parse error" ou "syntax error" dans la réponse HTML ci-dessus</p>';
+                        html += '</div>';
+                    }
+                } else {
+                    html += '<p class="error">❌ Format de réponse inconnu</p>';
+                    html += '<p>La réponse ne commence ni par "{" (JSON) ni par "&lt;!" (HTML)</p>';
+                }
+
+                html += '</div>';
+
+            } catch (error) {
+                html += '<div class="card">';
+                html += '<h2 class="error">❌ Erreur JavaScript</h2>';
+                html += '<pre>' + error.message + '\n' + error.stack + '</pre>';
+                html += '</div>';
+            }
+
+            resultDiv.innerHTML = html;
+        }
+
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            document.querySelector('button').click();
+        });
+    </script>
+
+    <div class="card" style="background: #3d0f0f; border-color: #5a1f1f;">
+        <h2 class="error">⚠️ SÉCURITÉ</h2>
+        <p><strong>SUPPRIMEZ CE FICHIER après utilisation !</strong></p>
+        <p>Fichier : <code>/public_html/debug-login-response.html</code></p>
+    </div>
+</body>
+</html>

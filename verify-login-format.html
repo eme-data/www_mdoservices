@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification Format Login</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            color: #721c24;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            color: #856404;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .format-box {
+            border: 2px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .format-box.old {
+            border-color: #dc3545;
+        }
+        .format-box.new {
+            border-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Vérification du Format de Réponse Login</h1>
+
+    <div class="card">
+        <h2>📊 Formats de Réponse</h2>
+        <div class="compare">
+            <div class="format-box old">
+                <h3 style="color:#dc3545;">❌ Ancien Format (Ne Fonctionne Pas)</h3>
+                <pre>{
+  "success": true,
+  "data": {
+    "token": "...",
+    "user": {...}
+  }
+}</pre>
+                <p>Le frontend ne trouve pas <code>response.token</code></p>
+            </div>
+            <div class="format-box new">
+                <h3 style="color:#28a745;">✅ Nouveau Format (Devrait Fonctionner)</h3>
+                <pre>{
+  "success": true,
+  "token": "...",
+  "user": {...}
+}</pre>
+                <p>Le frontend trouve <code>response.token</code> directement</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🧪 Test du Serveur Actuel</h2>
+        <button onclick="testLoginFormat()">🚀 Tester le Format Actuel</button>
+        <div id="result" style="margin-top: 20px;"></div>
+    </div>
+
+    <div class="card">
+        <h2>📋 Instructions</h2>
+        <ol>
+            <li>Cliquez sur le bouton "Tester le Format Actuel"</li>
+            <li>Regardez quel format est retourné</li>
+            <li>Si vous voyez "✅ NOUVEAU FORMAT", alors login.php est correctement uploadé</li>
+            <li>Si vous voyez "❌ ANCIEN FORMAT", alors login.php n'a pas été uploadé correctement</li>
+        </ol>
+    </div>
+
+    <script>
+        async function testLoginFormat() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="warning">⏳ Test en cours...</div>';
+
+            try {
+                const response = await fetch('https://mdoservices.fr/api/auth/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'password'
+                    })
+                });
+
+                if (!response.ok) {
+                    resultDiv.innerHTML = `<div class="error">❌ Erreur HTTP : ${response.status}</div>`;
+                    return;
+                }
+
+                const data = await response.json();
+
+                // Check format
+                const hasTokenAtRoot = data.hasOwnProperty('token') && !data.hasOwnProperty('data');
+                const hasTokenInData = data.hasOwnProperty('data') && data.data && data.data.hasOwnProperty('token');
+
+                let html = '<h3>📊 Réponse Reçue :</h3>';
+                html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+
+                if (hasTokenAtRoot) {
+                    html += '<div class="success">';
+                    html += '<h3>✅ NOUVEAU FORMAT DÉTECTÉ !</h3>';
+                    html += '<p>Le token est à la racine : <code>response.token</code></p>';
+                    html += '<p><strong>Le fichier login.php corrigé a bien été uploadé !</strong></p>';
+                    html += '<p>Token présent : ' + (data.token ? '✅ Oui' : '❌ Non') + '</p>';
+                    html += '<p>User présent : ' + (data.user ? '✅ Oui' : '❌ Non') + '</p>';
+                    html += '</div>';
+
+                    html += '<div class="warning">';
+                    html += '<h3>🤔 Mais pourquoi /partner ne fonctionne pas ?</h3>';
+                    html += '<p>Puisque l\'API retourne le bon format, le problème vient probablement de :</p>';
+                    html += '<ul>';
+                    html += '<li>Cache du navigateur (essayez Ctrl+Shift+R pour forcer le rechargement)</li>';
+                    html += '<li>Erreur JavaScript dans le frontend React (regardez la console F12)</li>';
+                    html += '<li>Le frontend React n\'a pas été reconstruit avec les derniers changements</li>';
+                    html += '</ul>';
+                    html += '<p><strong>Ouvrez la console (F12) et partagez les erreurs !</strong></p>';
+                    html += '</div>';
+
+                } else if (hasTokenInData) {
+                    html += '<div class="error">';
+                    html += '<h3>❌ ANCIEN FORMAT DÉTECTÉ !</h3>';
+                    html += '<p>Le token est dans <code>response.data.token</code></p>';
+                    html += '<p><strong>Le fichier login.php corrigé n\'a PAS été uploadé !</strong></p>';
+                    html += '</div>';
+
+                    html += '<div class="warning">';
+                    html += '<h3>🔧 Actions à Faire :</h3>';
+                    html += '<ol>';
+                    html += '<li>Téléchargez le dernier <code>api/auth/login.php</code> depuis votre dépôt Git</li>';
+                    html += '<li>Uploadez-le sur Hostinger dans <code>/public_html/api/auth/login.php</code></li>';
+                    html += '<li>Remplacez l\'ancien fichier</li>';
+                    html += '<li>Retestez cette page</li>';
+                    html += '</ol>';
+                    html += '</div>';
+
+                } else {
+                    html += '<div class="error">';
+                    html += '<h3>❓ FORMAT INCONNU</h3>';
+                    html += '<p>Le format de réponse est inattendu.</p>';
+                    html += '</div>';
+                }
+
+                resultDiv.innerHTML = html;
+
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">
+                    <h3>❌ Erreur</h3>
+                    <p>${error.message}</p>
+                </div>`;
+            }
+        }
+    </script>
+
+    <div class="card" style="background: #f8d7da; border-left: 4px solid #dc3545;">
+        <h2>⚠️ SÉCURITÉ</h2>
+        <p><strong>SUPPRIMEZ CE FICHIER après utilisation !</strong></p>
+        <p>Fichier : <code>/public_html/verify-login-format.html</code></p>
+    </div>
+</body>
+</html>

@@ -5,7 +5,6 @@ import { HeroTekup } from "@/components/tekup/HeroTekup"
 import { ServicesSectionTekup } from "@/components/tekup/ServicesSectionTekup"
 import { FooterTekup } from "@/components/tekup/FooterTekup"
 import { CookieConsent } from "@/components/CookieConsent"
-import TelegramWidget from "@/components/TelegramWidget"
 import { LocalPresence } from "@/components/LocalPresence"
 import { RegionalCoverage } from "@/components/RegionalCoverage"
 import { ExpertiseSection } from "@/components/home/ExpertiseSection"
@@ -35,7 +34,6 @@ export default function HomePageTekup() {
 
       <div className="min-h-screen">
         <CookieConsent />
-        <TelegramWidget />
 
         <HeaderTekup />
 

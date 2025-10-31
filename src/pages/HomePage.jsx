@@ -5,7 +5,6 @@ import { Helmet } from "react-helmet"
 import { LocalPresence } from "@/components/LocalPresence"
 import { RegionalCoverage } from "@/components/RegionalCoverage"
 import { CookieConsent } from "@/components/CookieConsent"
-import TelegramWidget from "@/components/TelegramWidget"
 import { HeroSection } from "@/components/home/HeroSection"
 import { ServicesSection } from "@/components/home/ServicesSection"
 import { ExpertiseSection } from "@/components/home/ExpertiseSection"
@@ -42,7 +41,6 @@ export default function HomePage() {
 
       <PageLayout>
         <CookieConsent />
-        <TelegramWidget />
 
         <HeroSection scrollToServices={scrollToServices} />
         <LocalPresence />

@@ -10,7 +10,7 @@ class SimpleMailer {
     private $replyTo;
 
     public function __construct() {
-        $this->fromEmail = 'noreply@mdoservices.fr';
+        $this->fromEmail = 'no-reply@smtp-mdo.fr';
         $this->fromName = 'MDO Services';
         $this->replyTo = 'contact@mdoservices.fr';
     }

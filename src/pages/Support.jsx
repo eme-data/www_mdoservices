@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { AlertCircle } from "lucide-react"
 import ReCAPTCHA from "react-google-recaptcha"
-import { PageLayout } from "@/components/layout/PageLayout" // Import PageLayout
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout" // Import PageLayout
 
 export default function Support() {
   const { toast } = useToast()
@@ -66,7 +66,7 @@ export default function Support() {
   }
 
   return (
-    <PageLayout> {/* Use PageLayout here */}
+    <TekupPageLayout> {/* Use PageLayout here */}
       <div className="pt-24"> {/* Added padding top for fixed Navigation */}
         <main> {/* Removed pt-24 from main, handled by outer div */}
           <section className="hero-gradient text-white py-16 md:py-20"> {/* Adjusted padding */}
@@ -196,6 +196,6 @@ export default function Support() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

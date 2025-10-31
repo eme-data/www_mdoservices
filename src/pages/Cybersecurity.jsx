@@ -5,7 +5,7 @@ import { Shield, Lock, AlertTriangle, FileCheck, Eye, Server, ChevronRight, Shie
 import { useNavigate } from "react-router-dom"
 import { SolutionCard } from "@/components/SolutionCard"
 import BackButton from "@/components/BackButton"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function Cybersecurity() {
   const navigate = useNavigate()
@@ -15,7 +15,7 @@ export default function Cybersecurity() {
   }
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24"> {/* Added padding top for fixed Navigation */}
         <BackButton to="/solutions" /> {/* Assuming this page is a sub-page of solutions */}
 
@@ -217,6 +217,6 @@ export default function Cybersecurity() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

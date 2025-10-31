@@ -1,11 +1,11 @@
 import React from "react"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { Helmet } from "react-helmet"
 import { motion } from "framer-motion"
 
 export default function PolitiqueConfidentialite() {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <Helmet>
         <title>Politique de Confidentialité - MDO SERVICES</title>
         <meta name="description" content="Découvrez comment MDO SERVICES collecte, utilise et protège vos données personnelles. Informations conformes au RGPD." />
@@ -138,6 +138,6 @@ export default function PolitiqueConfidentialite() {
           </div>
         </motion.div>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

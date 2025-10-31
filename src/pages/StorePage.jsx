@@ -2,11 +2,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import ProductsList from '@/components/ProductsList';
-import { PageLayout } from '@/components/layout/PageLayout';
+import { TekupPageLayout } from '@/components/layout/TekupPageLayout';
 
 const StorePage = () => {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <Helmet>
         <title>Boutique - MDO SERVICES</title>
         <meta name="description" content="Parcourez notre sélection de produits et solutions informatiques. Matériel, logiciels et services pour les professionnels." />
@@ -29,7 +29,7 @@ const StorePage = () => {
           <ProductsList />
         </div>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   );
 };
 

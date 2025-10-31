@@ -1,5 +1,5 @@
 import React from "react"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
@@ -8,7 +8,7 @@ import BackButton from "@/components/BackButton"
 
 export default function CloudServices() {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24">
         <BackButton to="/solutions" />
         
@@ -100,6 +100,6 @@ export default function CloudServices() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

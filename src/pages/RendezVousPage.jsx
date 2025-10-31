@@ -1,11 +1,11 @@
 import React from "react"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { Helmet } from "react-helmet"
 import { motion } from "framer-motion"
 
 export default function RendezVousPage() {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <Helmet>
         <title>Réserver un Rendez-vous - MDO SERVICES</title>
         <meta name="description" content="Prenez rendez-vous facilement avec MDO SERVICES pour discuter de vos besoins IT, cloud, ou pour un support technique." />
@@ -40,6 +40,6 @@ export default function RendezVousPage() {
           ></iframe>
         </motion.div>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { Logo } from "@/components/Logo"
 import {
@@ -8,11 +8,46 @@ import {
   Linkedin,
   Twitter,
   Facebook,
-  ArrowUpRight
+  ArrowUpRight,
+  CheckCircle2,
+  AlertCircle
 } from "lucide-react"
 
 export function FooterTekup() {
   const currentYear = new Date().getFullYear()
+  const [email, setEmail] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null) // 'success' | 'error' | null
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const response = await fetch('/api/newsletter/subscribe.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+      })
+
+      const result = await response.json()
+
+      if (response.ok && result.success) {
+        setSubmitStatus("success")
+        setEmail("") // Réinitialiser le champ
+      } else {
+        setSubmitStatus("error")
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+      console.error('Erreur newsletter:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const footerLinks = {
     solutions: [
@@ -50,19 +85,36 @@ export function FooterTekup() {
             <p className="text-blue-200 mb-8">
               Recevez nos conseils IT, actualités cloud et offres exclusives
             </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Votre adresse email"
-                className="flex-1 px-6 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+                disabled={isSubmitting}
+                className="flex-1 px-6 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50"
               />
               <button
                 type="submit"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                disabled={isSubmitting}
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                S'abonner
+                {isSubmitting ? "Inscription..." : "S'abonner"}
               </button>
             </form>
+            {submitStatus === "success" && (
+              <div className="mt-4 flex items-center justify-center gap-2 text-green-400">
+                <CheckCircle2 className="w-5 h-5" />
+                <span>Merci ! Vérifiez votre boîte mail.</span>
+              </div>
+            )}
+            {submitStatus === "error" && (
+              <div className="mt-4 flex items-center justify-center gap-2 text-red-400">
+                <AlertCircle className="w-5 h-5" />
+                <span>Une erreur est survenue. Réessayez plus tard.</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

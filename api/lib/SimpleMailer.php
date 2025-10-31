@@ -10,7 +10,7 @@ class SimpleMailer {
     private $replyTo;
 
     public function __construct() {
-        $this->fromEmail = 'noreply@mdoservices.fr';
+        $this->fromEmail = 'no-reply@smtp-mdo.fr';
         $this->fromName = 'MDO Services';
         $this->replyTo = 'contact@mdoservices.fr';
     }
@@ -22,29 +22,35 @@ class SimpleMailer {
      * @param string $toName Nom du destinataire
      * @param string $subject Sujet de l'email
      * @param string $htmlBody Corps de l'email (HTML)
+     * @param string $replyToEmail Email de réponse personnalisé (optionnel)
      * @return bool
      */
-    public function send($to, $toName, $subject, $htmlBody) {
+    public function send($to, $toName, $subject, $htmlBody, $replyToEmail = null) {
         try {
+            // Utiliser le replyTo personnalisé ou le défaut
+            $replyTo = $replyToEmail ? $replyToEmail : $this->replyTo;
+
             // Headers de l'email
             $headers = "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
             $headers .= "From: " . $this->fromName . " <" . $this->fromEmail . ">\r\n";
-            $headers .= "Reply-To: " . $this->replyTo . "\r\n";
+            $headers .= "Reply-To: " . $replyTo . "\r\n";
             $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-            $headers .= "X-Priority: 3\r\n";
+            $headers .= "X-Priority: 1\r\n"; // Priorité haute pour notifications internes
+            $headers .= "Importance: High\r\n";
 
             // Envoi de l'email
             $sent = mail($to, $subject, $htmlBody, $headers);
 
             if (!$sent) {
-                error_log("Erreur lors de l'envoi d'email à: $to");
+                error_log("SimpleMailer - Erreur lors de l'envoi d'email à: $to (Sujet: $subject)");
                 return false;
             }
 
+            error_log("SimpleMailer - Email envoyé avec succès à: $to (Sujet: $subject)");
             return true;
         } catch (Exception $e) {
-            error_log("Exception lors de l'envoi d'email: " . $e->getMessage());
+            error_log("SimpleMailer - Exception lors de l'envoi d'email: " . $e->getMessage());
             return false;
         }
     }
@@ -65,7 +71,9 @@ class SimpleMailer {
         $to = $this->replyTo;
         $subject = "Nouveau message depuis le formulaire de contact - MDO Services";
         $body = $this->getContactNotificationTemplate($formData);
-        return $this->send($to, 'Équipe MDO Services', $subject, $body);
+
+        // Utiliser l'email du demandeur comme Reply-To pour pouvoir répondre directement
+        return $this->send($to, 'Équipe MDO Services', $subject, $body, $formData['email']);
     }
 
     /**

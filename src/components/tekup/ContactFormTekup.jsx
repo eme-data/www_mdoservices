@@ -68,18 +68,29 @@ export function ContactFormTekup() {
       return
     }
 
-    // Simulation d'envoi (à remplacer par votre logique)
+    // Envoi via l'API
     try {
-      const subject = encodeURIComponent("Prise de contact depuis le site MDO SERVICES")
-      const body = encodeURIComponent(
-        `Nom: ${formData.name}\nEmail: ${formData.email}\nTéléphone: ${formData.phone || 'Non renseigné'}\n\nMessage:\n${formData.message}`
-      )
-      window.location.href = `mailto:contact@mdoservices.fr?subject=${subject}&body=${body}`
+      const response = await fetch('/api/contact/send.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
 
-      setSubmitStatus("success")
-      setFormData({ name: "", email: "", phone: "", message: "" })
+      const result = await response.json()
+
+      if (response.ok && result.success) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", phone: "", message: "" })
+        setErrors({})
+      } else {
+        setSubmitStatus("error")
+        console.error('Erreur lors de l\'envoi:', result)
+      }
     } catch (error) {
       setSubmitStatus("error")
+      console.error('Erreur réseau:', error)
     } finally {
       setIsSubmitting(false)
     }

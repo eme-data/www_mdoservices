@@ -41,6 +41,7 @@ export function PartnerNav() {
                 Tarifs
               </Button>
             </Link>
+            {/* 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver
             <Link to="/partner/blog">
               <Button
                 variant={isActive('/partner/blog') ? 'default' : 'ghost'}
@@ -50,6 +51,7 @@ export function PartnerNav() {
                 Blog
               </Button>
             </Link>
+            */}
             <Button
               variant="ghost"
               onClick={handleLogout}

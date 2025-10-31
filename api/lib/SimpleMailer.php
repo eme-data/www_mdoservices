@@ -86,6 +86,18 @@ class SimpleMailer {
     }
 
     /**
+     * Envoie une notification à l'équipe pour une nouvelle inscription newsletter
+     */
+    public function sendNewsletterNotification($email) {
+        $to = $this->replyTo;
+        $subject = "Nouvelle inscription newsletter - MDO Services";
+        $body = $this->getNewsletterNotificationTemplate($email);
+
+        // Utiliser l'email de l'abonné comme Reply-To
+        return $this->send($to, 'Équipe MDO Services', $subject, $body, $email);
+    }
+
+    /**
      * Template de confirmation de contact
      */
     private function getContactConfirmationTemplate($name) {
@@ -289,6 +301,70 @@ class SimpleMailer {
             <p style='margin: 15px 0 5px 0;'>
                 <a href='https://mdoservices.fr' style='color: #60a5fa; text-decoration: none;'>www.mdoservices.fr</a>
             </p>
+        </div>
+    </div>
+</body>
+</html>";
+    }
+
+    /**
+     * Template de notification newsletter pour l'équipe
+     */
+    private function getNewsletterNotificationTemplate($email) {
+        $email = htmlspecialchars($email);
+
+        return "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; }
+        .info-box { margin-bottom: 15px; padding: 20px; background: white; border-left: 4px solid #7c3aed; border-radius: 4px; }
+        .email { font-size: 18px; font-weight: bold; color: #2563eb; padding: 10px; background: #f0f4ff; border-radius: 4px; display: inline-block; }
+        .label { font-weight: bold; color: #7c3aed; margin-bottom: 5px; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 15px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px; }
+        .stats { background: #e0e7ff; padding: 15px; border-radius: 8px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h2 style='margin: 0;'>📧 Nouvelle Inscription Newsletter</h2>
+        </div>
+        <div class='content'>
+            <div class='info-box'>
+                <div class='label'>📩 Nouvel abonné</div>
+                <div class='email'>$email</div>
+            </div>
+
+            <div class='stats'>
+                <strong>📅 Date d'inscription :</strong> " . date('d/m/Y à H:i') . "<br>
+                <strong>🌐 Source :</strong> Formulaire newsletter (footer du site)
+            </div>
+
+            <div style='background: white; padding: 20px; border-radius: 8px; margin-top: 15px;'>
+                <h3 style='color: #1f2937; margin-top: 0;'>Actions suggérées :</h3>
+                <ul style='color: #666;'>
+                    <li>✅ Un email de bienvenue a été automatiquement envoyé à l'abonné</li>
+                    <li>📊 Ajoutez cet email à votre liste de diffusion</li>
+                    <li>📝 Préparez du contenu pertinent pour vos prochaines campagnes</li>
+                </ul>
+            </div>
+
+            <div style='text-align: center; margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px;'>
+                <p style='margin: 0; color: #0c5460;'>
+                    💡 <strong>Astuce :</strong> Engagez rapidement avec vos nouveaux abonnés<br>
+                    <small>Les premiers jours sont cruciaux pour établir une relation</small>
+                </p>
+            </div>
+        </div>
+        <div class='footer'>
+            MDO Services - Notification automatique<br>
+            Système de gestion newsletter
         </div>
     </div>
 </body>

@@ -7,8 +7,8 @@ import { Menu, X, ChevronDown, Briefcase, Cloud, ShieldCheck, PhoneCall, Newspap
 
 const navItems = [
   { name: "Accueil", path: "/" },
-  { 
-    name: "Solutions", 
+  {
+    name: "Solutions",
     path: "/solutions",
     dropdown: [
       { name: "Toutes les Solutions", path: "/solutions" },
@@ -18,7 +18,7 @@ const navItems = [
       { name: "Infogérance Premium", path: "/premium-management" },
     ]
   },
-  { name: "Blog", path: "/blog" },
+  // { name: "Blog", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver
   { name: "Contact", path: "/contact" },
 ]
 

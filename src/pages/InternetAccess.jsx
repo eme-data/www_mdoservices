@@ -3,11 +3,11 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Wifi, Shield, Zap, Signal, CheckCircle2, Home } from "lucide-react"
 import BackButton from "@/components/BackButton"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function InternetAccess() {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24"> {/* Added padding top for fixed Navigation */}
         <BackButton to="/solutions" /> {/* Assuming this page is a sub-page of solutions */}
 
@@ -146,6 +146,6 @@ export default function InternetAccess() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

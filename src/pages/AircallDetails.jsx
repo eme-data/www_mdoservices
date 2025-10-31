@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button"
 import { Phone, Video, MessageSquare, Users, Globe, Shield, Check, ArrowLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
-import { PageLayout } from "@/components/layout/PageLayout" // Importer PageLayout
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout" // Importer PageLayout
 import BackButton from "@/components/BackButton" // Importer BackButton
 
 export default function AircallDetails() {
   const navigate = useNavigate()
 
   return (
-    <PageLayout> {/* Utiliser PageLayout ici */}
+    <TekupPageLayout> {/* Utiliser PageLayout ici */}
       <div className="pt-24"> {/* Ajuster le padding pour la barre de navigation fixe */}
         <Helmet>
           <title>Aircall - Centre de Contact Cloud Nouvelle Génération | MDO SERVICES</title>
@@ -120,6 +120,6 @@ export default function AircallDetails() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

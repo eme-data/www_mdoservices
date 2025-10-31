@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight, Monitor, Settings, Activity, Check, BarChart, Zap } from "lucide-react"
 import { SolutionCard } from "@/components/SolutionCard"
 import BackButton from "@/components/BackButton"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function NinjaRMMDetails() {
   const handleContact = () => {
@@ -12,7 +12,7 @@ export default function NinjaRMMDetails() {
   }
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24">
         <BackButton to="/solutions" />
         
@@ -153,6 +153,6 @@ export default function NinjaRMMDetails() {
           </div>
         </section>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

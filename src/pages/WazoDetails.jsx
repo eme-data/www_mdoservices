@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button"
 import { Phone, Video, MessageSquare, Code, Globe, Shield, Check, ArrowLeft, Share2 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import BackButton from "@/components/BackButton"
 
 export default function WazoDetails() {
   const navigate = useNavigate()
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24">
         <Helmet>
           <title>Wazo - Plateforme de Communication Unifiée Open-Source | MDO SERVICES</title>
@@ -122,6 +122,6 @@ export default function WazoDetails() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

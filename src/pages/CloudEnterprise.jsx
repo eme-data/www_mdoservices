@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Server, Cloud, Shield, Database, Network, ArrowRight } from "lucide-react"
 import { SolutionCard } from "@/components/SolutionCard"
 import BackButton from "@/components/BackButton"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function CloudEnterprise() {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24"> {/* Added padding top for fixed Navigation */}
         <BackButton to="/solutions" /> {/* Assuming this page is a sub-page of solutions */}
 
@@ -111,6 +111,6 @@ export default function CloudEnterprise() {
           </div>
         </section>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

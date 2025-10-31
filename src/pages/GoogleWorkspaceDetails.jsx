@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight, Mail, Calendar, Users, Check, FileText, Video } from "lucide-react"
 import { SolutionCard } from "@/components/SolutionCard"
 import BackButton from "@/components/BackButton"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function GoogleWorkspaceDetails() {
   const handleContact = () => {
@@ -12,7 +12,7 @@ export default function GoogleWorkspaceDetails() {
   }
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24">
         <BackButton to="/cloud-services" /> {/* Changed from /solutions to /cloud-services */}
         
@@ -153,6 +153,6 @@ export default function GoogleWorkspaceDetails() {
           </div>
         </section>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

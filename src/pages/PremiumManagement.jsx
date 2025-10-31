@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { PricingFeature } from "@/components/PricingFeature"
 import { ComparisonRow } from "@/components/ComparisonRow"
 import BackButton from "@/components/BackButton"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function PremiumManagement() {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ export default function PremiumManagement() {
   }
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24"> {/* Added padding top for fixed Navigation */}
         <BackButton to="/solutions" /> {/* Assuming this page is a sub-page of solutions */}
 
@@ -232,6 +232,6 @@ export default function PremiumManagement() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

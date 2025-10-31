@@ -1,5 +1,5 @@
 import React from "react"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { Helmet } from "react-helmet"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -17,7 +17,7 @@ export default function Contact() {
   }
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <Helmet>
         <title>Contactez MDO SERVICES - Expert IT & Cloud en Occitanie</title>
         <meta name="description" content="Contactez MDO SERVICES pour discuter de vos besoins IT et Cloud. Nous sommes basés en Ariège (Saint-Girons) et intervenons en Occitanie." />
@@ -131,6 +131,6 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

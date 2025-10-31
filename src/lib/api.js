@@ -197,6 +197,59 @@ export async function fetchPostBySlug(slug) {
   return data;
 }
 
+/**
+ * Fetch all posts (including drafts) - Admin only
+ * @returns {Promise<Array>}
+ */
+export async function fetchAllPosts() {
+  const data = await apiRequest('/posts/list-all', {
+    method: 'GET',
+  });
+
+  return data;
+}
+
+/**
+ * Create new blog post - Admin only
+ * @param {object} post
+ * @returns {Promise<object>}
+ */
+export async function createPost(post) {
+  const data = await apiRequest('/posts/create', {
+    method: 'POST',
+    body: JSON.stringify(post),
+  });
+
+  return data;
+}
+
+/**
+ * Update existing blog post - Admin only
+ * @param {number} id
+ * @param {object} updates
+ * @returns {Promise<object>}
+ */
+export async function updatePost(id, updates) {
+  const data = await apiRequest('/posts/update', {
+    method: 'POST',
+    body: JSON.stringify({ id, ...updates }),
+  });
+
+  return data;
+}
+
+/**
+ * Delete blog post - Admin only
+ * @param {number} id
+ * @returns {Promise<void>}
+ */
+export async function deletePost(id) {
+  await apiRequest('/posts/delete', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+  });
+}
+
 // ============================================================
 // Pricing Items API
 // ============================================================

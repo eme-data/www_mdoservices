@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, ShoppingBag } from 'lucide-react';
-import { PageLayout } from '@/components/layout/PageLayout';
+import { TekupPageLayout } from '@/components/layout/TekupPageLayout';
 
 const SuccessPage = () => {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <Helmet>
         <title>Paiement Réussi - MDO SERVICES</title>
         <meta name="description" content="Confirmation de votre commande. Merci pour votre achat !" />
@@ -44,7 +44,7 @@ const SuccessPage = () => {
           </motion.div>
         </div>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   );
 };
 

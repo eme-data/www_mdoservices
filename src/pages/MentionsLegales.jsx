@@ -1,11 +1,11 @@
 import React from "react"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { Helmet } from "react-helmet"
 import { motion } from "framer-motion"
 
 export default function MentionsLegales() {
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <Helmet>
         <title>Mentions Légales - MDO SERVICES</title>
         <meta name="description" content="Consultez les mentions légales de MDO SERVICES. Informations sur l'éditeur du site, l'hébergement et la propriété intellectuelle." />
@@ -93,6 +93,6 @@ export default function MentionsLegales() {
           </div>
         </motion.div>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

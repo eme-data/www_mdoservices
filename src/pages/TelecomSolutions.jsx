@@ -3,13 +3,13 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Phone, Video, MessageSquare, Users, Globe, Shield, ArrowLeft, PhoneForwarded, Headphones as Headset, Code, Share2 } from 'lucide-react'
 import { useNavigate } from "react-router-dom"
-import { PageLayout } from "@/components/layout/PageLayout"
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 
 export default function TelecomSolutions() {
   const navigate = useNavigate()
 
   return (
-    <PageLayout>
+    <TekupPageLayout>
       <div className="pt-24"> {/* Adjusted padding top to account for fixed Navigation */}
         <Button 
           onClick={() => navigate("/solutions")} 
@@ -124,6 +124,6 @@ export default function TelecomSolutions() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

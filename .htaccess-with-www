@@ -2,11 +2,10 @@
   RewriteEngine On
   RewriteBase /
 
-  # Redirect www to non-www (unified domain)
-  # BUT: Skip redirection for API requests (POST body would be lost)
-  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-  RewriteCond %{REQUEST_URI} !^/api/ [NC]
-  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+  # Redirect non-www to www (unified domain)
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteCond %{HTTP_HOST} !^localhost [NC]
+  RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 
   # Force HTTPS
   RewriteCond %{HTTPS} off
@@ -23,7 +22,7 @@
 
   # Cache everything on CDN by default
   Header set Cache-Control "public, s-maxage=604800, max-age=0"
-  
+
   # Cache in browser all assets
   <If "%{REQUEST_URI} =~ m#^/assets/.*$#">
     Header set Cache-Control "public, max-age=604800"

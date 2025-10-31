@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button"
 import { Phone, Video, MessageSquare, Users, Globe, Shield, Check, ArrowLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet"
-import { PageLayout } from "@/components/layout/PageLayout" // Importer PageLayout
+import { TekupPageLayout } from "@/components/layout/TekupPageLayout" // Importer PageLayout
 import BackButton from "@/components/BackButton" // Importer BackButton
 
 export default function ThreeCXDetails() {
   const navigate = useNavigate()
 
   return (
-    <PageLayout> {/* Utiliser PageLayout ici */}
+    <TekupPageLayout> {/* Utiliser PageLayout ici */}
       <div className="pt-24"> {/* Ajuster le padding pour la barre de navigation fixe */}
         <Helmet>
           <title>3CX - Solution de Téléphonie IP Professionnelle | MDO SERVICES</title>
@@ -120,6 +120,6 @@ export default function ThreeCXDetails() {
           </section>
         </main>
       </div>
-    </PageLayout>
+    </TekupPageLayout>
   )
 }

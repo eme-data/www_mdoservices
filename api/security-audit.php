@@ -325,7 +325,7 @@ try {
     $database = new Database();
     $db = $database->getConnection();
 
-    $query = "SELECT username, password FROM users WHERE is_admin = 1 LIMIT 1";
+    $query = "SELECT username, password_hash FROM users WHERE is_admin = 1 LIMIT 1";
     $stmt = $db->query($query);
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -335,7 +335,7 @@ try {
         $isWeak = false;
 
         foreach ($weakPasswords as $weakPass) {
-            if (password_verify($weakPass, $admin['password'])) {
+            if (password_verify($weakPass, $admin['password_hash'])) {
                 $issues['weak_credentials'][] = [
                     'severity' => 'critical',
                     'title' => 'Mot de passe admin faible',

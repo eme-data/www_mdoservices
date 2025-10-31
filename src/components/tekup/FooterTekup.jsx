@@ -23,13 +23,13 @@ export function FooterTekup() {
     ],
     entreprise: [
       { name: "À propos", path: "/solutions" },
-      { name: "Blog", path: "/blog" },
+      // { name: "Blog", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver
       { name: "Contact", path: "/contact" },
       { name: "Espace Partenaire", path: "/partner" },
     ],
     ressources: [
       { name: "Support", path: "/support" },
-      { name: "Documentation", path: "/blog" },
+      // { name: "Documentation", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver
       { name: "Rendez-vous", path: "/rendez-vous" },
     ],
     legal: [

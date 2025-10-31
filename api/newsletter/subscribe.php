@@ -47,22 +47,34 @@ $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
 // TODO: Enregistrer l'abonné dans la base de données
 // Pour l'instant, on envoie juste l'email de bienvenue
 
-// Tentative d'envoi de l'email de bienvenue
+// Tentative d'envoi des emails
 try {
     $mailer = new SimpleMailer();
 
-    // Envoyer l'email de bienvenue
+    // 1. Envoyer l'email de bienvenue à l'abonné
     $welcomeSent = $mailer->sendNewsletterWelcome($email);
 
-    if ($welcomeSent) {
+    // 2. Envoyer la notification à l'équipe
+    $notificationSent = $mailer->sendNewsletterNotification($email);
+
+    if ($welcomeSent && $notificationSent) {
         http_response_code(200);
         echo json_encode([
             'success' => true,
             'message' => 'Merci de votre inscription ! Un email de bienvenue vous a été envoyé.'
         ]);
 
-        // Logger l'inscription (optionnel)
-        error_log("Nouvelle inscription newsletter: $email");
+        // Logger l'inscription
+        error_log("Nouvelle inscription newsletter: $email (emails envoyés: bienvenue + notification)");
+    } elseif ($welcomeSent) {
+        // Email de bienvenue envoyé mais pas la notification
+        http_response_code(200);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Merci de votre inscription ! Un email de bienvenue vous a été envoyé.'
+        ]);
+
+        error_log("Newsletter: email bienvenue envoyé à $email mais échec notification équipe");
     } else {
         throw new Exception('Échec de l\'envoi de l\'email de bienvenue');
     }

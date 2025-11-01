@@ -44,7 +44,7 @@ try {
 
     // Get user from database
     $db = new Database();
-    $sql = "SELECT id, username, email, password_hash, is_admin, is_active
+    $sql = "SELECT id, username, email, password_hash, is_admin, is_active, role
             FROM users
             WHERE username = :username
             LIMIT 1";
@@ -79,7 +79,8 @@ try {
         'user_id' => $user['id'],
         'username' => $user['username'],
         'email' => $user['email'],
-        'is_admin' => (bool)$user['is_admin']
+        'is_admin' => (bool)$user['is_admin'],
+        'role' => $user['role'] ?? 'client'
     ];
 
     $token = generateJWT($tokenPayload);
@@ -96,7 +97,8 @@ try {
             'id' => $user['id'],
             'username' => $user['username'],
             'email' => $user['email'],
-            'is_admin' => (bool)$user['is_admin']
+            'is_admin' => (bool)$user['is_admin'],
+            'role' => $user['role'] ?? 'client'
         ]
     ], 200);
 

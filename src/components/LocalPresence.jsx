@@ -9,18 +9,18 @@ export function LocalPresence() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
             <Building className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Présence Locale</h3>
-            <p className="text-gray-600">Basés à Toulouse, nous intervenons dans toute l'Occitanie, notamment en Ariège et Haute-Garonne</p>
+            <h3 className="text-xl font-semibold mb-2">Couverture Régionale</h3>
+            <p className="text-gray-600">Présents dans toute l'Occitanie avec des zones d'intervention prioritaires en Ariège, Haute-Garonne et Aveyron</p>
           </div>
           <div className="text-center">
             <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">Support de Proximité</h3>
-            <p className="text-gray-600">Une équipe locale à votre service à Foix, Pamiers et dans toute l'Ariège</p>
+            <p className="text-gray-600">Une équipe locale dédiée à votre service dans tous les départements d'Occitanie</p>
           </div>
           <div className="text-center">
             <Clock className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">Réactivité Garantie</h3>
-            <p className="text-gray-600">Intervention rapide sur site en Ariège et Haute-Garonne</p>
+            <p className="text-gray-600">Intervention rapide sur site dans toute la région Occitanie</p>
           </div>
         </div>
       </div>

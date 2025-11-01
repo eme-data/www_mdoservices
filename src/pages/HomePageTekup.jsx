@@ -14,20 +14,20 @@ export default function HomePageTekup() {
   return (
     <>
       <Helmet>
-        <title>Informatique, Télécom & Cloud – Ariège & Haute-Garonne | MDO Services</title>
+        <title>Expert IT & Cloud en Occitanie – Ariège, Haute-Garonne, Aveyron | MDO Services</title>
         <meta
           name="description"
-          content="Expert IT et solutions Cloud en Occitanie. MDO SERVICES accompagne les entreprises de l'Ariège (Foix, Pamiers) et de la Haute-Garonne dans leur transformation numérique : infogérance, cloud, cybersécurité."
+          content="Expert IT et solutions Cloud présent dans toute l'Occitanie. MDO SERVICES accompagne les entreprises en Ariège, Haute-Garonne, Aveyron et tous les départements de la région dans leur transformation numérique : infogérance, cloud, cybersécurité."
         />
         <meta
           name="keywords"
-          content="IT, Cloud, Ariège, Haute-Garonne, Foix, Pamiers, Toulouse, infogérance, cybersécurité, support informatique"
+          content="IT Occitanie, Cloud Occitanie, Ariège, Haute-Garonne, Aveyron, Toulouse, Foix, Pamiers, Rodez, Millau, Montpellier, infogérance, cybersécurité, support informatique, expert IT région Occitanie"
         />
         <link rel="canonical" href="https://mdoservices.fr" />
-        <meta property="og:title" content="Informatique, Télécom & Cloud – Ariège & Haute-Garonne | MDO Services" />
+        <meta property="og:title" content="Expert IT & Cloud en Occitanie – Ariège, Haute-Garonne, Aveyron | MDO Services" />
         <meta
           property="og:description"
-          content="Expert IT et solutions Cloud en Occitanie. MDO SERVICES accompagne les entreprises de l'Ariège (Foix, Pamiers) et de la Haute-Garonne dans leur transformation numérique : infogérance, cloud, cybersécurité."
+          content="Expert IT et solutions Cloud présent dans toute l'Occitanie. MDO SERVICES accompagne les entreprises en Ariège, Haute-Garonne, Aveyron et tous les départements de la région dans leur transformation numérique : infogérance, cloud, cybersécurité."
         />
         <meta property="og:url" content="https://mdoservices.fr" />
         <meta property="og:type" content="website" />

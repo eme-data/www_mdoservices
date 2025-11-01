@@ -14,10 +14,10 @@ export function RegionalCoverage() {
         >
           <h2 className="text-3xl font-bold mb-4">Notre Couverture en Occitanie</h2>
           <p className="text-xl text-gray-700 font-semibold mb-2">Expert IT présent dans toute la région Occitanie</p>
-          <p className="text-lg text-gray-600">Zones d'intervention prioritaires : Ariège et Haute-Garonne</p>
+          <p className="text-lg text-gray-600">Zones d'intervention prioritaires : Ariège, Haute-Garonne et Aveyron</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -26,8 +26,8 @@ export function RegionalCoverage() {
           >
             <MapPin className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2 text-blue-600">Ariège (09)</h3>
-            <p className="text-sm text-gray-500 mb-3 font-semibold">Zone d'intervention prioritaire</p>
-            <ul className="text-gray-600 space-y-2">
+            <p className="text-sm text-gray-500 mb-3 font-semibold">Zone prioritaire</p>
+            <ul className="text-gray-600 space-y-2 text-sm">
               <li>• Foix</li>
               <li>• Pamiers</li>
               <li>• Saint-Girons</li>
@@ -44,8 +44,8 @@ export function RegionalCoverage() {
           >
             <Building2 className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2 text-blue-600">Haute-Garonne (31)</h3>
-            <p className="text-sm text-gray-500 mb-3 font-semibold">Zone d'intervention prioritaire</p>
-            <ul className="text-gray-600 space-y-2">
+            <p className="text-sm text-gray-500 mb-3 font-semibold">Zone prioritaire</p>
+            <ul className="text-gray-600 space-y-2 text-sm">
               <li>• Toulouse</li>
               <li>• Muret</li>
               <li>• Saint-Gaudens</li>
@@ -55,16 +55,33 @@ export function RegionalCoverage() {
           </motion.div>
 
           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100"
+          >
+            <MapPin className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2 text-blue-600">Aveyron (12)</h3>
+            <p className="text-sm text-gray-500 mb-3 font-semibold">Zone prioritaire</p>
+            <ul className="text-gray-600 space-y-2 text-sm">
+              <li>• Rodez</li>
+              <li>• Millau</li>
+              <li>• Villefranche-de-Rouergue</li>
+              <li>• Decazeville</li>
+              <li>• Onet-le-Château</li>
+            </ul>
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
             className="bg-white rounded-xl p-6 shadow-lg"
           >
             <Users2 className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-4">Toute l'Occitanie</h3>
             <ul className="text-gray-600 space-y-2 text-sm">
               <li>• Aude (11)</li>
-              <li>• Aveyron (12)</li>
               <li>• Gard (30)</li>
               <li>• Gers (32)</li>
               <li>• Hérault (34)</li>
@@ -82,7 +99,7 @@ export function RegionalCoverage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-white text-center"
         >
           <h3 className="text-2xl font-bold mb-4">Nos Services sur Toute l'Occitanie</h3>

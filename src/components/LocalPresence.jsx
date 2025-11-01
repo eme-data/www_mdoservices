@@ -10,7 +10,7 @@ export function LocalPresence() {
           <div className="text-center">
             <Building className="h-12 w-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">Couverture Régionale</h3>
-            <p className="text-gray-600">Présents dans toute l'Occitanie avec des zones d'intervention prioritaires en Ariège et Haute-Garonne</p>
+            <p className="text-gray-600">Présents dans toute l'Occitanie avec des zones d'intervention prioritaires en Ariège, Haute-Garonne et Aveyron</p>
           </div>
           <div className="text-center">
             <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />

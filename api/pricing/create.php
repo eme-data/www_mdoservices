@@ -12,6 +12,9 @@ require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../config/utils.php';
 
+// Démarrer la session
+session_start();
+
 setCorsHeaders();
 
 // Only accept POST requests
@@ -20,8 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    // Require admin authentication
-    requireAdmin();
+    // Vérifier l'authentification par session PHP
+    if (empty($_SESSION['authenticated']) || empty($_SESSION['user_id'])) {
+        sendError('Unauthorized - Authentication required', 401);
+    }
+
+    // Vérifier les privilèges admin
+    if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+        sendError('Forbidden - Admin privileges required', 403);
+    }
 
     // Get input data
     $input = getJsonInput();

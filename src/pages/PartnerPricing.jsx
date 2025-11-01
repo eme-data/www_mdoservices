@@ -174,8 +174,12 @@ export default function PartnerPricing() {
         >
           <p className="text-blue-100 text-sm">
             Besoin d'aide ? Contactez notre équipe support partenaires au{" "}
-            <a href="tel:0499133010" className="text-white font-semibold hover:underline">
-              04 99 13 30 10
+            <a href="tel:+33582952277" className="text-white font-semibold hover:underline">
+              05.82.95.22.77
+            </a>
+            {" "}ou au{" "}
+            <a href="tel:+33666030361" className="text-white font-semibold hover:underline">
+              06.66.03.03.61
             </a>
           </p>
         </motion.div>

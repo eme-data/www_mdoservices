@@ -605,7 +605,7 @@ export default function DevenirPartenaire() {
             <Button
               onClick={() => window.location.href = '/contact'}
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-semibold rounded-xl"
+              className="border-2 border-white bg-white/20 text-white hover:bg-white hover:text-blue-600 px-8 py-6 text-lg font-semibold rounded-xl transition-all duration-300"
             >
               Poser une question
             </Button>

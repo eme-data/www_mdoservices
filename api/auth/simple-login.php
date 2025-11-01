@@ -86,7 +86,7 @@ try {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role'] = $user['role'];
-    $_SESSION['is_admin'] = (bool)$user['is_admin'];
+    $_SESSION['is_admin'] = (bool)(int)$user['is_admin']; // Convertir en int puis en bool
     $_SESSION['authenticated'] = true;
 
     // Nettoyer le buffer de sortie
@@ -100,7 +100,7 @@ try {
             'username' => $user['username'],
             'email' => $user['email'],
             'role' => $user['role'],
-            'is_admin' => (bool)$user['is_admin']
+            'is_admin' => (bool)(int)$user['is_admin']
         ],
         'message' => 'Login successful'
     ], JSON_UNESCAPED_UNICODE);

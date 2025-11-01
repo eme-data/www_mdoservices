@@ -286,7 +286,7 @@ export default function PartnerSpace() {
                 Rejoignez notre réseau de partenaires et bénéficiez d'avantages exclusifs.
               </p>
               <Button
-                onClick={() => navigate("/contact")}
+                onClick={() => navigate("/devenir-partenaire")}
                 variant="outline"
                 className="w-full h-12 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold"
               >

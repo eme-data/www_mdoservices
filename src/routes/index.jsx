@@ -16,6 +16,7 @@ import NinjaRMMDetails from "@/pages/NinjaRMMDetails"
 import ProxmoxDetails from "@/pages/ProxmoxDetails"
 import PartnerSpace from "@/pages/PartnerSpace"
 import PartnerPricing from "@/pages/PartnerPricing"
+import DevenirPartenaire from "@/pages/DevenirPartenaire"
 import ForgotPassword from "@/pages/ForgotPassword"
 import ResetPassword from "@/pages/ResetPassword"
 import TelecomSolutions from "@/pages/TelecomSolutions"
@@ -65,6 +66,7 @@ export function AppRoutes() {
       <Route path="/mentions-legales" element={<MentionsLegales />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       <Route path="/partner" element={<PartnerSpace />} />
+      <Route path="/devenir-partenaire" element={<DevenirPartenaire />} />
       <Route path="/partner/pricing" element={<PartnerPricing />} />
       <Route path="/partner/blog" element={<BlogAdmin />} />
       <Route path="/partner/blog/new" element={<BlogPostForm />} />

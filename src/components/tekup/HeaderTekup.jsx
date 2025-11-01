@@ -152,6 +152,11 @@ export function HeaderTekup() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
+            <Link to="/client" className={`text-sm font-medium ${
+              isScrolled || !isHomePage ? "text-gray-600 hover:text-blue-600" : "text-white hover:text-blue-200"
+            }`}>
+              Espace Client
+            </Link>
             <Link to="/partner" className={`text-sm font-medium ${
               isScrolled || !isHomePage ? "text-gray-600 hover:text-blue-600" : "text-white hover:text-blue-200"
             }`}>
@@ -238,6 +243,12 @@ export function HeaderTekup() {
                 </div>
               ))}
               <div className="pt-4 space-y-2">
+                <Link
+                  to="/client"
+                  className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"
+                >
+                  Espace Client
+                </Link>
                 <Link
                   to="/partner"
                   className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg"

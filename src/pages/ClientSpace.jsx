@@ -29,6 +29,7 @@ export default function ClientSpace() {
       saveAuthState(response.user)
       localStorage.setItem("client-authenticated", "true")
       localStorage.setItem("client-name", response.user.username)
+      localStorage.setItem("client-admin", response.user.is_admin ? "true" : "false")
 
       if (rememberMe) {
         localStorage.setItem("client-remember", "true")

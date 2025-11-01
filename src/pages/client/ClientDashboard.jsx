@@ -14,12 +14,14 @@ import {
   TrendingUp,
   LogOut,
   ExternalLink,
-  Clock
+  Clock,
+  Users
 } from "lucide-react"
 
 export default function ClientDashboard() {
   const navigate = useNavigate()
   const [clientName, setClientName] = useState("")
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     // Vérifier l'authentification
@@ -32,14 +34,32 @@ export default function ClientDashboard() {
     // Récupérer le nom du client
     const name = localStorage.getItem("client-name") || "Client"
     setClientName(name)
+
+    // Vérifier si l'utilisateur est admin
+    const adminStatus = localStorage.getItem("client-admin") === "true"
+    setIsAdmin(adminStatus)
   }, [navigate])
 
   const handleLogout = () => {
     localStorage.removeItem("client-authenticated")
     localStorage.removeItem("client-name")
+    localStorage.removeItem("client-admin")
     localStorage.removeItem("client-remember")
     navigate("/client")
   }
+
+  const adminServices = [
+    {
+      icon: Users,
+      title: "Gestion des Utilisateurs",
+      description: "Créez et gérez les comptes utilisateurs de votre espace client",
+      url: "/client/users",
+      color: "from-red-500 to-red-600",
+      available: true,
+      external: false,
+      adminOnly: true
+    }
+  ]
 
   const services = [
     {
@@ -181,6 +201,54 @@ export default function ClientDashboard() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {/* Admin Services */}
+          {isAdmin && adminServices.map((service, index) => (
+            <motion.div
+              key={`admin-${index}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => handleServiceClick(service)}
+              className={`bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-red-200 relative group ${
+                service.available ? 'cursor-pointer' : 'cursor-not-allowed opacity-75'
+              }`}
+            >
+              {/* Admin Badge */}
+              <div className="absolute top-4 right-4">
+                <span className="inline-flex items-center px-2 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full">
+                  Admin
+                </span>
+              </div>
+
+              {/* Icon */}
+              <div className={`w-14 h-14 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <service.icon className="h-7 w-7 text-white" />
+              </div>
+
+              {/* Title */}
+              <h3 className="text-lg font-bold text-slate-800 mb-2 flex items-center">
+                {service.title}
+                {service.external && service.available && (
+                  <ExternalLink className="h-4 w-4 ml-2 text-slate-400" />
+                )}
+              </h3>
+
+              {/* Description */}
+              <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+                {service.description}
+              </p>
+
+              {/* Button */}
+              <Button
+                variant="outline"
+                className="w-full border-red-300 text-red-700 hover:bg-red-50 group-hover:border-red-400"
+              >
+                Accéder
+              </Button>
+            </motion.div>
+          ))}
+
+          {/* Regular Services */}
           {services.map((service, index) => (
             <motion.div
               key={index}

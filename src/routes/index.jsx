@@ -34,6 +34,8 @@ import BlogPage from "@/pages/BlogPage"
 import BlogPostPage from "@/pages/BlogPostPage"
 import BlogAdmin from "@/pages/partner/BlogAdmin"
 import BlogPostForm from "@/pages/partner/BlogPostForm"
+import ClientUsersAdmin from "@/pages/client/UsersAdmin"
+import PartnerUsersAdmin from "@/pages/partner/UsersAdmin"
 
 export function AppRoutes() {
   return (
@@ -76,6 +78,8 @@ export function AppRoutes() {
       <Route path="/partner/blog" element={<BlogAdmin />} />
       <Route path="/partner/blog/new" element={<BlogPostForm />} />
       <Route path="/partner/blog/edit/:id" element={<BlogPostForm />} />
+      <Route path="/partner/users" element={<PartnerUsersAdmin />} />
+      <Route path="/client/users" element={<ClientUsersAdmin />} />
       <Route path="/partner/forgot-password" element={<ForgotPassword />} />
       <Route path="/partner/reset-password" element={<ResetPassword />} />
     </Routes>

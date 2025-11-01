@@ -60,6 +60,7 @@ export function FooterTekup() {
       { name: "À propos", path: "/solutions" },
       // { name: "Blog", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver
       { name: "Contact", path: "/contact" },
+      { name: "Espace Client", path: "/client" },
       { name: "Espace Partenaire", path: "/partner" },
     ],
     ressources: [

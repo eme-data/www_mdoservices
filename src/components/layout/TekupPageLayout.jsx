@@ -2,6 +2,7 @@ import React from "react"
 import { HeaderTekup } from "@/components/tekup/HeaderTekup"
 import { FooterTekup } from "@/components/tekup/FooterTekup"
 import { CookieConsent } from "@/components/CookieConsent"
+import WhatsAppWidget from "@/components/WhatsAppWidget"
 
 /**
  * TekupPageLayout - Layout moderne avec design Tekup
@@ -21,6 +22,9 @@ export function TekupPageLayout({ children }) {
       </main>
 
       <FooterTekup />
+
+      {/* Widget WhatsApp flottant */}
+      <WhatsAppWidget />
     </div>
   )
 }

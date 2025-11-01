@@ -8,6 +8,7 @@ import { CookieConsent } from "@/components/CookieConsent"
 import { LocalPresence } from "@/components/LocalPresence"
 import { RegionalCoverage } from "@/components/RegionalCoverage"
 import { ExpertiseSection } from "@/components/home/ExpertiseSection"
+import WhatsAppWidget from "@/components/WhatsAppWidget"
 
 export default function HomePageTekup() {
   return (
@@ -46,6 +47,9 @@ export default function HomePageTekup() {
         </main>
 
         <FooterTekup />
+
+        {/* Widget WhatsApp flottant */}
+        <WhatsAppWidget />
       </div>
     </>
   )

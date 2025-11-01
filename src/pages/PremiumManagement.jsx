@@ -1,12 +1,14 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Server, Shield, Clock, Users, ChevronRight, Check, X } from "lucide-react"
+import { Server, Shield, Clock, Users, ChevronRight, Check, X, Zap, HeadphonesIcon, Award } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { PricingFeature } from "@/components/PricingFeature"
 import { ComparisonRow } from "@/components/ComparisonRow"
 import BackButton from "@/components/BackButton"
 import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
+import { SolutionHeroTekup } from "@/components/tekup/SolutionHeroTekup"
+import { CTASectionTekup } from "@/components/tekup/CTASectionTekup"
 
 export default function PremiumManagement() {
   const navigate = useNavigate()
@@ -17,29 +19,30 @@ export default function PremiumManagement() {
 
   return (
     <TekupPageLayout>
-      <div className="pt-24"> {/* Added padding top for fixed Navigation */}
-        <BackButton to="/solutions" /> {/* Assuming this page is a sub-page of solutions */}
+      <div className="pt-24">
+        <BackButton to="/solutions" />
 
-        <main className="pt-0"> {/* Removed pt-20, handled by outer div */}
-          <section className="py-16 md:py-20 hero-gradient text-white"> {/* Adjusted padding */}
-            <div className="container mx-auto px-4 text-center">
-              <motion.h1 
-                className="text-4xl md:text-5xl font-bold mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                Infogérance Premium
-              </motion.h1>
-              <motion.p 
-                className="text-xl text-blue-100 max-w-3xl mx-auto"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                Une solution complète de gestion de votre infrastructure IT
-              </motion.p>
-            </div>
-          </section>
+        <main className="pt-0">
+          {/* Hero Section */}
+          <SolutionHeroTekup
+            badge="Infogérance Premium"
+            title="Gestion complète de votre <span class='bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent'>infrastructure IT</span>"
+            description="Confiez-nous la gestion de votre parc informatique et concentrez-vous sur votre cœur de métier. Support 24/7, supervision proactive, et expertise dédiée."
+            primaryCTA={{
+              text: "Demander un Devis",
+              onClick: handleContact
+            }}
+            secondaryCTA={{
+              text: "Voir les Offres",
+              link: "#offres"
+            }}
+            stats={[
+              { value: "50+", label: "Clients Infogérés" },
+              { value: "24/7", label: "Support Disponible" },
+              { value: "< 2h", label: "Temps de Réponse" },
+              { value: "99%", label: "Satisfaction Client" }
+            ]}
+          />
 
           <section className="py-16 md:py-20 bg-slate-50 dark:bg-slate-900">
             <div className="container mx-auto px-4">
@@ -114,8 +117,21 @@ export default function PremiumManagement() {
               </div>
 
               {/* Pricing Section */}
-              <div className="max-w-7xl mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-12 text-slate-800 dark:text-slate-100">Nos Offres d'Infogérance</h2>
+              <div id="offres" className="max-w-7xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center mb-12"
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Nos Offres d'Infogérance
+                  </h2>
+                  <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+                    Choisissez la formule adaptée à la taille et aux besoins de votre entreprise
+                  </p>
+                </motion.div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {/* Basic Plan */}
                   <div className="pricing-card bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg border border-slate-200 dark:border-slate-700">
@@ -218,18 +234,25 @@ export default function PremiumManagement() {
                     </tbody>
                   </table>
                 </div>
-                 <div className="text-center mt-12">
-                    <Button 
-                        onClick={handleContact} 
-                        className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white transition-all duration-300 transform hover:scale-105 shadow-lg px-8 py-3 text-lg"
-                    >
-                        Demandez votre devis personnalisé
-                        <ChevronRight className="ml-2 h-5 w-5" />
-                    </Button>
-                </div>
               </div>
             </div>
           </section>
+
+          {/* CTA Section */}
+          <CTASectionTekup
+            badge="Libérez-vous de la gestion IT"
+            title="Demandez votre devis d'infogérance sur mesure"
+            description="Nos experts analysent vos besoins et vous proposent une solution d'infogérance adaptée à votre infrastructure avec un tarif transparent."
+            primaryCTA={{
+              text: "Demander un Devis Gratuit",
+              onClick: handleContact
+            }}
+            secondaryCTA={{
+              text: "Voir toutes nos Solutions",
+              link: "/solutions"
+            }}
+            variant="gradient"
+          />
         </main>
       </div>
     </TekupPageLayout>

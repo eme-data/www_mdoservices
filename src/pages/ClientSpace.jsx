@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/components/ui/use-toast"
-import { login } from "@/lib/api"
+import { simpleLogin, saveAuthState } from "@/lib/simple-api"
 import { Lock, User, Eye, EyeOff, Headphones, BarChart3, Shield, Zap, ArrowRight } from "lucide-react"
 
 export default function ClientSpace() {
@@ -23,7 +23,10 @@ export default function ClientSpace() {
     setIsLoading(true)
 
     try {
-      const response = await login(username, password)
+      const response = await simpleLogin(username, password)
+
+      // Sauvegarder l'état d'authentification
+      saveAuthState(response.user)
       localStorage.setItem("client-authenticated", "true")
       localStorage.setItem("client-name", response.user.username)
 

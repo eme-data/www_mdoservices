@@ -17,6 +17,8 @@ import ProxmoxDetails from "@/pages/ProxmoxDetails"
 import PartnerSpace from "@/pages/PartnerSpace"
 import PartnerPricing from "@/pages/PartnerPricing"
 import DevenirPartenaire from "@/pages/DevenirPartenaire"
+import ClientSpace from "@/pages/ClientSpace"
+import ClientDashboard from "@/pages/client/ClientDashboard"
 import ForgotPassword from "@/pages/ForgotPassword"
 import ResetPassword from "@/pages/ResetPassword"
 import TelecomSolutions from "@/pages/TelecomSolutions"
@@ -68,6 +70,9 @@ export function AppRoutes() {
       <Route path="/partner" element={<PartnerSpace />} />
       <Route path="/devenir-partenaire" element={<DevenirPartenaire />} />
       <Route path="/partner/pricing" element={<PartnerPricing />} />
+      <Route path="/client" element={<ClientSpace />} />
+      <Route path="/espace-client" element={<ClientSpace />} />
+      <Route path="/client/dashboard" element={<ClientDashboard />} />
       <Route path="/partner/blog" element={<BlogAdmin />} />
       <Route path="/partner/blog/new" element={<BlogPostForm />} />
       <Route path="/partner/blog/edit/:id" element={<BlogPostForm />} />

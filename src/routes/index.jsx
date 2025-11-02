@@ -32,6 +32,7 @@ import Cybersecurity from "@/pages/Cybersecurity"
 import CloudServices from "@/pages/CloudServices"
 import Videosurveillance from "@/pages/Videosurveillance"
 import NetworkInfrastructure from "@/pages/NetworkInfrastructure"
+import AIIntegration from "@/pages/AIIntegration"
 import RendezVousPage from "@/pages/RendezVousPage"
 import BlogPage from "@/pages/BlogPage"
 import BlogPostPage from "@/pages/BlogPostPage"
@@ -73,6 +74,7 @@ export function AppRoutes() {
       <Route path="/cloud-services" element={<CloudServices />} />
       <Route path="/infrastructure-reseaux" element={<NetworkInfrastructure />} />
       <Route path="/videosurveillance" element={<Videosurveillance />} />
+      <Route path="/integration-ia" element={<AIIntegration />} />
       <Route path="/cloud-services/microsoft-365" element={<Microsoft365Details />} />
       <Route path="/cloud-services/google-workspace" element={<GoogleWorkspaceDetails />} />
       {/* <Route path="/support" element={<Support />} /> */} {/* Route Support supprimée */}

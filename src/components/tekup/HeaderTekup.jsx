@@ -15,7 +15,8 @@ import {
   Mail,
   CloudCog,
   Camera,
-  Network
+  Network,
+  Brain
 } from "lucide-react"
 
 const navItems = [
@@ -32,6 +33,7 @@ const navItems = [
       { name: "Cloud Entreprise", path: "/cloud-entreprise", icon: CloudCog },
       { name: "Infrastructure Réseaux & WiFi", path: "/infrastructure-reseaux", icon: Network },
       { name: "Vidéosurveillance", path: "/videosurveillance", icon: Camera },
+      { name: "Intégration IA", path: "/integration-ia", icon: Brain },
     ]
   },
   // { name: "Blog", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver

@@ -10,6 +10,7 @@ import {
   Mail,
   Camera,
   Network,
+  Brain,
   ArrowRight
 } from "lucide-react"
 
@@ -85,6 +86,15 @@ const services = [
     color: "from-violet-500 to-purple-500",
     bgColor: "bg-violet-50",
     iconColor: "text-violet-600"
+  },
+  {
+    icon: Brain,
+    title: "Intégration IA",
+    description: "Intégrez l'intelligence artificielle au cœur de vos processus métiers",
+    link: "/integration-ia",
+    color: "from-purple-500 to-pink-500",
+    bgColor: "bg-purple-50",
+    iconColor: "text-purple-600"
   }
 ]
 

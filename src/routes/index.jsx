@@ -9,7 +9,7 @@ import MentionsLegales from "@/pages/MentionsLegales.jsx"
 import PolitiqueConfidentialite from "@/pages/PolitiqueConfidentialite.jsx"
 import Microsoft365Details from "@/pages/Microsoft365Details"
 import GoogleWorkspaceDetails from "@/pages/GoogleWorkspaceDetails"
-import MailInBlackDetails from "@/pages/MailInBlackDetails"
+import IronScalesDetails from "@/pages/IronScalesDetails"
 import SentinelOneDetails from "@/pages/SentinelOneDetails"
 import KeeperSecurityDetails from "@/pages/KeeperSecurityDetails"
 import NinjaRMMDetails from "@/pages/NinjaRMMDetails"
@@ -50,7 +50,9 @@ export function AppRoutes() {
       <Route path="/solutions" element={<Solutions />} />
       <Route path="/solutions/microsoft-365" element={<Microsoft365Details />} />
       <Route path="/solutions/google-workspace" element={<GoogleWorkspaceDetails />} />
-      <Route path="/solutions/mailinblack" element={<MailInBlackDetails />} />
+      <Route path="/solutions/ironscales" element={<IronScalesDetails />} />
+      {/* Redirect old MailInBlack URL for SEO */}
+      <Route path="/solutions/mailinblack" element={<Navigate to="/solutions/ironscales" replace />} />
       <Route path="/solutions/sentinel-one" element={<SentinelOneDetails />} />
       <Route path="/solutions/keeper-security" element={<KeeperSecurityDetails />} />
       <Route path="/solutions/ninja-rmm" element={<NinjaRMMDetails />} />

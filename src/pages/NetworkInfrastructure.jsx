@@ -132,7 +132,7 @@ export default function NetworkInfrastructure() {
                     </p>
                     <ul className="space-y-3 mb-8 flex-grow">
                       {[
-                        "Points d'accès WiFi 6 dernière génération",
+                        "Points d'accès WiFi 7 dernière génération",
                         "Couverture optimale et roaming transparent",
                         "SSID multiples et portail captif",
                         "Contrôle d'accès et authentification",
@@ -286,12 +286,11 @@ export default function NetworkInfrastructure() {
                   Marques et technologies que nous déployons
                 </h3>
                 <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-slate-50 rounded-3xl p-8 md:p-12 border border-blue-200">
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <div className="grid md:grid-cols-3 gap-8">
                     {[
-                      { icon: Network, title: "Cisco / Meraki", desc: "Switches, routeurs et WiFi professionnels", color: "blue" },
-                      { icon: Wifi, title: "Ubiquiti / UniFi", desc: "Solutions WiFi et réseau haute performance", color: "cyan" },
-                      { icon: Shield, title: "Fortinet / pfSense", desc: "Firewalls et sécurité réseau avancée", color: "red" },
-                      { icon: Cable, title: "Panduit / Legrand", desc: "Câblage structuré certifié", color: "green" }
+                      { icon: Network, title: "Ubiquiti / UniFi", desc: "Switches, routeurs et WiFi professionnels", color: "blue" },
+                      { icon: Shield, title: "pfSense / Stormshield / Fortinet / Watchguard", desc: "Firewalls et sécurité réseau avancée", color: "red" },
+                      { icon: Cable, title: "Schneider / Panduit", desc: "Câblage structuré certifié", color: "green" }
                     ].map((item, i) => (
                       <div key={i} className="text-center">
                         <div className={`w-16 h-16 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-2xl flex items-center justify-center mx-auto mb-4`}>

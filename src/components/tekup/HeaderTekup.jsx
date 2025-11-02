@@ -12,7 +12,8 @@ import {
   Server,
   Phone,
   Wifi,
-  Mail
+  Mail,
+  CloudCog
 } from "lucide-react"
 
 const navItems = [
@@ -21,10 +22,12 @@ const navItems = [
     name: "Solutions",
     path: "/solutions",
     dropdown: [
-      { name: "Services Cloud", path: "/cloud-services", icon: Cloud },
+      { name: "Solutions Cloud", path: "/cloud-services", icon: Cloud },
       { name: "Cybersécurité", path: "/cybersecurity", icon: Shield },
-      { name: "Solutions Télécom", path: "/solutions-telecom", icon: Phone },
       { name: "Infogérance Premium", path: "/premium-management", icon: Server },
+      { name: "Solutions Télécom", path: "/solutions-telecom", icon: Phone },
+      { name: "Accès Internet", path: "/internet-access", icon: Wifi },
+      { name: "Cloud Enterprise", path: "/cloud-enterprise", icon: CloudCog },
     ]
   },
   // { name: "Blog", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver

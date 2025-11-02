@@ -14,7 +14,8 @@ import {
   Wifi,
   Mail,
   CloudCog,
-  Camera
+  Camera,
+  Network
 } from "lucide-react"
 
 const navItems = [
@@ -29,6 +30,7 @@ const navItems = [
       { name: "Solutions Télécom", path: "/solutions-telecom", icon: Phone },
       { name: "Accès Internet", path: "/internet-access", icon: Wifi },
       { name: "Cloud Entreprise", path: "/cloud-entreprise", icon: CloudCog },
+      { name: "Infrastructure Réseaux & WiFi", path: "/infrastructure-reseaux", icon: Network },
       { name: "Vidéosurveillance", path: "/videosurveillance", icon: Camera },
     ]
   },

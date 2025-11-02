@@ -9,6 +9,7 @@ import {
   Wifi,
   Mail,
   Camera,
+  Network,
   ArrowRight
 } from "lucide-react"
 
@@ -66,6 +67,15 @@ const services = [
     color: "from-pink-500 to-rose-500",
     bgColor: "bg-pink-50",
     iconColor: "text-pink-600"
+  },
+  {
+    icon: Network,
+    title: "Infrastructure Réseaux & WiFi",
+    description: "Conception et déploiement de réseaux professionnels avec WiFi haute performance",
+    link: "/infrastructure-reseaux",
+    color: "from-cyan-500 to-blue-500",
+    bgColor: "bg-cyan-50",
+    iconColor: "text-cyan-600"
   },
   {
     icon: Camera,

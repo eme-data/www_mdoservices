@@ -60,9 +60,9 @@ const services = [
   },
   {
     icon: Mail,
-    title: "Cloud Enterprise",
+    title: "Cloud Entreprise",
     description: "Infrastructure cloud sur mesure pour vos applications critiques",
-    link: "/cloud-enterprise",
+    link: "/cloud-entreprise",
     color: "from-pink-500 to-rose-500",
     bgColor: "bg-pink-50",
     iconColor: "text-pink-600"

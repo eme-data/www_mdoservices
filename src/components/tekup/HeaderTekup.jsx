@@ -28,7 +28,7 @@ const navItems = [
       { name: "Infogérance Premium", path: "/premium-management", icon: Server },
       { name: "Solutions Télécom", path: "/solutions-telecom", icon: Phone },
       { name: "Accès Internet", path: "/internet-access", icon: Wifi },
-      { name: "Cloud Enterprise", path: "/cloud-enterprise", icon: CloudCog },
+      { name: "Cloud Entreprise", path: "/cloud-entreprise", icon: CloudCog },
       { name: "Vidéosurveillance", path: "/videosurveillance", icon: Camera },
     ]
   },

@@ -1,5 +1,5 @@
 import React from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import HomePage from "@/pages/HomePage"
 import HomePageTekup from "@/pages/HomePageTekup"
 import Solutions from "@/pages/Solutions"
@@ -56,7 +56,9 @@ export function AppRoutes() {
       <Route path="/solutions-telecom" element={<TelecomSolutions />} />
       <Route path="/solutions-telecom/3cx" element={<ThreeCXDetails />} />
       <Route path="/solutions-telecom/wazo" element={<WazoDetails />} />
-      <Route path="/cloud-enterprise" element={<CloudEnterprise />} />
+      <Route path="/cloud-entreprise" element={<CloudEnterprise />} />
+      {/* Redirect old URL for SEO */}
+      <Route path="/cloud-enterprise" element={<Navigate to="/cloud-entreprise" replace />} />
       <Route path="/internet-access" element={<InternetAccess />} />
       <Route path="/premium-management" element={<PremiumManagement />} />
       <Route path="/cybersecurity" element={<Cybersecurity />} />

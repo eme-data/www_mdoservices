@@ -54,7 +54,7 @@ export default function Solutions() {
     <TekupPageLayout>
       <Helmet>
         <title>Solutions IT & Cloud - MDO SERVICES | Microsoft 365, Google Workspace, Cybersécurité</title>
-        <meta name="description" content="Découvrez nos solutions professionnelles : Microsoft 365, Google Workspace, Téléphonie (3CX, Wazo), Cybersécurité (SentinelOne, MailInBlack), Supervision (NinjaRMM), Virtualisation (Proxmox)." />
+        <meta name="description" content="Découvrez nos solutions professionnelles : Microsoft 365, Google Workspace, Téléphonie (3CX, Wazo), Cybersécurité (SentinelOne, IronScales), Supervision (NinjaRMM), Virtualisation (Proxmox)." />
         <link rel="canonical" href="https://mdoservices.fr/solutions" />
       </Helmet>
 
@@ -163,16 +163,16 @@ export default function Solutions() {
             </Link>
 
             {/* Cybersécurité */}
-            <Link to="/solutions/mailinblack">
+            <Link to="/solutions/ironscales">
               <SolutionCard
-                icon={<Mail className="h-8 w-8 text-blue-600" />}
-                title="MailInBlack"
-                description="Protection email avancée"
+                icon={<Shield className="h-8 w-8 text-blue-600" />}
+                title="IronScales"
+                description="Protection anti-phishing propulsée par IA"
                 features={[
-                  "Anti-spam intelligent",
-                  "Protection phishing",
-                  "Gestion simplifiée",
-                  "Conformité RGPD"
+                  "Détection phishing avancée",
+                  "Intelligence artificielle",
+                  "Réponse automatisée",
+                  "Protection email 360°"
                 ]}
               />
             </Link>
@@ -320,7 +320,7 @@ export default function Solutions() {
                 ))}
               </div>
               <p className="text-gray-700 mb-4 italic">
-                "Excellent accompagnement cybersécurité avec SentinelOne et MailInBlack. Notre infrastructure est maintenant protégée et nos équipes formées aux bonnes pratiques."
+                "Excellent accompagnement cybersécurité avec SentinelOne et IronScales. Notre infrastructure est maintenant protégée et nos équipes formées aux bonnes pratiques."
               </p>
               <p className="font-semibold text-gray-900">PME - Montpellier</p>
               <p className="text-sm text-gray-600">Secteur Industriel</p>

@@ -8,6 +8,7 @@ import {
   Phone,
   Wifi,
   Mail,
+  Camera,
   ArrowRight
 } from "lucide-react"
 
@@ -65,6 +66,15 @@ const services = [
     color: "from-pink-500 to-rose-500",
     bgColor: "bg-pink-50",
     iconColor: "text-pink-600"
+  },
+  {
+    icon: Camera,
+    title: "Vidéosurveillance",
+    description: "Systèmes de surveillance intelligents avec enregistrement cloud et accès à distance",
+    link: "/videosurveillance",
+    color: "from-violet-500 to-purple-500",
+    bgColor: "bg-violet-50",
+    iconColor: "text-violet-600"
   }
 ]
 

@@ -29,6 +29,7 @@ import InternetAccess from "@/pages/InternetAccess"
 import PremiumManagement from "@/pages/PremiumManagement"
 import Cybersecurity from "@/pages/Cybersecurity"
 import CloudServices from "@/pages/CloudServices"
+import Videosurveillance from "@/pages/Videosurveillance"
 import RendezVousPage from "@/pages/RendezVousPage"
 import BlogPage from "@/pages/BlogPage"
 import BlogPostPage from "@/pages/BlogPostPage"
@@ -60,6 +61,7 @@ export function AppRoutes() {
       <Route path="/premium-management" element={<PremiumManagement />} />
       <Route path="/cybersecurity" element={<Cybersecurity />} />
       <Route path="/cloud-services" element={<CloudServices />} />
+      <Route path="/videosurveillance" element={<Videosurveillance />} />
       <Route path="/cloud-services/microsoft-365" element={<Microsoft365Details />} />
       <Route path="/cloud-services/google-workspace" element={<GoogleWorkspaceDetails />} />
       {/* <Route path="/support" element={<Support />} /> */} {/* Route Support supprimée */}

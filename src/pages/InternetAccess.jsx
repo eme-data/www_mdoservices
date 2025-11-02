@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Wifi, Shield, Zap, Signal, CheckCircle2, Home, Network, TrendingUp, Clock, HeadphonesIcon, Award } from "lucide-react"
+import { Wifi, Shield, Zap, Signal, CheckCircle2, Home, Network, TrendingUp, Clock, HeadphonesIcon, Award, Satellite } from "lucide-react"
 import BackButton from "@/components/BackButton"
 import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { SolutionHeroTekup } from "@/components/tekup/SolutionHeroTekup"
@@ -62,7 +62,7 @@ export default function InternetAccess() {
           <SolutionHeroTekup
             badge="Accès Internet Professionnel"
             title="Connectivité <span class='bg-gradient-to-r from-blue-400 to-cyan-600 bg-clip-text text-transparent'>ultra-rapide</span> pour votre entreprise"
-            description="Bénéficiez d'une connexion internet professionnelle fiable et performante. Fibre optique dédiée, FTTH pro, et redondance 4G pour garantir la continuité de votre activité."
+            description="Bénéficiez d'une connexion internet professionnelle fiable et performante. Fibre optique dédiée, FTTH pro, internet satellite pour zones isolées, et redondance 4G pour garantir la continuité de votre activité."
             primaryCTA={{
               text: "Demander un Devis",
               onClick: handleContact
@@ -93,11 +93,11 @@ export default function InternetAccess() {
                   Nos Offres de Connectivité
                 </h2>
                 <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-                  Choisissez la solution adaptée à vos besoins : de la fibre FTTH économique à la fibre dédiée haute performance
+                  Choisissez la solution adaptée à vos besoins : de la fibre FTTH économique à la fibre dédiée haute performance, en passant par l'internet satellite pour les zones isolées
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
                 {/* FTTH Pro Card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -250,6 +250,57 @@ export default function InternetAccess() {
                         className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
                       >
                         Ajouter la redondance
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Internet par Satellite Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                >
+                  <div className="bg-gradient-to-br from-orange-500 to-amber-600 p-8 text-white">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
+                      <Satellite className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">Internet Satellite</h3>
+                    <p className="text-orange-100 mb-4">
+                      Solution pour zones isolées ou sans fibre
+                    </p>
+                    <div className="text-3xl font-bold">Jusqu'à</div>
+                    <div className="text-4xl font-bold mt-2">150 Mb/s</div>
+                  </div>
+
+                  <div className="p-8">
+                    <ul className="space-y-4 mb-8">
+                      {[
+                        "Connexion disponible partout",
+                        "Installation rapide (48-72h)",
+                        "Débits jusqu'à 150 Mb/s",
+                        "Idéal pour zones blanches",
+                        "Solution Starlink disponible",
+                        "Sans engagement de durée"
+                      ].map((feature, i) => (
+                        <li key={i} className="flex items-start">
+                          <CheckCircle2 className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-700 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="pt-6 border-t border-slate-200">
+                      <p className="text-center text-sm text-slate-600 mb-4">
+                        Parfait pour lieux isolés
+                      </p>
+                      <Button
+                        onClick={handleContact}
+                        className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white"
+                      >
+                        Demander un devis
                       </Button>
                     </div>
                   </div>

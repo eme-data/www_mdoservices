@@ -14,8 +14,8 @@ import {
 const services = [
   {
     icon: Cloud,
-    title: "Solutions Cloud",
-    description: "Microsoft 365, Google Workspace et solutions cloud entreprise adaptées à vos besoins",
+    title: "Suites Collaboratives",
+    description: "Microsoft 365, Google Workspace et solutions collaboratives adaptées à vos besoins",
     link: "/cloud-services",
     color: "from-blue-500 to-cyan-500",
     bgColor: "bg-blue-50",

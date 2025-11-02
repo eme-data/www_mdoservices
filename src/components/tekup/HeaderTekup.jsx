@@ -22,7 +22,7 @@ const navItems = [
     name: "Solutions",
     path: "/solutions",
     dropdown: [
-      { name: "Solutions Cloud", path: "/cloud-services", icon: Cloud },
+      { name: "Suites Collaboratives", path: "/cloud-services", icon: Cloud },
       { name: "Cybersécurité", path: "/cybersecurity", icon: Shield },
       { name: "Infogérance Premium", path: "/premium-management", icon: Server },
       { name: "Solutions Télécom", path: "/solutions-telecom", icon: Phone },

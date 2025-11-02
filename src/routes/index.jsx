@@ -22,8 +22,9 @@ import ClientDashboard from "@/pages/client/ClientDashboard"
 import ForgotPassword from "@/pages/ForgotPassword"
 import ResetPassword from "@/pages/ResetPassword"
 import TelecomSolutions from "@/pages/TelecomSolutions"
-import ThreeCXDetails from "@/pages/ThreeCXDetails"
-import WazoDetails from "@/pages/WazoDetails"
+import TelephonyFixed from "@/pages/TelephonyFixed"
+import TelephonyMobile from "@/pages/TelephonyMobile"
+import IoTM2M from "@/pages/IoTM2M"
 import CloudEnterprise from "@/pages/CloudEnterprise"
 import InternetAccess from "@/pages/InternetAccess"
 import PremiumManagement from "@/pages/PremiumManagement"
@@ -54,8 +55,12 @@ export function AppRoutes() {
       <Route path="/solutions/ninja-rmm" element={<NinjaRMMDetails />} />
       <Route path="/solutions/proxmox" element={<ProxmoxDetails />} />
       <Route path="/solutions-telecom" element={<TelecomSolutions />} />
-      <Route path="/solutions-telecom/3cx" element={<ThreeCXDetails />} />
-      <Route path="/solutions-telecom/wazo" element={<WazoDetails />} />
+      <Route path="/solutions-telecom/telephonie-fixe" element={<TelephonyFixed />} />
+      <Route path="/solutions-telecom/telephonie-mobile" element={<TelephonyMobile />} />
+      <Route path="/solutions-telecom/iot-m2m" element={<IoTM2M />} />
+      {/* Redirects for SEO - old product pages to new service pages */}
+      <Route path="/solutions-telecom/3cx" element={<Navigate to="/solutions-telecom/telephonie-fixe" replace />} />
+      <Route path="/solutions-telecom/wazo" element={<Navigate to="/solutions-telecom/telephonie-fixe" replace />} />
       <Route path="/cloud-entreprise" element={<CloudEnterprise />} />
       {/* Redirect old URL for SEO */}
       <Route path="/cloud-enterprise" element={<Navigate to="/cloud-entreprise" replace />} />

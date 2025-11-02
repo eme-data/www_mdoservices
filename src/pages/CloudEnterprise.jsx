@@ -49,7 +49,7 @@ export default function CloudEnterprise() {
   ]
 
   const handleContact = () => {
-    window.location.href = "mailto:contact@mdoservices.fr?subject=Demande de contact MDO SERVICES - Solutions Cloud Enterprise"
+    window.location.href = "mailto:contact@mdoservices.fr?subject=Demande de contact MDO SERVICES - Cloud Entreprise"
   }
 
   return (
@@ -60,7 +60,7 @@ export default function CloudEnterprise() {
         <main className="pt-0">
           {/* Hero Section */}
           <SolutionHeroTekup
-            badge="Solutions Cloud Enterprise"
+            badge="Cloud Entreprise"
             title="Transformez votre infrastructure avec le <span class='bg-gradient-to-r from-blue-400 to-cyan-600 bg-clip-text text-transparent'>cloud professionnel</span>"
             description="Déployez vos applications critiques sur une infrastructure cloud haute performance, sécurisée et supervisée 24/7. Migration, hébergement et infogérance par nos experts certifiés."
             primaryCTA={{
@@ -90,7 +90,7 @@ export default function CloudEnterprise() {
                 className="text-center mb-16"
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                  Nos Services Cloud Enterprise
+                  Nos Services Cloud Entreprise
                 </h2>
                 <p className="text-gray-600 text-lg max-w-3xl mx-auto">
                   Solutions cloud sur mesure pour héberger, migrer et optimiser votre infrastructure

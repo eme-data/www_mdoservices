@@ -104,7 +104,7 @@ export default function Videosurveillance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-8 text-white">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
@@ -118,8 +118,8 @@ export default function Videosurveillance() {
                     <div className="text-5xl font-bold mt-2">4K</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Résolution 4K Ultra HD",
                         "Vision nocturne infrarouge",
@@ -135,7 +135,7 @@ export default function Videosurveillance() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Idéal pour commerce et bureaux
                       </p>
@@ -155,7 +155,7 @@ export default function Videosurveillance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden border-2 border-purple-500 transform md:scale-105"
+                  className="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden border-2 border-purple-500 transform md:scale-105 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-8 text-white relative">
                     <div className="absolute top-4 right-4 bg-yellow-400 text-purple-800 text-xs font-bold px-3 py-1 rounded-full">
@@ -172,8 +172,8 @@ export default function Videosurveillance() {
                     <div className="text-4xl font-bold mt-2">Sécurisé</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Enregistrement cloud automatique",
                         "Conservation 30 jours minimum",
@@ -190,7 +190,7 @@ export default function Videosurveillance() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Solution moderne sans contrainte
                       </p>
@@ -210,7 +210,7 @@ export default function Videosurveillance() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-8 text-white">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
@@ -224,8 +224,8 @@ export default function Videosurveillance() {
                     <div className="text-4xl font-bold mt-2">32 caméras</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Enregistreur professionnel",
                         "Capacité jusqu'à 32 caméras",
@@ -241,7 +241,7 @@ export default function Videosurveillance() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Pour sites étendus et industrie
                       </p>

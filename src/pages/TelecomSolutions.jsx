@@ -103,7 +103,7 @@ export default function TelecomSolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-8 text-white">
                     <div className="flex items-center justify-between mb-4">
@@ -121,8 +121,8 @@ export default function TelecomSolutions() {
                     </p>
                   </div>
 
-                  <div className="p-8">
-                    <div className="mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <div className="mb-8 flex-grow">
                       <h4 className="font-semibold text-slate-800 mb-4 flex items-center">
                         <CheckCircle className="h-5 w-5 text-blue-500 mr-2" />
                         Fonctionnalités Principales
@@ -146,7 +146,7 @@ export default function TelecomSolutions() {
 
                     <Button
                       onClick={() => navigate("/solutions-telecom/3cx")}
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white mt-auto"
                     >
                       En savoir plus sur 3CX
                     </Button>
@@ -159,7 +159,7 @@ export default function TelecomSolutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-green-500 to-teal-600 p-8 text-white">
                     <div className="flex items-center justify-between mb-4">
@@ -177,8 +177,8 @@ export default function TelecomSolutions() {
                     </p>
                   </div>
 
-                  <div className="p-8">
-                    <div className="mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <div className="mb-8 flex-grow">
                       <h4 className="font-semibold text-slate-800 mb-4 flex items-center">
                         <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
                         Fonctionnalités Principales
@@ -202,7 +202,7 @@ export default function TelecomSolutions() {
 
                     <Button
                       onClick={() => navigate("/solutions-telecom/wazo")}
-                      className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white"
+                      className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white mt-auto"
                     >
                       En savoir plus sur Wazo
                     </Button>

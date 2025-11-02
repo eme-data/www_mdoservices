@@ -118,7 +118,7 @@ export default function CloudServices() {
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center mb-6">
                     <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-teal-400 text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <Layers size={32} />
@@ -129,26 +129,28 @@ export default function CloudServices() {
                     Microsoft 365
                   </h3>
 
-                  <p className="text-slate-600 dark:text-slate-300 mb-6 flex-grow leading-relaxed">
-                    Suite complète d'outils de productivité Microsoft incluant Exchange, SharePoint, Teams et OneDrive pour une collaboration optimale.
-                  </p>
+                  <div className="flex-grow">
+                    <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+                      Suite complète d'outils de productivité Microsoft incluant Exchange, SharePoint, Teams et OneDrive pour une collaboration optimale.
+                    </p>
 
-                  <div className="mb-6 space-y-2">
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-blue-500" />
-                      <span>Outlook, Word, Excel, PowerPoint</span>
-                    </div>
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-blue-500" />
-                      <span>Teams pour la collaboration</span>
-                    </div>
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-blue-500" />
-                      <span>1TB de stockage OneDrive</span>
+                    <div className="mb-6 space-y-2">
+                      <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
+                        <ChevronRight className="w-4 h-4 mr-2 text-blue-500" />
+                        <span>Outlook, Word, Excel, PowerPoint</span>
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
+                        <ChevronRight className="w-4 h-4 mr-2 text-blue-500" />
+                        <span>Teams pour la collaboration</span>
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
+                        <ChevronRight className="w-4 h-4 mr-2 text-blue-500" />
+                        <span>1TB de stockage OneDrive</span>
+                      </div>
                     </div>
                   </div>
 
-                  <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg hover:shadow-xl">
+                  <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg hover:shadow-xl mt-auto">
                     <Link to="/solutions/microsoft-365">
                       En savoir plus
                       <ChevronRight className="ml-2 h-4 w-4" />
@@ -167,7 +169,7 @@ export default function CloudServices() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center mb-6">
                     <div className="p-4 rounded-2xl bg-gradient-to-br from-green-500 to-yellow-400 text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <Grid3X3 size={32} />
@@ -178,26 +180,28 @@ export default function CloudServices() {
                     Google Workspace
                   </h3>
 
-                  <p className="text-slate-600 dark:text-slate-300 mb-6 flex-grow leading-relaxed">
-                    Suite collaborative Google avec Gmail, Drive, Meet et tous les outils Google pour travailler en équipe efficacement.
-                  </p>
+                  <div className="flex-grow">
+                    <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+                      Suite collaborative Google avec Gmail, Drive, Meet et tous les outils Google pour travailler en équipe efficacement.
+                    </p>
 
-                  <div className="mb-6 space-y-2">
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-green-500" />
-                      <span>Gmail professionnel</span>
-                    </div>
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-green-500" />
-                      <span>Google Drive illimité</span>
-                    </div>
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-green-500" />
-                      <span>Meet pour la visioconférence</span>
+                    <div className="mb-6 space-y-2">
+                      <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
+                        <ChevronRight className="w-4 h-4 mr-2 text-green-500" />
+                        <span>Gmail professionnel</span>
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
+                        <ChevronRight className="w-4 h-4 mr-2 text-green-500" />
+                        <span>Google Drive illimité</span>
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
+                        <ChevronRight className="w-4 h-4 mr-2 text-green-500" />
+                        <span>Meet pour la visioconférence</span>
+                      </div>
                     </div>
                   </div>
 
-                  <Button asChild className="w-full bg-gradient-to-r from-green-600 to-yellow-500 hover:from-green-700 hover:to-yellow-600 text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg hover:shadow-xl">
+                  <Button asChild className="w-full bg-gradient-to-r from-green-600 to-yellow-500 hover:from-green-700 hover:to-yellow-600 text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg hover:shadow-xl mt-auto">
                     <Link to="/solutions/google-workspace">
                       En savoir plus
                       <ChevronRight className="ml-2 h-4 w-4" />

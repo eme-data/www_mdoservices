@@ -104,7 +104,7 @@ export default function InternetAccess() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-blue-500 to-cyan-600 p-8 text-white">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
@@ -118,8 +118,8 @@ export default function InternetAccess() {
                     <div className="text-5xl font-bold mt-2">2 Gb/s</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Débits jusqu'à 2 Gb/s",
                         "Installation professionnelle incluse",
@@ -135,7 +135,7 @@ export default function InternetAccess() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Idéal pour PME et TPE
                       </p>
@@ -155,7 +155,7 @@ export default function InternetAccess() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden border-2 border-green-500 transform md:scale-105"
+                  className="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden border-2 border-green-500 transform md:scale-105 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-8 text-white relative">
                     <div className="absolute top-4 right-4 bg-yellow-400 text-green-800 text-xs font-bold px-3 py-1 rounded-full">
@@ -172,8 +172,8 @@ export default function InternetAccess() {
                     <div className="text-5xl font-bold mt-2">10 Gb/s</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Débits symétriques garantis jusqu'à 10 Gb/s",
                         "Garantie de temps de rétablissement (GTR)",
@@ -190,7 +190,7 @@ export default function InternetAccess() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Idéal pour entreprises exigeantes
                       </p>
@@ -210,7 +210,7 @@ export default function InternetAccess() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-8 text-white">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
@@ -224,8 +224,8 @@ export default function InternetAccess() {
                     <div className="text-4xl font-bold mt-2">Garantie</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Basculement automatique instantané",
                         "Continuité de service assurée",
@@ -241,7 +241,7 @@ export default function InternetAccess() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Option recommandée pour sécurité
                       </p>
@@ -261,7 +261,7 @@ export default function InternetAccess() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
                   <div className="bg-gradient-to-br from-orange-500 to-amber-600 p-8 text-white">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
@@ -275,8 +275,8 @@ export default function InternetAccess() {
                     <div className="text-4xl font-bold mt-2">150 Mb/s</div>
                   </div>
 
-                  <div className="p-8">
-                    <ul className="space-y-4 mb-8">
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
                       {[
                         "Connexion disponible partout",
                         "Installation rapide (48-72h)",
@@ -292,7 +292,7 @@ export default function InternetAccess() {
                       ))}
                     </ul>
 
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <p className="text-center text-sm text-slate-600 mb-4">
                         Parfait pour lieux isolés
                       </p>

@@ -104,9 +104,9 @@ export default function CloudEnterprise() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
-                  <div className="p-8">
+                  <div className="p-8 flex flex-col flex-grow">
                     <div className="mb-6 relative">
                       <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                         <Server className="h-10 w-10 text-white" />
@@ -117,7 +117,7 @@ export default function CloudEnterprise() {
                     <p className="text-gray-600 mb-6">
                       Infrastructure cloud haute performance avec support complet et supervision 24/7.
                     </p>
-                    <ul className="space-y-3 mb-8">
+                    <ul className="space-y-3 mb-8 flex-grow">
                       {[
                         "Supervision proactive 24/7",
                         "Maintenance préventive incluse",
@@ -131,7 +131,7 @@ export default function CloudEnterprise() {
                         </li>
                       ))}
                     </ul>
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <div className="flex items-center justify-between mb-4">
                         <span className="text-slate-600 text-sm">À partir de</span>
                         <div className="text-right">
@@ -156,9 +156,9 @@ export default function CloudEnterprise() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
-                  <div className="p-8">
+                  <div className="p-8 flex flex-col flex-grow">
                     <div className="mb-6 relative">
                       <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                         <Cloud className="h-10 w-10 text-white" />
@@ -169,7 +169,7 @@ export default function CloudEnterprise() {
                     <p className="text-gray-600 mb-6">
                       Transition en douceur de vos serveurs existants vers le cloud sans interruption.
                     </p>
-                    <ul className="space-y-3 mb-8">
+                    <ul className="space-y-3 mb-8 flex-grow">
                       {[
                         "Audit infrastructure existante",
                         "Plan de migration personnalisé",
@@ -183,7 +183,7 @@ export default function CloudEnterprise() {
                         </li>
                       ))}
                     </ul>
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <div className="flex items-center justify-between mb-4">
                         <span className="text-slate-600 text-sm">Sur devis</span>
                         <div className="text-right">
@@ -208,9 +208,9 @@ export default function CloudEnterprise() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100"
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
                 >
-                  <div className="p-8">
+                  <div className="p-8 flex flex-col flex-grow">
                     <div className="mb-6 relative">
                       <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                         <Database className="h-10 w-10 text-white" />
@@ -221,7 +221,7 @@ export default function CloudEnterprise() {
                     <p className="text-gray-600 mb-6">
                       Le meilleur des deux mondes : combinez cloud et infrastructure on-premise.
                     </p>
-                    <ul className="space-y-3 mb-8">
+                    <ul className="space-y-3 mb-8 flex-grow">
                       {[
                         "Intégration cloud-onprem transparente",
                         "Optimisation des coûts IT",
@@ -235,7 +235,7 @@ export default function CloudEnterprise() {
                         </li>
                       ))}
                     </ul>
-                    <div className="pt-6 border-t border-slate-200">
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
                       <div className="flex items-center justify-between mb-4">
                         <span className="text-slate-600 text-sm">Architecture</span>
                         <div className="text-right">

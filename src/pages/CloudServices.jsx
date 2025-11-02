@@ -71,18 +71,18 @@ export default function CloudServices() {
   return (
     <TekupPageLayout>
       <Helmet>
-        <title>Services Cloud - Microsoft 365, Google Workspace | MDO Services</title>
-        <meta name="description" content="Solutions cloud professionnelles : Microsoft 365, Google Workspace, hébergement et migration cloud. Optimisez votre productivité avec MDO Services." />
-        <meta name="keywords" content="cloud, microsoft 365, google workspace, hébergement cloud, migration cloud, saas, ariège" />
+        <title>Suites Collaboratives - Microsoft 365, Google Workspace | MDO Services</title>
+        <meta name="description" content="Suites collaboratives professionnelles : Microsoft 365, Google Workspace. Optimisez la productivité et la collaboration de vos équipes avec MDO Services." />
+        <meta name="keywords" content="suites collaboratives, microsoft 365, google workspace, productivité, collaboration, saas, ariège, occitanie" />
       </Helmet>
 
       <div className="pt-20">
         {/* Hero Section avec composant Tekup */}
         <SolutionHeroTekup
-          badge="Solutions Cloud"
-          title="Services Cloud Professionnels"
-          subtitle="Propulsez votre entreprise avec nos solutions cloud sur mesure"
-          description="Microsoft 365, Google Workspace, hébergement et migration cloud : nous vous accompagnons dans votre transformation digitale pour plus de productivité et d'agilité."
+          badge="Suites Collaboratives"
+          title="Suites Collaboratives Professionnelles"
+          subtitle="Propulsez votre entreprise avec des outils de collaboration modernes"
+          description="Microsoft 365 et Google Workspace : nous vous accompagnons dans votre transformation digitale pour plus de productivité, de collaboration et d'agilité."
           stats={stats}
           ctaText="Découvrir nos offres"
           ctaLink="#services"
@@ -99,14 +99,14 @@ export default function CloudServices() {
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Nos Solutions Cloud
+                Nos Suites Collaboratives
               </h2>
               <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-                Choisissez la solution qui correspond le mieux à vos besoins
+                Choisissez la suite collaborative qui correspond le mieux à vos besoins
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Microsoft 365 */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -205,70 +205,21 @@ export default function CloudServices() {
                   </Button>
                 </div>
               </motion.div>
-
-              {/* Hébergement & Migration */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 flex flex-col border border-slate-200 dark:border-slate-700 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center mb-6">
-                    <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-400 text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <ServerCog size={32} />
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">
-                    Hébergement & Migration
-                  </h3>
-
-                  <p className="text-slate-600 dark:text-slate-300 mb-6 flex-grow leading-relaxed">
-                    Solutions d'hébergement performantes et migration sécurisée de vos infrastructures vers le cloud privé ou public.
-                  </p>
-
-                  <div className="mb-6 space-y-2">
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-purple-500" />
-                      <span>Serveurs cloud infogérés</span>
-                    </div>
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-purple-500" />
-                      <span>Migration sans interruption</span>
-                    </div>
-                    <div className="flex items-center text-sm text-slate-600 dark:text-slate-300">
-                      <ChevronRight className="w-4 h-4 mr-2 text-purple-500" />
-                      <span>Support et maintenance 24/7</span>
-                    </div>
-                  </div>
-
-                  <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white transition-all duration-300 transform group-hover:scale-105 shadow-lg hover:shadow-xl">
-                    <Link to="/cloud-enterprise">
-                      En savoir plus
-                      <ChevronRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </motion.div>
             </div>
           </div>
         </section>
 
         {/* Section Features avec composant Tekup */}
         <FeaturesSectionTekup
-          title="Pourquoi choisir nos services cloud ?"
-          subtitle="Des solutions complètes pour votre transformation digitale"
+          title="Pourquoi choisir nos suites collaboratives ?"
+          subtitle="Des solutions complètes pour optimiser la productivité de vos équipes"
           features={features}
         />
 
         {/* Section CTA avec composant Tekup */}
         <CTASectionTekup
-          title="Prêt à passer au cloud ?"
-          description="Discutons de vos besoins et trouvons ensemble la solution cloud idéale pour votre entreprise."
+          title="Prêt à optimiser votre collaboration ?"
+          description="Discutons de vos besoins et trouvons ensemble la suite collaborative idéale pour votre entreprise."
           primaryButtonText="Demander un devis"
           primaryButtonLink="/contact"
           secondaryButtonText="Nous appeler"

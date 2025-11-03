@@ -52,6 +52,8 @@ try {
     $cover_image_url = isset($input['cover_image_url']) ? sanitizeString($input['cover_image_url']) : null;
     $author_name = isset($input['author_name']) ? sanitizeString($input['author_name']) : $auth['user']['username'];
     $published_at = isset($input['published_at']) && !empty($input['published_at']) ? $input['published_at'] : null;
+    $category_id = isset($input['category_id']) && !empty($input['category_id']) ? intval($input['category_id']) : null;
+    $tag_ids = isset($input['tag_ids']) && is_array($input['tag_ids']) ? $input['tag_ids'] : [];
 
     // Validate slug format (lowercase, hyphens, no spaces)
     if (!preg_match('/^[a-z0-9-]+$/', $slug)) {
@@ -67,8 +69,8 @@ try {
     }
 
     // Insert post
-    $sql = "INSERT INTO posts (slug, title, excerpt, content, cover_image_url, author_name, published_at)
-            VALUES (:slug, :title, :excerpt, :content, :cover_image_url, :author_name, :published_at)";
+    $sql = "INSERT INTO posts (slug, title, excerpt, content, cover_image_url, author_name, category_id, published_at)
+            VALUES (:slug, :title, :excerpt, :content, :cover_image_url, :author_name, :category_id, :published_at)";
 
     $params = [
         'slug' => $slug,
@@ -77,11 +79,21 @@ try {
         'content' => $content,
         'cover_image_url' => $cover_image_url,
         'author_name' => $author_name,
+        'category_id' => $category_id,
         'published_at' => $published_at
     ];
 
     $db->execute($sql, $params);
     $postId = $db->lastInsertId();
+
+    // Insert tags
+    foreach ($tag_ids as $tagId) {
+        $tagId = intval($tagId);
+        $db->execute(
+            "INSERT IGNORE INTO post_tags (post_id, tag_id) VALUES (:post_id, :tag_id)",
+            ['post_id' => $postId, 'tag_id' => $tagId]
+        );
+    }
 
     // Get created post
     $post = $db->queryOne("SELECT * FROM posts WHERE id = :id", ['id' => $postId]);

@@ -27,11 +27,13 @@ try {
 
     $db = new Database();
 
-    // Query to get post by slug
-    $sql = "SELECT id, slug, title, excerpt, content, cover_image_url,
-                   author_name, published_at, created_at, updated_at
-            FROM posts
-            WHERE slug = :slug
+    // Query to get post by slug with category info
+    $sql = "SELECT p.id, p.slug, p.title, p.excerpt, p.content, p.cover_image_url,
+                   p.author_name, p.category_id, p.published_at, p.created_at, p.updated_at,
+                   c.name as category_name, c.slug as category_slug, c.color as category_color
+            FROM posts p
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.slug = :slug
             LIMIT 1";
 
     $post = $db->queryOne($sql, ['slug' => $slug]);
@@ -45,6 +47,17 @@ try {
     if ($post['published_at'] === null) {
         sendError('Post not published', 404);
     }
+
+    // Get tags
+    $tags = $db->query(
+        "SELECT t.id, t.name, t.slug
+         FROM tags t
+         INNER JOIN post_tags pt ON t.id = pt.tag_id
+         WHERE pt.post_id = :post_id
+         ORDER BY t.name ASC",
+        ['post_id' => $post['id']]
+    );
+    $post['tags'] = $tags;
 
     // Return post
     sendSuccess($post);

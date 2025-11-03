@@ -38,6 +38,9 @@ import BlogPage from "@/pages/BlogPage"
 import BlogPostPage from "@/pages/BlogPostPage"
 import BlogAdmin from "@/pages/partner/BlogAdmin"
 import BlogPostForm from "@/pages/partner/BlogPostForm"
+import CategoriesAdmin from "@/pages/partner/CategoriesAdmin"
+import TagsAdmin from "@/pages/partner/TagsAdmin"
+import BlogImport from "@/pages/partner/BlogImport"
 import ClientUsersAdmin from "@/pages/client/UsersAdmin"
 import PartnerUsersAdmin from "@/pages/partner/UsersAdmin"
 
@@ -93,6 +96,9 @@ export function AppRoutes() {
       <Route path="/partner/blog" element={<BlogAdmin />} />
       <Route path="/partner/blog/new" element={<BlogPostForm />} />
       <Route path="/partner/blog/edit/:id" element={<BlogPostForm />} />
+      <Route path="/partner/blog/categories" element={<CategoriesAdmin />} />
+      <Route path="/partner/blog/tags" element={<TagsAdmin />} />
+      <Route path="/partner/blog/import" element={<BlogImport />} />
       <Route path="/partner/users" element={<PartnerUsersAdmin />} />
       <Route path="/client/users" element={<ClientUsersAdmin />} />
       <Route path="/partner/forgot-password" element={<ForgotPassword />} />

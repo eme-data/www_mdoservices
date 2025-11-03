@@ -1,0 +1,38 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Allow API directory to execute PHP files (don't redirect to index.html)
+  RewriteCond %{REQUEST_URI} ^/api/ [NC]
+  RewriteRule ^ - [L]
+
+  # SPA routing (serve index.html for all non-file requests)
+  # This excludes the api directory
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/api/ [NC]
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Powered-By "Hostinger Horizons"
+
+  # Cache everything on CDN by default
+  Header set Cache-Control "public, s-maxage=604800, max-age=0"
+
+  # Cache in browser all assets
+  <If "%{REQUEST_URI} =~ m#^/assets/.*$#">
+    Header set Cache-Control "public, max-age=604800"
+  </If>
+
+  # Don't cache API responses
+  <If "%{REQUEST_URI} =~ m#^/api/.*$#">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  </If>
+</IfModule>
+
+# Allow PHP execution in api directory
+<IfModule mod_php.c>
+  php_flag display_errors Off
+  php_value error_reporting 0
+</IfModule>

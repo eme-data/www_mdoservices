@@ -32,18 +32,30 @@ if (!$auth['user']['is_admin']) {
 try {
     $db = new Database();
 
-    // Query to get ALL posts (published and drafts)
-    // Ordered by created_at descending (most recent first)
-    $sql = "SELECT id, slug, title, excerpt, content, cover_image_url,
-                   author_name, published_at, created_at, updated_at
-            FROM posts
-            ORDER BY created_at DESC";
+    // Query to get ALL posts with category info
+    $sql = "SELECT p.id, p.slug, p.title, p.excerpt, p.content, p.cover_image_url,
+                   p.author_name, p.category_id, p.published_at, p.created_at, p.updated_at,
+                   c.name as category_name, c.slug as category_slug, c.color as category_color
+            FROM posts p
+            LEFT JOIN categories c ON p.category_id = c.id
+            ORDER BY p.created_at DESC";
 
     $posts = $db->query($sql);
 
-    // Add status field for easier frontend handling
+    // Add status field and tags for each post
     foreach ($posts as &$post) {
         $post['status'] = $post['published_at'] ? 'published' : 'draft';
+
+        // Get tags
+        $tags = $db->query(
+            "SELECT t.id, t.name, t.slug
+             FROM tags t
+             INNER JOIN post_tags pt ON t.id = pt.tag_id
+             WHERE pt.post_id = :post_id
+             ORDER BY t.name ASC",
+            ['post_id' => $post['id']]
+        );
+        $post['tags'] = $tags;
     }
 
     sendSuccess($posts);

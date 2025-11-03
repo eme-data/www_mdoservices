@@ -20,15 +20,29 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 try {
     $db = new Database();
 
-    // Query to get all published posts (only posts with published_at set)
-    // Ordered by published_at descending (most recent first)
-    $sql = "SELECT id, slug, title, excerpt, content, cover_image_url,
-                   author_name, published_at, created_at, updated_at
-            FROM posts
-            WHERE published_at IS NOT NULL
-            ORDER BY published_at DESC";
+    // Query to get all published posts with category info
+    $sql = "SELECT p.id, p.slug, p.title, p.excerpt, p.content, p.cover_image_url,
+                   p.author_name, p.category_id, p.published_at, p.created_at, p.updated_at,
+                   c.name as category_name, c.slug as category_slug, c.color as category_color
+            FROM posts p
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.published_at IS NOT NULL
+            ORDER BY p.published_at DESC";
 
     $posts = $db->query($sql);
+
+    // Add tags to each post
+    foreach ($posts as &$post) {
+        $tags = $db->query(
+            "SELECT t.id, t.name, t.slug
+             FROM tags t
+             INNER JOIN post_tags pt ON t.id = pt.tag_id
+             WHERE pt.post_id = :post_id
+             ORDER BY t.name ASC",
+            ['post_id' => $post['id']]
+        );
+        $post['tags'] = $tags;
+    }
 
     // Return posts
     sendSuccess($posts);

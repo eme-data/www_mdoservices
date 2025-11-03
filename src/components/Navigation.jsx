@@ -18,7 +18,7 @@ const navItems = [
       { name: "Infogérance Premium", path: "/premium-management" },
     ]
   },
-  // { name: "Blog", path: "/blog" }, // 🔹 BLOG DÉSACTIVÉ - Décommenter pour réactiver
+  { name: "Blog", path: "/blog" },
   { name: "Contact", path: "/contact" },
 ]
 

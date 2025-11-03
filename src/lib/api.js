@@ -325,6 +325,189 @@ export async function updatePricingOrder(items) {
 }
 
 // ============================================================
+// Categories API
+// ============================================================
+
+/**
+ * Fetch all categories
+ * @returns {Promise<Array>}
+ */
+export async function fetchCategories() {
+  const data = await apiRequest('/categories/list', {
+    method: 'GET',
+  });
+
+  return data;
+}
+
+/**
+ * Create new category - Admin only
+ * @param {object} category
+ * @returns {Promise<object>}
+ */
+export async function createCategory(category) {
+  const data = await apiRequest('/categories/create', {
+    method: 'POST',
+    body: JSON.stringify(category),
+  });
+
+  return data;
+}
+
+/**
+ * Update category - Admin only
+ * @param {number} id
+ * @param {object} updates
+ * @returns {Promise<object>}
+ */
+export async function updateCategory(id, updates) {
+  const data = await apiRequest('/categories/update', {
+    method: 'POST',
+    body: JSON.stringify({ id, ...updates }),
+  });
+
+  return data;
+}
+
+/**
+ * Delete category - Admin only
+ * @param {number} id
+ * @returns {Promise<void>}
+ */
+export async function deleteCategory(id) {
+  await apiRequest('/categories/delete', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+  });
+}
+
+// ============================================================
+// Tags API
+// ============================================================
+
+/**
+ * Fetch all tags
+ * @returns {Promise<Array>}
+ */
+export async function fetchTags() {
+  const data = await apiRequest('/tags/list', {
+    method: 'GET',
+  });
+
+  return data;
+}
+
+/**
+ * Create new tag - Admin only
+ * @param {object} tag
+ * @returns {Promise<object>}
+ */
+export async function createTag(tag) {
+  const data = await apiRequest('/tags/create', {
+    method: 'POST',
+    body: JSON.stringify(tag),
+  });
+
+  return data;
+}
+
+/**
+ * Delete tag - Admin only
+ * @param {number} id
+ * @returns {Promise<void>}
+ */
+export async function deleteTag(id) {
+  await apiRequest('/tags/delete', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+  });
+}
+
+// ============================================================
+// Media API
+// ============================================================
+
+/**
+ * Upload an image file
+ * @param {File} file
+ * @returns {Promise<object>}
+ */
+export async function uploadMedia(file) {
+  const url = `${API_BASE_URL}/media/upload`;
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const token = getAuthToken();
+  const headers = {};
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(data.error || `HTTP ${response.status}`);
+    error.status = response.status;
+    error.data = data;
+    throw error;
+  }
+
+  return data.data !== undefined ? data.data : data;
+}
+
+/**
+ * Fetch all media files
+ * @param {number} limit
+ * @param {number} offset
+ * @returns {Promise<object>}
+ */
+export async function fetchMedia(limit = 50, offset = 0) {
+  const data = await apiRequest(`/media/list?limit=${limit}&offset=${offset}`, {
+    method: 'GET',
+  });
+
+  return data;
+}
+
+/**
+ * Delete media file - Admin only
+ * @param {number} id
+ * @returns {Promise<void>}
+ */
+export async function deleteMedia(id) {
+  await apiRequest('/media/delete', {
+    method: 'POST',
+    body: JSON.stringify({ id }),
+  });
+}
+
+// ============================================================
+// Import API
+// ============================================================
+
+/**
+ * Bulk import posts from JSON - Admin only
+ * @param {Array} posts
+ * @param {boolean} skipDuplicates
+ * @returns {Promise<object>}
+ */
+export async function bulkImportPosts(posts, skipDuplicates = true) {
+  const data = await apiRequest('/import/bulk', {
+    method: 'POST',
+    body: JSON.stringify({ posts, skip_duplicates: skipDuplicates }),
+  });
+
+  return data;
+}
+
+// ============================================================
 // Backward compatibility with old localStorage auth
 // ============================================================
 

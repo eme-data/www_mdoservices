@@ -1,15 +1,15 @@
 import React from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Link from '@tiptap/extension-link'
-import Image from '@tiptap/extension-image'
-import Table from '@tiptap/extension-table'
-import TableRow from '@tiptap/extension-table-row'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import Underline from '@tiptap/extension-underline'
-import TextAlign from '@tiptap/extension-text-align'
-import Highlight from '@tiptap/extension-highlight'
+import TiptapLink from '@tiptap/extension-link'
+import TiptapImage from '@tiptap/extension-image'
+import TiptapTable from '@tiptap/extension-table'
+import TiptapTableRow from '@tiptap/extension-table-row'
+import TiptapTableCell from '@tiptap/extension-table-cell'
+import TiptapTableHeader from '@tiptap/extension-table-header'
+import TiptapUnderline from '@tiptap/extension-underline'
+import TiptapTextAlign from '@tiptap/extension-text-align'
+import TiptapHighlight from '@tiptap/extension-highlight'
 import {
   Bold,
   Italic,
@@ -42,28 +42,28 @@ export function TiptapEditor({ content, onChange, placeholder = 'Commencez à é
           levels: [1, 2, 3, 4, 5, 6],
         },
       }),
-      Link.configure({
+      TiptapLink.configure({
         openOnClick: false,
         HTMLAttributes: {
           class: 'text-blue-600 hover:underline',
         },
       }),
-      Image.configure({
+      TiptapImage.configure({
         HTMLAttributes: {
           class: 'max-w-full h-auto rounded-lg',
         },
       }),
-      Table.configure({
+      TiptapTable.configure({
         resizable: true,
       }),
-      TableRow,
-      TableHeader,
-      TableCell,
-      Underline,
-      TextAlign.configure({
+      TiptapTableRow,
+      TiptapTableHeader,
+      TiptapTableCell,
+      TiptapUnderline,
+      TiptapTextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
-      Highlight.configure({
+      TiptapHighlight.configure({
         multicolor: true,
       }),
     ],

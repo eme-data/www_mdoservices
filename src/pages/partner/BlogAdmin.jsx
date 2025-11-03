@@ -10,7 +10,11 @@ import {
   Loader2,
   FileText,
   Calendar,
-  User
+  User,
+  Search,
+  Filter,
+  Settings,
+  Upload
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { fetchAllPosts, deletePost, updatePost } from '@/lib/api'
@@ -18,13 +22,43 @@ import { PartnerNav } from '@/components/partner/PartnerNav'
 
 export default function BlogAdmin() {
   const [posts, setPosts] = useState([])
+  const [filteredPosts, setFilteredPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
   const navigate = useNavigate()
 
   useEffect(() => {
     loadPosts()
   }, [])
+
+  useEffect(() => {
+    filterPosts()
+  }, [posts, searchQuery, statusFilter])
+
+  const filterPosts = () => {
+    let filtered = [...posts]
+
+    // Search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(post =>
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt?.toLowerCase().includes(query) ||
+        post.author_name?.toLowerCase().includes(query)
+      )
+    }
+
+    // Status filter
+    if (statusFilter === 'published') {
+      filtered = filtered.filter(post => post.published_at)
+    } else if (statusFilter === 'draft') {
+      filtered = filtered.filter(post => !post.published_at)
+    }
+
+    setFilteredPosts(filtered)
+  }
 
   const loadPosts = async () => {
     try {
@@ -106,24 +140,72 @@ export default function BlogAdmin() {
           transition={{ duration: 0.5 }}
         >
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Gestion du Blog</h1>
             <p className="text-gray-600 mt-2">
-              {posts.length} article{posts.length > 1 ? 's' : ''}
+              {filteredPosts.length} / {posts.length} article{posts.length > 1 ? 's' : ''}
             </p>
           </div>
-          <Button
-            onClick={() => navigate('/partner/blog/new')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Nouvel Article
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => navigate('/partner/blog/categories')}
+            >
+              <Settings className="w-4 h-4 mr-2" />
+              Catégories
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/partner/blog/tags')}
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              Tags
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/partner/blog/import')}
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Import
+            </Button>
+            <Button
+              onClick={() => navigate('/partner/blog/new')}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Nouvel Article
+            </Button>
+          </div>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="bg-white rounded-lg shadow p-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Rechercher par titre, extrait ou auteur..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="all">Tous les statuts</option>
+              <option value="published">Publiés</option>
+              <option value="draft">Brouillons</option>
+            </select>
+          </div>
         </div>
 
         {/* Posts List */}
-        {posts.length === 0 ? (
+        {filteredPosts.length === 0 ? (
           <div className="text-center py-12 bg-gray-50 rounded-lg">
             <FileText className="w-12 h-12 mx-auto text-gray-400 mb-4" />
             <p className="text-gray-600 text-lg mb-4">Aucun article pour le moment</p>
@@ -157,7 +239,7 @@ export default function BlogAdmin() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {posts.map((post) => (
+                {filteredPosts.map((post) => (
                   <tr key={post.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center">

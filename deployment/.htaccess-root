@@ -12,15 +12,17 @@ RewriteCond %{SCRIPT_FILENAME} -d [OR]
 RewriteCond %{SCRIPT_FILENAME} -f
 RewriteRule "(^|/)\." - [F]
 
-# API Routes - Pass through to /api directory
-RewriteRule ^api/(.*)$ api/$1 [L,QSA]
+# API Routes - Allow PHP execution (don't redirect to index.html)
+RewriteCond %{REQUEST_URI} ^/api/ [NC]
+RewriteRule ^ - [L]
 
 # Static files - serve directly if they exist
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# React Router - All other requests go to index.html
+# React Router - All other requests go to index.html (excludes /api/)
+RewriteCond %{REQUEST_URI} !^/api/ [NC]
 RewriteRule ^ index.html [L]
 
 # Set UTF-8 encoding
@@ -93,6 +95,13 @@ Options -Indexes
         Header set Pragma "no-cache"
         Header set Expires 0
     </FilesMatch>
+
+    # Don't cache API responses
+    <If "%{REQUEST_URI} =~ m#^/api/.*$#">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </If>
 </IfModule>
 
 # MIME types

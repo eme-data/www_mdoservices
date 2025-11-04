@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Camera, Shield, Eye, Monitor, Cloud, CheckCircle2, AlertTriangle, Clock, Smartphone, Lock, HardDrive, Wifi } from "lucide-react"
+import { Camera, Shield, Eye, Monitor, Cloud, CheckCircle2, AlertTriangle, Clock, Smartphone, Lock, HardDrive, Wifi, KeyRound, DoorOpen, Fingerprint } from "lucide-react"
 import BackButton from "@/components/BackButton"
 import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { SolutionHeroTekup } from "@/components/tekup/SolutionHeroTekup"
@@ -17,9 +17,15 @@ export default function Videosurveillance() {
       color: "blue"
     },
     {
+      icon: KeyRound,
+      title: "Contrôle d'Accès Intelligent",
+      description: "Gérez les accès à vos locaux avec badges, codes, biométrie et traçabilité complète des entrées/sorties.",
+      color: "cyan"
+    },
+    {
       icon: Shield,
       title: "Sécurité Renforcée",
-      description: "Protégez vos biens et vos équipes avec des systèmes de vidéosurveillance professionnels dernière génération.",
+      description: "Protégez vos biens et vos équipes avec des systèmes de vidéosurveillance et contrôle d'accès dernière génération.",
       color: "purple"
     },
     {
@@ -29,15 +35,21 @@ export default function Videosurveillance() {
       color: "green"
     },
     {
-      icon: Smartphone,
-      title: "Accès Mobile",
-      description: "Consultez vos caméras en temps réel depuis votre smartphone, tablette ou ordinateur où que vous soyez.",
+      icon: Fingerprint,
+      title: "Authentification Biométrique",
+      description: "Reconnaissance faciale, empreintes digitales et badges RFID pour un contrôle d'accès haute sécurité.",
       color: "orange"
     },
     {
+      icon: Smartphone,
+      title: "Gestion Centralisée",
+      description: "Pilotez vidéosurveillance et contrôle d'accès depuis une interface unique sur smartphone, tablette ou PC.",
+      color: "teal"
+    },
+    {
       icon: AlertTriangle,
-      title: "Détection Intelligente",
-      description: "Alertes instantanées en cas de mouvement suspect avec intelligence artificielle et analyse comportementale.",
+      title: "Alertes Intelligentes",
+      description: "Notifications instantanées en cas d'intrusion, accès non autorisé ou comportement suspect.",
       color: "red"
     },
     {
@@ -49,7 +61,7 @@ export default function Videosurveillance() {
   ]
 
   const handleContact = () => {
-    window.location.href = "mailto:contact@mdoservices.fr?subject=Demande d'information Vidéosurveillance"
+    window.location.href = "mailto:contact@mdoservices.fr?subject=Demande d'information Vidéosurveillance & Contrôle d'Accès"
   }
 
   return (
@@ -60,9 +72,9 @@ export default function Videosurveillance() {
         <main className="pt-0">
           {/* Hero Section */}
           <SolutionHeroTekup
-            badge="Vidéosurveillance Professionnelle"
-            title="Sécurisez vos locaux avec des <span class='bg-gradient-to-r from-indigo-400 to-purple-600 bg-clip-text text-transparent'>systèmes de surveillance</span> intelligents"
-            description="Solutions de vidéosurveillance sur mesure pour entreprises : caméras IP haute définition, enregistrement cloud, détection intelligente et accès à distance. Protégez votre activité 24h/24."
+            badge="Vidéosurveillance & Contrôle d'Accès"
+            title="Sécurisez vos locaux avec des <span class='bg-gradient-to-r from-indigo-400 to-purple-600 bg-clip-text text-transparent'>solutions de sécurité</span> intelligentes"
+            description="Solutions complètes pour entreprises : caméras IP 4K, enregistrement cloud, contrôle d'accès biométrique, badges RFID et gestion centralisée. Protégez votre activité et contrôlez les accès 24h/24."
             primaryCTA={{
               text: "Demander un Devis",
               onClick: handleContact
@@ -73,8 +85,8 @@ export default function Videosurveillance() {
             }}
             stats={[
               { value: "4K", label: "Résolution Ultra HD" },
+              { value: "RFID", label: "Badges & Biométrie" },
               { value: "24/7", label: "Surveillance Continue" },
-              { value: "30j", label: "Conservation Cloud" },
               { value: "100%", label: "Conforme RGPD" }
             ]}
           />
@@ -90,14 +102,14 @@ export default function Videosurveillance() {
                 className="text-center mb-16"
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Nos Solutions de Vidéosurveillance
+                  Nos Solutions de Sécurité
                 </h2>
                 <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-                  Des systèmes adaptés à tous les besoins : commerce, bureaux, entrepôt, industrie
+                  Vidéosurveillance et contrôle d'accès adaptés à tous les besoins : commerce, bureaux, entrepôt, industrie
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {/* Caméras IP Card */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -254,6 +266,57 @@ export default function Videosurveillance() {
                     </div>
                   </div>
                 </motion.div>
+
+                {/* Contrôle d'Accès Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col"
+                >
+                  <div className="bg-gradient-to-br from-amber-500 to-orange-600 p-8 text-white">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
+                      <KeyRound className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">Contrôle d'Accès</h3>
+                    <p className="text-amber-100 mb-4">
+                      Gestion intelligente des accès
+                    </p>
+                    <div className="text-3xl font-bold">Badges</div>
+                    <div className="text-4xl font-bold mt-2">& Biométrie</div>
+                  </div>
+
+                  <div className="p-8 flex flex-col h-full">
+                    <ul className="space-y-4 mb-8 flex-grow">
+                      {[
+                        "Badges RFID & codes PIN",
+                        "Reconnaissance faciale",
+                        "Empreintes digitales",
+                        "Historique traçable complet",
+                        "Gestion des droits d'accès",
+                        "Intégration vidéosurveillance"
+                      ].map((feature, i) => (
+                        <li key={i} className="flex items-start">
+                          <CheckCircle2 className="h-5 w-5 text-amber-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-700 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="pt-6 border-t border-slate-200 mt-auto">
+                      <p className="text-center text-sm text-slate-600 mb-4">
+                        Sécurité et traçabilité maximales
+                      </p>
+                      <Button
+                        onClick={handleContact}
+                        className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white"
+                      >
+                        Demander un devis
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
               {/* Avantages Section */}
@@ -266,7 +329,7 @@ export default function Videosurveillance() {
               >
                 <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 md:p-12 border border-indigo-200">
                   <h3 className="text-2xl md:text-3xl font-bold text-center mb-8 text-slate-800">
-                    Pourquoi choisir nos solutions de vidéosurveillance ?
+                    Pourquoi choisir nos solutions de sécurité ?
                   </h3>
                   <div className="grid md:grid-cols-3 gap-8">
                     <div className="text-center">
@@ -304,8 +367,8 @@ export default function Videosurveillance() {
 
           {/* Features Section */}
           <FeaturesSectionTekup
-            title="Tous les avantages de nos systèmes de vidéosurveillance"
-            subtitle="Une protection complète pour sécuriser votre entreprise et vos équipes"
+            title="Tous les avantages de nos solutions de sécurité"
+            subtitle="Vidéosurveillance et contrôle d'accès pour une protection complète de votre entreprise"
             features={videoFeatures}
           />
 
@@ -313,7 +376,7 @@ export default function Videosurveillance() {
           <CTASectionTekup
             badge="Sécurisez votre entreprise"
             title="Demandez votre audit sécurité gratuit"
-            description="Nos experts analysent vos besoins en vidéosurveillance et vous proposent une solution sur mesure avec un devis détaillé et transparent."
+            description="Nos experts analysent vos besoins en vidéosurveillance et contrôle d'accès, puis vous proposent une solution complète sur mesure avec un devis détaillé et transparent."
             primaryCTA={{
               text: "Demander un Audit Gratuit",
               onClick: handleContact

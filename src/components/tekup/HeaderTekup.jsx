@@ -32,7 +32,7 @@ const navItems = [
       { name: "Accès Internet", path: "/internet-access", icon: Wifi },
       { name: "Cloud Entreprise", path: "/cloud-entreprise", icon: CloudCog },
       { name: "Infrastructure Réseaux & WiFi", path: "/infrastructure-reseaux", icon: Network },
-      { name: "Vidéosurveillance", path: "/videosurveillance", icon: Camera },
+      { name: "Vidéosurveillance & Contrôle d'Accès", path: "/videosurveillance", icon: Camera },
       { name: "Intégration IA", path: "/integration-ia", icon: Brain },
     ]
   },

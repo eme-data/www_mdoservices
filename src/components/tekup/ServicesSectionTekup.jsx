@@ -63,7 +63,7 @@ const services = [
   {
     icon: Mail,
     title: "Cloud Entreprise",
-    description: "Infrastructure cloud sur mesure pour vos applications critiques",
+    description: "Infrastructure cloud sur mesure hébergée en France avec redondance datacenter Europe",
     link: "/cloud-entreprise",
     color: "from-pink-500 to-rose-500",
     bgColor: "bg-pink-50",

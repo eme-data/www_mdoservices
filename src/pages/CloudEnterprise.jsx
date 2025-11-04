@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Server, Cloud, Shield, Database, Network, Zap, Lock, TrendingUp, HeadphonesIcon, Award, CheckCircle } from "lucide-react"
+import { Server, Cloud, Shield, Database, Network, Zap, Lock, TrendingUp, HeadphonesIcon, Award, CheckCircle, MapPin } from "lucide-react"
 import BackButton from "@/components/BackButton"
 import { TekupPageLayout } from "@/components/layout/TekupPageLayout"
 import { SolutionHeroTekup } from "@/components/tekup/SolutionHeroTekup"
@@ -11,10 +11,16 @@ import { CTASectionTekup } from "@/components/tekup/CTASectionTekup"
 export default function CloudEnterprise() {
   const cloudFeatures = [
     {
+      icon: MapPin,
+      title: "🇫🇷 Hébergement en France",
+      description: "Données hébergées en France avec redondance dans des datacenters européens certifiés. Souveraineté et conformité RGPD garanties.",
+      color: "blue"
+    },
+    {
       icon: Server,
       title: "Infrastructure Scalable",
       description: "Ressources cloud évolutives qui s'adaptent automatiquement à vos besoins croissants.",
-      color: "blue"
+      color: "cyan"
     },
     {
       icon: Shield,
@@ -62,7 +68,7 @@ export default function CloudEnterprise() {
           <SolutionHeroTekup
             badge="Cloud Entreprise"
             title="Transformez votre infrastructure avec le <span class='bg-gradient-to-r from-blue-400 to-cyan-600 bg-clip-text text-transparent'>cloud professionnel</span>"
-            description="Déployez vos applications critiques sur une infrastructure cloud haute performance, sécurisée et supervisée 24/7. Migration, hébergement et infogérance par nos experts certifiés."
+            description="Déployez vos applications critiques sur une infrastructure cloud haute performance hébergée en France avec redondance en datacenters européens. Sécurité, souveraineté et supervision 24/7 par nos experts certifiés."
             primaryCTA={{
               text: "Demander une Consultation",
               onClick: handleContact
@@ -72,10 +78,10 @@ export default function CloudEnterprise() {
               link: "#services"
             }}
             stats={[
+              { value: "🇫🇷", label: "Hébergé en France" },
               { value: "99.9%", label: "Uptime Garanti" },
-              { value: "< 15min", label: "Déploiement VM" },
               { value: "24/7", label: "Support & Supervision" },
-              { value: "100%", label: "Infogéré" }
+              { value: "100%", label: "Sécurisé RGPD" }
             ]}
           />
 
@@ -115,15 +121,15 @@ export default function CloudEnterprise() {
                     </div>
                     <h3 className="text-2xl font-bold mb-3 text-slate-800">Serveurs Cloud Infogérés</h3>
                     <p className="text-gray-600 mb-6">
-                      Infrastructure cloud haute performance avec support complet et supervision 24/7.
+                      Infrastructure cloud haute performance hébergée en France avec support complet et supervision 24/7.
                     </p>
                     <ul className="space-y-3 mb-8 flex-grow">
                       {[
+                        "🇫🇷 Hébergement France + redondance EU",
                         "Supervision proactive 24/7",
                         "Maintenance préventive incluse",
                         "Sauvegardes automatisées quotidiennes",
-                        "Support technique dédié prioritaire",
-                        "Scalabilité à la demande"
+                        "Support technique dédié prioritaire"
                       ].map((feature, i) => (
                         <li key={i} className="flex items-start">
                           <CheckCircle className="h-5 w-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />

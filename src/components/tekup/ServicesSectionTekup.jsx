@@ -165,8 +165,8 @@ function ServiceCard({ service, index }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Link to={service.link} className="block group">
-        <div className="relative h-full bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
+      <Link to={service.link} className="block group h-full">
+        <div className="relative h-full min-h-[380px] bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col">
           {/* Gradient Overlay on Hover */}
           <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
 
@@ -180,16 +180,16 @@ function ServiceCard({ service, index }) {
           </div>
 
           {/* Content */}
-          <div className="relative">
+          <div className="relative flex-1 flex flex-col">
             <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
               {service.title}
             </h3>
-            <p className="text-gray-600 mb-6 leading-relaxed">
+            <p className="text-gray-600 mb-6 leading-relaxed flex-1">
               {service.description}
             </p>
 
             {/* CTA */}
-            <div className="flex items-center gap-2 text-blue-600 font-semibold group">
+            <div className="flex items-center gap-2 text-blue-600 font-semibold group mt-auto">
               <span>En savoir plus</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
             </div>

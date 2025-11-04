@@ -80,8 +80,8 @@ const services = [
   },
   {
     icon: Camera,
-    title: "Vidéosurveillance",
-    description: "Systèmes de surveillance intelligents avec enregistrement cloud et accès à distance",
+    title: "Vidéosurveillance & Contrôle d'Accès",
+    description: "Solutions complètes : caméras 4K, enregistrement cloud, badges RFID et biométrie",
     link: "/videosurveillance",
     color: "from-violet-500 to-purple-500",
     bgColor: "bg-violet-50",

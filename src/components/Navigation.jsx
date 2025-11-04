@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/Logo"
-import { Menu, X, ChevronDown, Briefcase, Cloud, ShieldCheck, PhoneCall, Newspaper, Users } from "lucide-react"
+import { Menu, X, ChevronDown, Briefcase, Cloud, ShieldCheck, PhoneCall, Newspaper, Users, Camera } from "lucide-react"
 
 const navItems = [
   { name: "Accueil", path: "/" },
@@ -16,6 +16,7 @@ const navItems = [
       { name: "Cybersécurité", path: "/cybersecurity" },
       { name: "Solutions Télécom", path: "/solutions-telecom" },
       { name: "Infogérance Premium", path: "/premium-management" },
+      { name: "Vidéosurveillance & Contrôle d'Accès", path: "/videosurveillance" },
     ]
   },
   { name: "Blog", path: "/blog" },
@@ -28,6 +29,7 @@ const iconMap = {
   "Cybersécurité": ShieldCheck,
   "Solutions Télécom": PhoneCall,
   "Infogérance Premium": Users,
+  "Vidéosurveillance & Contrôle d'Accès": Camera,
 }
 
 export default function Navigation() {

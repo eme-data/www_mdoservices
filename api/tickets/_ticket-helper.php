@@ -47,7 +47,10 @@ function generateTicketNumber($pdo) {
  * @return array|false Retourne les données utilisateur ou false
  */
 function checkAuthentication() {
-    session_start();
+    // Démarrer la session seulement si elle n'est pas déjà démarrée
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if (!isset($_SESSION['user_id'])) {
         return false;

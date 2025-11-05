@@ -160,6 +160,40 @@ try {
         'message' => "Ticket créé par le client."
     ]);
 
+    // Envoyer les emails de notification
+    try {
+        require_once __DIR__ . '/../lib/SimpleMailer.php';
+        $mailer = new SimpleMailer();
+
+        // Récupérer l'email du client depuis la table users
+        $stmtUser = $pdo->prepare("SELECT email, username FROM users WHERE id = ?");
+        $stmtUser->execute([$user['user_id']]);
+        $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+        if ($userData && !empty($userData['email'])) {
+            // Envoyer l'email au client
+            $mailer->sendTicketCreationClient(
+                $ticket,
+                $userData['email'],
+                $userData['username']
+            );
+
+            // Envoyer l'email à l'équipe support
+            $mailer->sendTicketCreationSupport(
+                $ticket,
+                $userData['username'],
+                $userData['email']
+            );
+
+            error_log("Emails de notification envoyés pour le ticket " . $ticket['ticket_number']);
+        } else {
+            error_log("Impossible d'envoyer les emails : email client non trouvé (user_id: " . $user['user_id'] . ")");
+        }
+    } catch (Exception $emailException) {
+        // Ne pas bloquer la création du ticket si l'envoi d'email échoue
+        error_log("Erreur lors de l'envoi des emails de notification : " . $emailException->getMessage());
+    }
+
     sendJsonResponse(201, [
         'success' => true,
         'message' => 'Ticket créé avec succès.',

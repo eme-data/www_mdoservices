@@ -69,14 +69,22 @@ try {
         sendError(403, "Accès refusé. Vous n'avez pas les droits pour modifier ce ticket.");
     }
 
-    // Récupérer le ticket
-    $stmt = $pdo->prepare("SELECT id, status FROM tickets WHERE id = ?");
+    // Récupérer le ticket avec toutes ses données
+    $stmt = $pdo->prepare("
+        SELECT t.*, u.email, u.username
+        FROM tickets t
+        JOIN users u ON t.user_id = u.id
+        WHERE t.id = ?
+    ");
     $stmt->execute([$ticketId]);
     $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$ticket) {
         sendError(404, "Ticket non trouvé.");
     }
+
+    // Sauvegarder l'ancien statut pour la notification email
+    $oldStatus = $ticket['status'];
 
     // Construire la requête de mise à jour
     $sql = "UPDATE tickets SET status = :status, updated_at = NOW()";
@@ -114,6 +122,29 @@ try {
         'author_name' => $user['username'],
         'message' => "Le client a marqué ce ticket comme " . $statusLabel . "."
     ]);
+
+    // Envoyer une notification email au client
+    try {
+        require_once __DIR__ . '/../lib/SimpleMailer.php';
+        $mailer = new SimpleMailer();
+
+        // Mettre à jour le statut dans les données du ticket pour l'email
+        $ticket['status'] = $newStatus;
+
+        // Envoyer l'email de notification de changement de statut
+        $mailer->sendTicketStatusChange(
+            $ticket,
+            $ticket['email'],
+            $ticket['username'],
+            $oldStatus,
+            $newStatus
+        );
+
+        error_log("Email de changement de statut envoyé pour le ticket " . $ticket['ticket_number']);
+    } catch (Exception $emailException) {
+        // Ne pas bloquer la mise à jour si l'envoi d'email échoue
+        error_log("Erreur lors de l'envoi de l'email de changement de statut : " . $emailException->getMessage());
+    }
 
     sendJsonResponse(200, [
         'success' => true,

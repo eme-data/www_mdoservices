@@ -67,8 +67,13 @@ try {
         sendError(403, "Accès refusé. Vous n'avez pas les droits pour commenter ce ticket.");
     }
 
-    // Vérifier que le ticket existe et n'est pas fermé
-    $stmt = $pdo->prepare("SELECT id, status FROM tickets WHERE id = ?");
+    // Récupérer le ticket avec les informations du propriétaire
+    $stmt = $pdo->prepare("
+        SELECT t.*, u.email, u.username
+        FROM tickets t
+        JOIN users u ON t.user_id = u.id
+        WHERE t.id = ?
+    ");
     $stmt->execute([$ticketId]);
     $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -80,16 +85,20 @@ try {
         sendError(400, "Impossible d'ajouter un commentaire sur un ticket fermé.");
     }
 
+    // Déterminer le type d'auteur (client ou support)
+    $authorType = $user['is_admin'] ? 'support' : 'client';
+
     // Ajouter le commentaire
     $stmt = $pdo->prepare("
         INSERT INTO ticket_comments (ticket_id, user_id, author_name, author_type, message, is_internal)
-        VALUES (:ticket_id, :user_id, :author_name, 'client', :message, FALSE)
+        VALUES (:ticket_id, :user_id, :author_name, :author_type, :message, FALSE)
     ");
 
     $stmt->execute([
         'ticket_id' => $ticketId,
         'user_id' => $user['user_id'],
         'author_name' => $user['username'],
+        'author_type' => $authorType,
         'message' => $message
     ]);
 
@@ -122,6 +131,39 @@ try {
     ");
     $stmt->execute([$commentId]);
     $comment = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Envoyer une notification email
+    try {
+        require_once __DIR__ . '/../lib/SimpleMailer.php';
+        $mailer = new SimpleMailer();
+
+        if ($authorType === 'client') {
+            // Le client a commenté → notifier le support
+            $mailer->sendTicketNewComment(
+                $ticket,
+                'contact@mdoservices.fr',
+                'Équipe Support',
+                $user['username'],
+                $message,
+                false // false = destinataire est le support
+            );
+            error_log("Email de notification envoyé au support pour nouveau commentaire sur ticket " . $ticket['ticket_number']);
+        } else {
+            // Le support a commenté → notifier le client
+            $mailer->sendTicketNewComment(
+                $ticket,
+                $ticket['email'],
+                $ticket['username'],
+                $user['username'],
+                $message,
+                true // true = destinataire est le client
+            );
+            error_log("Email de notification envoyé au client pour nouvelle réponse sur ticket " . $ticket['ticket_number']);
+        }
+    } catch (Exception $emailException) {
+        // Ne pas bloquer l'ajout du commentaire si l'envoi d'email échoue
+        error_log("Erreur lors de l'envoi de l'email de notification : " . $emailException->getMessage());
+    }
 
     sendJsonResponse(201, [
         'success' => true,

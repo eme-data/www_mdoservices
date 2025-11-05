@@ -84,10 +84,10 @@ export default function ClientDashboard() {
       icon: BarChart3,
       title: "Statistiques SharePoint",
       description: "Visualisez l'utilisation de votre SharePoint et OneDrive",
-      url: "#",
+      url: "/client/sharepoint",
       color: "from-purple-500 to-purple-600",
-      available: false,
-      comingSoon: true
+      available: true,
+      external: false
     },
     {
       icon: FileText,

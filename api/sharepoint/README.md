@@ -5,21 +5,55 @@ Documentation de l'API pour la gestion et visualisation des statistiques SharePo
 ## 📋 Vue d'ensemble
 
 Cette API permet de stocker et récupérer les statistiques d'utilisation SharePoint pour les clients, incluant :
-- Utilisation du stockage par site
+- **Architecture multi-tenant** : Chaque client dispose de son propre tenant SharePoint Office 365
+- Utilisation du stockage par tenant et par site
 - Répartition par dossier/bibliothèque
 - Types de fichiers
 - Historique de l'évolution
+
+## 🏢 Architecture Multi-Tenant
+
+**Important** : Chaque client MDO Services dispose de son propre tenant SharePoint Office 365.
+
+L'architecture hiérarchique est :
+```
+Client (users.id)
+  └── Tenant SharePoint (sharepoint_tenants)
+       └── Sites SharePoint (sharepoint_sites)
+            └── Dossiers/Bibliothèques (sharepoint_folders)
+```
+
+### Exemple
+- **Client ABC** → Tenant `abc.sharepoint.com` → Sites (Équipe, Communication, OneDrive...)
+- **Client XYZ** → Tenant `xyz.sharepoint.com` → Sites (Équipe, Communication, OneDrive...)
 
 ## 🗄️ Base de données
 
 ### Tables
 
-#### `sharepoint_sites`
-Stocke les informations sur les sites SharePoint des clients.
+#### `sharepoint_tenants`
+Stocke les informations sur le tenant Office 365 de chaque client (1 tenant par client).
 
 | Champ | Type | Description |
 |-------|------|-------------|
 | id | INT | ID unique |
+| user_id | INT | ID du client (FK vers users) - UNIQUE |
+| tenant_name | VARCHAR(200) | Nom du tenant (ex: abc, xyz) |
+| tenant_url | VARCHAR(500) | URL du tenant (ex: https://abc.sharepoint.com) |
+| tenant_admin_url | VARCHAR(500) | URL admin |
+| total_storage_gb | DECIMAL(10,2) | Quota total du tenant |
+| used_storage_gb | DECIMAL(10,2) | Stockage utilisé total |
+| license_type | VARCHAR(100) | Type de licence Office 365 |
+| user_count | INT | Nombre d'utilisateurs actifs |
+| is_active | BOOLEAN | Tenant actif |
+
+#### `sharepoint_sites`
+Stocke les informations sur les sites SharePoint au sein de chaque tenant.
+
+| Champ | Type | Description |
+|-------|------|-------------|
+| id | INT | ID unique |
+| tenant_id | INT | ID du tenant parent (FK vers sharepoint_tenants) |
 | user_id | INT | ID du client (FK vers users) |
 | site_name | VARCHAR(200) | Nom du site |
 | site_url | VARCHAR(500) | URL du site |
@@ -108,8 +142,17 @@ Importe des données SharePoint (admin uniquement).
 ```json
 {
   "user_id": 123,
+  "tenant": {
+    "tenant_name": "clientabc",
+    "tenant_url": "https://clientabc.sharepoint.com",
+    "tenant_admin_url": "https://clientabc-admin.sharepoint.com",
+    "total_storage_gb": 1024.0,
+    "used_storage_gb": 650.5,
+    "license_type": "Microsoft 365 Business Standard",
+    "user_count": 25
+  },
   "site_name": "Site Équipe Principale",
-  "site_url": "https://mdoservices.sharepoint.com/sites/equipe",
+  "site_url": "https://clientabc.sharepoint.com/sites/equipe",
   "site_type": "team",
   "total_storage_gb": 100.0,
   "used_storage_gb": 65.5,
@@ -155,11 +198,20 @@ Importe des données SharePoint (admin uniquement).
 
 ```php
 <?php
-// Exemple d'import via API
+// Exemple d'import via API avec informations du tenant
 $data = [
     'user_id' => 1,
+    'tenant' => [
+        'tenant_name' => 'clientabc',
+        'tenant_url' => 'https://clientabc.sharepoint.com',
+        'tenant_admin_url' => 'https://clientabc-admin.sharepoint.com',
+        'total_storage_gb' => 1024.0,
+        'used_storage_gb' => 650.5,
+        'license_type' => 'Microsoft 365 Business Standard',
+        'user_count' => 25
+    ],
     'site_name' => 'Mon Site SharePoint',
-    'site_url' => 'https://...',
+    'site_url' => 'https://clientabc.sharepoint.com/sites/equipe',
     'site_type' => 'team',
     'total_storage_gb' => 100.0,
     'used_storage_gb' => 65.5,
@@ -184,6 +236,8 @@ $response = file_get_contents('https://mdoservices.fr/api/sharepoint/import-data
 
 echo $response;
 ```
+
+**Note importante** : Les informations du tenant ne sont saisies qu'une seule fois lors du premier import. Les imports suivants mettront à jour ces informations si elles changent.
 
 ### PowerShell Script (collecte automatique)
 

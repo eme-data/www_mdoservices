@@ -40,6 +40,7 @@ export default function SharePointStats() {
   const [error, setError] = useState(null)
   const [stats, setStats] = useState(null)
   const [selectedSite, setSelectedSite] = useState(null)
+  const [tenant, setTenant] = useState(null)
 
   useEffect(() => {
     // Vérifier l'authentification
@@ -60,6 +61,9 @@ export default function SharePointStats() {
       setStats(data)
       if (data.site) {
         setSelectedSite(data.site)
+      }
+      if (data.tenant) {
+        setTenant(data.tenant)
       }
     } catch (err) {
       setError(err.message)
@@ -174,10 +178,39 @@ export default function SharePointStats() {
         </header>
 
         <main className="container mx-auto px-4 py-12">
+          {/* Tenant Info */}
+          {tenant && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-r from-purple-500 to-blue-600 text-white rounded-xl p-6 mb-8 shadow-lg"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">
+                    Tenant SharePoint : {tenant.tenant_name}
+                  </h2>
+                  <p className="text-blue-100">{tenant.tenant_url}</p>
+                  {tenant.license_type && (
+                    <p className="text-sm text-blue-200 mt-2">Licence : {tenant.license_type}</p>
+                  )}
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold">{formatSize(tenant.used_storage_gb)}</div>
+                  <div className="text-blue-200">sur {formatSize(tenant.total_storage_gb)}</div>
+                  <div className="text-sm text-blue-200 mt-1">{tenant.usage_percentage}% utilisé</div>
+                  {tenant.user_count > 0 && (
+                    <div className="text-sm text-blue-200 mt-2">{tenant.user_count} utilisateurs</div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* KPIs Overview */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: tenant ? 0.2 : 0 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
           >
             <StatCard
@@ -349,10 +382,33 @@ export default function SharePointStats() {
       </header>
 
       <main className="container mx-auto px-4 py-12">
+        {/* Tenant Info */}
+        {selectedSite.tenant_name && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gradient-to-r from-purple-500 to-blue-600 text-white rounded-xl p-4 mb-6 shadow-lg"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm text-blue-200">Tenant</div>
+                <div className="font-bold">{selectedSite.tenant_name}</div>
+              </div>
+              <div className="text-right">
+                <div className="text-sm text-blue-200">Quota tenant</div>
+                <div className="font-bold">
+                  {formatSize(selectedSite.tenant_used_gb)} / {formatSize(selectedSite.tenant_total_gb)}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* KPIs Site */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: selectedSite.tenant_name ? 0.1 : 0 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
         >
           <StatCard

@@ -1,11 +1,33 @@
 -- Tables pour les statistiques SharePoint
 -- Création des tables pour stocker et gérer les statistiques d'utilisation SharePoint
+-- Architecture multi-tenant : Chaque client dispose de son propre tenant SharePoint
+
+-- Table: sharepoint_tenants
+-- Stocke les informations sur le tenant Office 365 de chaque client
+CREATE TABLE IF NOT EXISTS `sharepoint_tenants` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NOT NULL UNIQUE,
+  `tenant_name` VARCHAR(200) NOT NULL COMMENT 'Nom du tenant (ex: mdoservices)',
+  `tenant_url` VARCHAR(500) COMMENT 'URL du tenant (ex: https://mdoservices.sharepoint.com)',
+  `tenant_admin_url` VARCHAR(500) COMMENT 'URL admin (ex: https://mdoservices-admin.sharepoint.com)',
+  `total_storage_gb` DECIMAL(10, 2) DEFAULT 0 COMMENT 'Quota total du tenant',
+  `used_storage_gb` DECIMAL(10, 2) DEFAULT 0 COMMENT 'Stockage utilisé total',
+  `license_type` VARCHAR(100) COMMENT 'Type de licence (Business Basic, Standard, Premium, E3, E5...)',
+  `user_count` INT DEFAULT 0 COMMENT 'Nombre d\'utilisateurs actifs',
+  `last_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `is_active` BOOLEAN DEFAULT TRUE,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+  INDEX `idx_user` (`user_id`),
+  INDEX `idx_active` (`is_active`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tenants SharePoint - un tenant par client';
 
 -- Table: sharepoint_sites
--- Stocke les informations sur les sites SharePoint des clients
+-- Stocke les informations sur les sites SharePoint au sein de chaque tenant
 CREATE TABLE IF NOT EXISTS `sharepoint_sites` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `user_id` INT NOT NULL,
+  `tenant_id` INT NOT NULL COMMENT 'ID du tenant parent',
+  `user_id` INT NOT NULL COMMENT 'ID du propriétaire (redondant pour faciliter les requêtes)',
   `site_name` VARCHAR(200) NOT NULL,
   `site_url` VARCHAR(500),
   `site_type` ENUM('team', 'communication', 'onedrive', 'other') DEFAULT 'team',
@@ -14,10 +36,12 @@ CREATE TABLE IF NOT EXISTS `sharepoint_sites` (
   `last_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `is_active` BOOLEAN DEFAULT TRUE,
+  FOREIGN KEY (`tenant_id`) REFERENCES `sharepoint_tenants`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+  INDEX `idx_tenant` (`tenant_id`),
   INDEX `idx_user` (`user_id`),
   INDEX `idx_active` (`is_active`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Sites SharePoint au sein de chaque tenant';
 
 -- Table: sharepoint_folders
 -- Stocke les statistiques par dossier/bibliothèque
@@ -69,31 +93,41 @@ CREATE TABLE IF NOT EXISTS `sharepoint_file_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Vue: v_sharepoint_overview
--- Vue d'ensemble des statistiques SharePoint par utilisateur
+-- Vue d'ensemble des statistiques SharePoint par utilisateur avec infos tenant
 CREATE OR REPLACE VIEW `v_sharepoint_overview` AS
 SELECT
     u.id AS user_id,
     u.username,
     u.email,
+    t.id AS tenant_id,
+    t.tenant_name,
+    t.tenant_url,
+    t.license_type,
+    t.user_count AS tenant_users,
+    t.total_storage_gb AS tenant_quota_gb,
+    t.used_storage_gb AS tenant_used_gb,
+    ROUND((t.used_storage_gb / NULLIF(t.total_storage_gb, 0)) * 100, 2) AS tenant_usage_percentage,
     COUNT(DISTINCT s.id) AS total_sites,
-    SUM(s.total_storage_gb) AS total_storage_gb,
-    SUM(s.used_storage_gb) AS used_storage_gb,
-    ROUND((SUM(s.used_storage_gb) / NULLIF(SUM(s.total_storage_gb), 0)) * 100, 2) AS usage_percentage,
+    SUM(s.total_storage_gb) AS sites_total_storage_gb,
+    SUM(s.used_storage_gb) AS sites_used_storage_gb,
     COUNT(f.id) AS total_folders,
     MAX(s.last_updated) AS last_updated
 FROM users u
-LEFT JOIN sharepoint_sites s ON u.id = s.user_id AND s.is_active = TRUE
+LEFT JOIN sharepoint_tenants t ON u.id = t.user_id AND t.is_active = TRUE
+LEFT JOIN sharepoint_sites s ON t.id = s.tenant_id AND s.is_active = TRUE
 LEFT JOIN sharepoint_folders f ON s.id = f.site_id
-GROUP BY u.id, u.username, u.email;
+GROUP BY u.id, u.username, u.email, t.id, t.tenant_name, t.tenant_url, t.license_type, t.user_count, t.total_storage_gb, t.used_storage_gb;
 
 -- Vue: v_top_folders_by_size
--- Top des dossiers les plus volumineux
+-- Top des dossiers les plus volumineux avec infos tenant
 CREATE OR REPLACE VIEW `v_top_folders_by_size` AS
 SELECT
     f.id,
     f.site_id,
     s.site_name,
+    s.tenant_id,
     s.user_id,
+    t.tenant_name,
     f.folder_name,
     f.folder_path,
     f.folder_type,
@@ -101,18 +135,24 @@ SELECT
     f.size_mb,
     f.file_count,
     f.last_modified,
-    ROUND((f.size_gb / NULLIF(s.used_storage_gb, 0)) * 100, 2) AS percentage_of_site
+    ROUND((f.size_gb / NULLIF(s.used_storage_gb, 0)) * 100, 2) AS percentage_of_site,
+    ROUND((f.size_gb / NULLIF(t.used_storage_gb, 0)) * 100, 2) AS percentage_of_tenant
 FROM sharepoint_folders f
 JOIN sharepoint_sites s ON f.site_id = s.id
-WHERE s.is_active = TRUE
+JOIN sharepoint_tenants t ON s.tenant_id = t.id
+WHERE s.is_active = TRUE AND t.is_active = TRUE
 ORDER BY f.size_gb DESC;
 
 -- Données de test (optionnel)
 -- Vous pouvez commenter cette section en production
 
+-- Exemple: Insérer un tenant SharePoint de test
+-- INSERT INTO sharepoint_tenants (user_id, tenant_name, tenant_url, tenant_admin_url, total_storage_gb, used_storage_gb, license_type, user_count)
+-- VALUES (1, 'clientabc', 'https://clientabc.sharepoint.com', 'https://clientabc-admin.sharepoint.com', 1024.00, 650.50, 'Microsoft 365 Business Standard', 25);
+
 -- Exemple: Insérer un site SharePoint de test
--- INSERT INTO sharepoint_sites (user_id, site_name, site_url, site_type, total_storage_gb, used_storage_gb)
--- VALUES (1, 'Site Équipe Principale', 'https://mdoservices.sharepoint.com/sites/equipe', 'team', 100.00, 65.50);
+-- INSERT INTO sharepoint_sites (tenant_id, user_id, site_name, site_url, site_type, total_storage_gb, used_storage_gb)
+-- VALUES (1, 1, 'Site Équipe Principale', 'https://clientabc.sharepoint.com/sites/equipe', 'team', 100.00, 65.50);
 
 -- Exemple: Insérer des dossiers de test
 -- INSERT INTO sharepoint_folders (site_id, folder_name, folder_path, folder_type, size_gb, file_count)
@@ -120,3 +160,6 @@ ORDER BY f.size_gb DESC;
 -- (1, 'Documents partagés', '/Shared Documents', 'library', 25.50, 1250),
 -- (1, 'Projets 2024', '/Shared Documents/Projets 2024', 'folder', 15.75, 450),
 -- (1, 'Archives', '/Shared Documents/Archives', 'folder', 20.30, 800);
+
+-- Note: Chaque client (user_id) a un tenant SharePoint unique
+-- L'architecture est : Client → Tenant → Sites → Dossiers

@@ -53,19 +53,27 @@ try {
             sendError(403, "Accès refusé à ce site.");
         }
 
-        // Récupérer les détails du site
+        // Récupérer les détails du site avec les infos du tenant
         $stmt = $pdo->prepare("
             SELECT
-                id,
-                site_name,
-                site_url,
-                site_type,
-                total_storage_gb,
-                used_storage_gb,
-                ROUND((used_storage_gb / NULLIF(total_storage_gb, 0)) * 100, 2) AS usage_percentage,
-                last_updated
-            FROM sharepoint_sites
-            WHERE id = ? AND is_active = TRUE
+                s.id,
+                s.site_name,
+                s.site_url,
+                s.site_type,
+                s.total_storage_gb,
+                s.used_storage_gb,
+                ROUND((s.used_storage_gb / NULLIF(s.total_storage_gb, 0)) * 100, 2) AS usage_percentage,
+                s.last_updated,
+                t.id AS tenant_id,
+                t.tenant_name,
+                t.tenant_url,
+                t.license_type,
+                t.total_storage_gb AS tenant_total_gb,
+                t.used_storage_gb AS tenant_used_gb,
+                ROUND((t.used_storage_gb / NULLIF(t.total_storage_gb, 0)) * 100, 2) AS tenant_usage_percentage
+            FROM sharepoint_sites s
+            JOIN sharepoint_tenants t ON s.tenant_id = t.id
+            WHERE s.id = ? AND s.is_active = TRUE AND t.is_active = TRUE
         ");
         $stmt->execute([$siteId]);
         $site = $stmt->fetch();
@@ -134,21 +142,44 @@ try {
         // Vue d'ensemble de tous les sites de l'utilisateur
         $userId = $user['is_admin'] ? null : $user['user_id'];
 
+        // Récupérer les infos du tenant
+        $tenant = null;
+        if ($userId) {
+            $stmt = $pdo->prepare("
+                SELECT
+                    id,
+                    tenant_name,
+                    tenant_url,
+                    tenant_admin_url,
+                    total_storage_gb,
+                    used_storage_gb,
+                    license_type,
+                    user_count,
+                    ROUND((used_storage_gb / NULLIF(total_storage_gb, 0)) * 100, 2) AS usage_percentage,
+                    last_updated
+                FROM sharepoint_tenants
+                WHERE user_id = ? AND is_active = TRUE
+            ");
+            $stmt->execute([$userId]);
+            $tenant = $stmt->fetch();
+        }
+
         if ($userId) {
             // Vue client : ses sites uniquement
             $stmt = $pdo->prepare("
                 SELECT
-                    id,
-                    site_name,
-                    site_url,
-                    site_type,
-                    total_storage_gb,
-                    used_storage_gb,
-                    ROUND((used_storage_gb / NULLIF(total_storage_gb, 0)) * 100, 2) AS usage_percentage,
-                    last_updated
-                FROM sharepoint_sites
-                WHERE user_id = ? AND is_active = TRUE
-                ORDER BY used_storage_gb DESC
+                    s.id,
+                    s.site_name,
+                    s.site_url,
+                    s.site_type,
+                    s.total_storage_gb,
+                    s.used_storage_gb,
+                    ROUND((s.used_storage_gb / NULLIF(s.total_storage_gb, 0)) * 100, 2) AS usage_percentage,
+                    s.last_updated
+                FROM sharepoint_sites s
+                JOIN sharepoint_tenants t ON s.tenant_id = t.id
+                WHERE s.user_id = ? AND s.is_active = TRUE AND t.is_active = TRUE
+                ORDER BY s.used_storage_gb DESC
             ");
             $stmt->execute([$userId]);
         } else {
@@ -164,10 +195,12 @@ try {
                     ROUND((s.used_storage_gb / NULLIF(s.total_storage_gb, 0)) * 100, 2) AS usage_percentage,
                     s.last_updated,
                     u.username,
-                    u.email
+                    u.email,
+                    t.tenant_name
                 FROM sharepoint_sites s
+                JOIN sharepoint_tenants t ON s.tenant_id = t.id
                 JOIN users u ON s.user_id = u.id
-                WHERE s.is_active = TRUE
+                WHERE s.is_active = TRUE AND t.is_active = TRUE
                 ORDER BY s.used_storage_gb DESC
             ");
         }
@@ -224,7 +257,7 @@ try {
 
         $topFolders = $stmt->fetchAll();
 
-        sendJsonResponse(200, [
+        $response = [
             'success' => true,
             'overview' => [
                 'total_sites' => count($sites),
@@ -234,7 +267,14 @@ try {
             ],
             'sites' => $sites,
             'top_folders' => $topFolders
-        ]);
+        ];
+
+        // Ajouter les infos du tenant si disponibles
+        if ($tenant) {
+            $response['tenant'] = $tenant;
+        }
+
+        sendJsonResponse(200, $response);
     }
 
 } catch (Exception $e) {

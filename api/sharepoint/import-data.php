@@ -3,11 +3,22 @@
  * API Endpoint: Importer des données SharePoint
  * POST /api/sharepoint/import-data.php
  *
+ * Architecture multi-tenant : Chaque client a son propre tenant SharePoint
+ *
  * Body (JSON):
  * {
  *   "user_id": 123,
+ *   "tenant": {
+ *     "tenant_name": "clientabc",
+ *     "tenant_url": "https://clientabc.sharepoint.com",
+ *     "tenant_admin_url": "https://clientabc-admin.sharepoint.com",
+ *     "total_storage_gb": 1024.0,
+ *     "used_storage_gb": 650.5,
+ *     "license_type": "Microsoft 365 Business Standard",
+ *     "user_count": 25
+ *   },
  *   "site_name": "Site Équipe",
- *   "site_url": "https://...",
+ *   "site_url": "https://clientabc.sharepoint.com/sites/equipe",
  *   "site_type": "team|communication|onedrive|other",
  *   "total_storage_gb": 100.0,
  *   "used_storage_gb": 65.5,
@@ -68,11 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $input = json_decode(file_get_contents('php://input'), true);
 
 // Validation des champs requis
-if (!isset($input['user_id']) || !isset($input['site_name'])) {
-    sendError(400, "Les champs 'user_id' et 'site_name' sont requis.");
+if (!isset($input['user_id']) || !isset($input['tenant']) || !isset($input['site_name'])) {
+    sendError(400, "Les champs 'user_id', 'tenant' et 'site_name' sont requis.");
 }
 
 $userId = (int)$input['user_id'];
+$tenantData = $input['tenant'];
 $siteName = trim($input['site_name']);
 $siteUrl = $input['site_url'] ?? null;
 $siteType = $input['site_type'] ?? 'team';
@@ -90,10 +102,57 @@ try {
         throw new Exception("Utilisateur non trouvé.");
     }
 
-    // Insérer ou mettre à jour le site
+    // 1. Insérer ou mettre à jour le tenant
     $stmt = $pdo->prepare("
-        INSERT INTO sharepoint_sites (user_id, site_name, site_url, site_type, total_storage_gb, used_storage_gb)
-        VALUES (:user_id, :site_name, :site_url, :site_type, :total_storage_gb, :used_storage_gb)
+        INSERT INTO sharepoint_tenants (
+            user_id, tenant_name, tenant_url, tenant_admin_url,
+            total_storage_gb, used_storage_gb, license_type, user_count
+        )
+        VALUES (
+            :user_id, :tenant_name, :tenant_url, :tenant_admin_url,
+            :total_storage_gb, :used_storage_gb, :license_type, :user_count
+        )
+        ON DUPLICATE KEY UPDATE
+            tenant_name = VALUES(tenant_name),
+            tenant_url = VALUES(tenant_url),
+            tenant_admin_url = VALUES(tenant_admin_url),
+            total_storage_gb = VALUES(total_storage_gb),
+            used_storage_gb = VALUES(used_storage_gb),
+            license_type = VALUES(license_type),
+            user_count = VALUES(user_count),
+            last_updated = NOW()
+    ");
+
+    $stmt->execute([
+        'user_id' => $userId,
+        'tenant_name' => $tenantData['tenant_name'] ?? '',
+        'tenant_url' => $tenantData['tenant_url'] ?? null,
+        'tenant_admin_url' => $tenantData['tenant_admin_url'] ?? null,
+        'total_storage_gb' => (float)($tenantData['total_storage_gb'] ?? 0),
+        'used_storage_gb' => (float)($tenantData['used_storage_gb'] ?? 0),
+        'license_type' => $tenantData['license_type'] ?? null,
+        'user_count' => (int)($tenantData['user_count'] ?? 0)
+    ]);
+
+    // Récupérer l'ID du tenant
+    $stmt = $pdo->prepare("SELECT id FROM sharepoint_tenants WHERE user_id = ?");
+    $stmt->execute([$userId]);
+    $tenantId = $stmt->fetchColumn();
+
+    if (!$tenantId) {
+        throw new Exception("Erreur lors de la création/récupération du tenant.");
+    }
+
+    // 2. Insérer ou mettre à jour le site
+    $stmt = $pdo->prepare("
+        INSERT INTO sharepoint_sites (
+            tenant_id, user_id, site_name, site_url, site_type,
+            total_storage_gb, used_storage_gb
+        )
+        VALUES (
+            :tenant_id, :user_id, :site_name, :site_url, :site_type,
+            :total_storage_gb, :used_storage_gb
+        )
         ON DUPLICATE KEY UPDATE
             site_url = VALUES(site_url),
             site_type = VALUES(site_type),
@@ -103,6 +162,7 @@ try {
     ");
 
     $stmt->execute([
+        'tenant_id' => $tenantId,
         'user_id' => $userId,
         'site_name' => $siteName,
         'site_url' => $siteUrl,
@@ -111,12 +171,12 @@ try {
         'used_storage_gb' => $usedStorageGb
     ]);
 
-    $siteId = $pdo->lastInsertId() ?: $pdo->query("SELECT LAST_INSERT_ID()")->fetchColumn();
+    $siteId = $pdo->lastInsertId();
 
     // Si pas d'ID récupéré, chercher le site existant
     if (!$siteId) {
-        $stmt = $pdo->prepare("SELECT id FROM sharepoint_sites WHERE user_id = ? AND site_name = ?");
-        $stmt->execute([$userId, $siteName]);
+        $stmt = $pdo->prepare("SELECT id FROM sharepoint_sites WHERE tenant_id = ? AND site_name = ?");
+        $stmt->execute([$tenantId, $siteName]);
         $siteId = $stmt->fetchColumn();
     }
 

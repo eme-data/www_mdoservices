@@ -518,6 +518,24 @@ class SimpleMailer {
     }
 
     /**
+     * Envoie une notification au client lors du changement de statut d'un ticket
+     */
+    public function sendTicketStatusChange($ticketData, $clientEmail, $clientName, $oldStatus, $newStatus) {
+        $subject = "Ticket #{$ticketData['ticket_number']} - Changement de statut - MDO Services";
+        $body = $this->getTicketStatusChangeTemplate($ticketData, $clientName, $oldStatus, $newStatus);
+        return $this->send($clientEmail, $clientName, $subject, $body);
+    }
+
+    /**
+     * Envoie une notification lors de l'ajout d'un commentaire au ticket
+     */
+    public function sendTicketNewComment($ticketData, $recipientEmail, $recipientName, $commentAuthor, $commentText, $isClient = true) {
+        $subject = "Ticket #{$ticketData['ticket_number']} - Nouveau message - MDO Services";
+        $body = $this->getTicketNewCommentTemplate($ticketData, $recipientName, $commentAuthor, $commentText, $isClient);
+        return $this->send($recipientEmail, $recipientName, $subject, $body);
+    }
+
+    /**
      * Template de notification de nouveau ticket pour l'équipe support
      */
     private function getTicketCreationSupportTemplate($ticketData, $clientName, $clientEmail) {
@@ -629,6 +647,219 @@ class SimpleMailer {
         <div class='footer'>
             MDO Services - " . date('d/m/Y à H:i') . "<br>
             Système de gestion des tickets de support
+        </div>
+    </div>
+</body>
+</html>";
+    }
+
+    /**
+     * Template de notification de changement de statut
+     */
+    private function getTicketStatusChangeTemplate($ticketData, $clientName, $oldStatus, $newStatus) {
+        $ticketNumber = htmlspecialchars($ticketData['ticket_number']);
+        $title = htmlspecialchars($ticketData['title']);
+
+        $statusLabels = [
+            'open' => ['label' => 'Ouvert', 'color' => '#3b82f6', 'icon' => '📝'],
+            'in_progress' => ['label' => 'En cours', 'color' => '#f59e0b', 'icon' => '⚙️'],
+            'waiting_client' => ['label' => 'En attente client', 'color' => '#8b5cf6', 'icon' => '⏳'],
+            'resolved' => ['label' => 'Résolu', 'color' => '#10b981', 'icon' => '✅'],
+            'closed' => ['label' => 'Fermé', 'color' => '#6b7280', 'icon' => '🔒']
+        ];
+
+        $oldStatusInfo = $statusLabels[$oldStatus] ?? ['label' => $oldStatus, 'color' => '#6b7280', 'icon' => '📌'];
+        $newStatusInfo = $statusLabels[$newStatus] ?? ['label' => $newStatus, 'color' => '#6b7280', 'icon' => '📌'];
+
+        $statusMessage = "";
+        if ($newStatus === 'resolved') {
+            $statusMessage = "
+                <div style='background: #d1fae5; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981; margin: 20px 0;'>
+                    <h3 style='margin-top: 0; color: #065f46;'>✅ Bonne nouvelle !</h3>
+                    <p style='margin-bottom: 0; color: #047857;'>
+                        Notre équipe a résolu votre demande. Si la solution vous convient, le ticket sera automatiquement fermé.
+                        Sinon, n'hésitez pas à nous faire part de vos commentaires.
+                    </p>
+                </div>";
+        } elseif ($newStatus === 'closed') {
+            $statusMessage = "
+                <div style='background: #f3f4f6; padding: 20px; border-radius: 8px; border-left: 4px solid #6b7280; margin: 20px 0;'>
+                    <h3 style='margin-top: 0; color: #374151;'>🔒 Ticket fermé</h3>
+                    <p style='margin-bottom: 0; color: #4b5563;'>
+                        Ce ticket a été fermé. Si vous avez d'autres questions, n'hésitez pas à créer un nouveau ticket.
+                    </p>
+                </div>";
+        } elseif ($newStatus === 'in_progress') {
+            $statusMessage = "
+                <div style='background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 20px 0;'>
+                    <h3 style='margin-top: 0; color: #92400e;'>⚙️ En cours de traitement</h3>
+                    <p style='margin-bottom: 0; color: #78350f;'>
+                        Notre équipe technique travaille activement sur votre demande. Nous vous tiendrons informé de l'avancement.
+                    </p>
+                </div>";
+        } elseif ($newStatus === 'waiting_client') {
+            $statusMessage = "
+                <div style='background: #ede9fe; padding: 20px; border-radius: 8px; border-left: 4px solid #8b5cf6; margin: 20px 0;'>
+                    <h3 style='margin-top: 0; color: #5b21b6;'>⏳ Votre réponse est attendue</h3>
+                    <p style='margin-bottom: 0; color: #6d28d9;'>
+                        Nous avons besoin d'informations complémentaires de votre part pour continuer.
+                        Merci de consulter les derniers commentaires et de nous répondre.
+                    </p>
+                </div>";
+        }
+
+        return "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; padding: 40px 20px; text-align: center; }
+        .content { background: #f9fafb; padding: 30px 20px; }
+        .ticket-box { background: white; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid " . $newStatusInfo['color'] . "; }
+        .ticket-number { font-size: 20px; font-weight: bold; color: #2563eb; margin: 10px 0; }
+        .status-change { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 30px 0; }
+        .status-badge { padding: 10px 20px; border-radius: 25px; font-weight: bold; color: white; }
+        .arrow { font-size: 24px; color: #6b7280; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 14px; }
+        .button { display: inline-block; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1 style='margin: 0; font-size: 28px;'>" . $newStatusInfo['icon'] . " Mise à jour de votre ticket</h1>
+        </div>
+        <div class='content'>
+            <div class='ticket-box'>
+                <h2 style='color: #1f2937; margin-top: 0;'>Bonjour " . htmlspecialchars($clientName) . ",</h2>
+                <p style='font-size: 16px;'>
+                    Le statut de votre ticket a été mis à jour.
+                </p>
+
+                <div class='ticket-number'>
+                    Ticket : $ticketNumber
+                </div>
+
+                <div style='margin: 20px 0;'>
+                    <div style='font-weight: bold; color: #6b7280; font-size: 14px; margin-bottom: 5px;'>TITRE</div>
+                    <div style='color: #1f2937;'>$title</div>
+                </div>
+
+                <div class='status-change'>
+                    <span class='status-badge' style='background-color: " . $oldStatusInfo['color'] . ";'>
+                        " . $oldStatusInfo['icon'] . " " . $oldStatusInfo['label'] . "
+                    </span>
+                    <span class='arrow'>→</span>
+                    <span class='status-badge' style='background-color: " . $newStatusInfo['color'] . ";'>
+                        " . $newStatusInfo['icon'] . " " . $newStatusInfo['label'] . "
+                    </span>
+                </div>
+            </div>
+
+            $statusMessage
+
+            <div style='text-align: center; margin: 30px 0;'>
+                <a href='https://mdoservices.fr/client/tickets' class='button' style='color: white;'>Voir le ticket</a>
+            </div>
+        </div>
+        <div class='footer'>
+            <p style='margin: 5px 0;'><strong>MDO Services</strong></p>
+            <p style='margin: 5px 0;'>Support Technique Expert</p>
+            <p style='margin: 5px 0;'>27 rue Pierre Mazaud, 09200 Saint-Girons</p>
+            <p style='margin: 15px 0 5px 0;'>
+                <a href='https://mdoservices.fr' style='color: #60a5fa; text-decoration: none;'>www.mdoservices.fr</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>";
+    }
+
+    /**
+     * Template de notification de nouveau commentaire
+     */
+    private function getTicketNewCommentTemplate($ticketData, $recipientName, $commentAuthor, $commentText, $isClient) {
+        $ticketNumber = htmlspecialchars($ticketData['ticket_number']);
+        $title = htmlspecialchars($ticketData['title']);
+        $commentAuthor = htmlspecialchars($commentAuthor);
+        $commentText = htmlspecialchars($commentText);
+
+        $headerText = $isClient
+            ? "💬 Nouvelle réponse de notre équipe"
+            : "💬 Nouveau message du client";
+
+        $introText = $isClient
+            ? "Notre équipe support a ajouté un nouveau message à votre ticket."
+            : "Le client a ajouté un nouveau message au ticket.";
+
+        return "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; padding: 40px 20px; text-align: center; }
+        .content { background: #f9fafb; padding: 30px 20px; }
+        .ticket-box { background: white; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #2563eb; }
+        .ticket-number { font-size: 18px; font-weight: bold; color: #2563eb; margin: 10px 0; }
+        .comment-box { background: #f0f4ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #7c3aed; }
+        .author { font-weight: bold; color: #2563eb; margin-bottom: 10px; }
+        .comment-text { color: #1f2937; white-space: pre-wrap; line-height: 1.8; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 14px; }
+        .button { display: inline-block; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1 style='margin: 0; font-size: 28px;'>$headerText</h1>
+        </div>
+        <div class='content'>
+            <div class='ticket-box'>
+                <h2 style='color: #1f2937; margin-top: 0;'>Bonjour " . htmlspecialchars($recipientName) . ",</h2>
+                <p style='font-size: 16px;'>
+                    $introText
+                </p>
+
+                <div class='ticket-number'>
+                    Ticket : $ticketNumber
+                </div>
+
+                <div style='margin: 20px 0;'>
+                    <div style='font-weight: bold; color: #6b7280; font-size: 14px; margin-bottom: 5px;'>TITRE</div>
+                    <div style='color: #1f2937;'>$title</div>
+                </div>
+            </div>
+
+            <div class='comment-box'>
+                <div class='author'>👤 $commentAuthor</div>
+                <div style='font-size: 12px; color: #6b7280; margin-bottom: 15px;'>" . date('d/m/Y à H:i') . "</div>
+                <div class='comment-text'>$commentText</div>
+            </div>
+
+            <div style='text-align: center; margin: 30px 0;'>
+                <a href='https://mdoservices.fr/client/tickets' class='button' style='color: white;'>Voir le ticket et répondre</a>
+            </div>
+
+            <div style='background: #e0e7ff; padding: 20px; border-radius: 8px;'>
+                <h3 style='margin-top: 0; color: #1f2937;'>💡 Conseil</h3>
+                <p style='margin-bottom: 0; color: #4b5563;'>
+                    Répondez rapidement pour une résolution plus rapide de votre demande. Toutes les conversations sont centralisées dans votre espace client.
+                </p>
+            </div>
+        </div>
+        <div class='footer'>
+            <p style='margin: 5px 0;'><strong>MDO Services</strong></p>
+            <p style='margin: 5px 0;'>Support Technique Expert</p>
+            <p style='margin: 5px 0;'>27 rue Pierre Mazaud, 09200 Saint-Girons</p>
+            <p style='margin: 15px 0 5px 0;'>
+                <a href='https://mdoservices.fr' style='color: #60a5fa; text-decoration: none;'>www.mdoservices.fr</a>
+            </p>
         </div>
     </div>
 </body>

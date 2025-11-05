@@ -65,11 +65,11 @@ export default function ClientDashboard() {
     {
       icon: Headphones,
       title: "Support Client",
-      description: "Accédez à notre plateforme de support et ouvrez des tickets",
-      url: "https://support.mdoservices.fr",
+      description: "Créez et suivez vos tickets de support directement depuis votre espace",
+      url: "/client/tickets",
       color: "from-blue-500 to-blue-600",
       available: true,
-      external: true
+      external: false
     },
     {
       icon: Phone,

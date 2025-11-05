@@ -43,6 +43,7 @@ import TagsAdmin from "@/pages/partner/TagsAdmin"
 import BlogImport from "@/pages/partner/BlogImport"
 import ClientUsersAdmin from "@/pages/client/UsersAdmin"
 import PartnerUsersAdmin from "@/pages/partner/UsersAdmin"
+import Tickets from "@/pages/client/Tickets"
 
 export function AppRoutes() {
   return (
@@ -101,6 +102,7 @@ export function AppRoutes() {
       <Route path="/partner/blog/import" element={<BlogImport />} />
       <Route path="/partner/users" element={<PartnerUsersAdmin />} />
       <Route path="/client/users" element={<ClientUsersAdmin />} />
+      <Route path="/client/tickets" element={<Tickets />} />
       <Route path="/partner/forgot-password" element={<ForgotPassword />} />
       <Route path="/partner/reset-password" element={<ResetPassword />} />
     </Routes>

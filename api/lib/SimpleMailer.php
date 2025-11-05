@@ -98,6 +98,27 @@ class SimpleMailer {
     }
 
     /**
+     * Envoie un email de confirmation au client pour la création de ticket
+     */
+    public function sendTicketCreationClient($ticketData, $clientEmail, $clientName) {
+        $subject = "Ticket #{$ticketData['ticket_number']} - Confirmation de création - MDO Services";
+        $body = $this->getTicketCreationClientTemplate($ticketData, $clientName);
+        return $this->send($clientEmail, $clientName, $subject, $body);
+    }
+
+    /**
+     * Envoie une notification à l'équipe support pour un nouveau ticket
+     */
+    public function sendTicketCreationSupport($ticketData, $clientName, $clientEmail) {
+        $to = $this->replyTo;
+        $subject = "🎫 Nouveau Ticket #{$ticketData['ticket_number']} - {$ticketData['title']}";
+        $body = $this->getTicketCreationSupportTemplate($ticketData, $clientName, $clientEmail);
+
+        // Utiliser l'email du client comme Reply-To pour pouvoir répondre directement
+        return $this->send($to, 'Équipe Support MDO Services', $subject, $body, $clientEmail);
+    }
+
+    /**
      * Template de confirmation de contact
      */
     private function getContactConfirmationTemplate($name) {
@@ -365,6 +386,249 @@ class SimpleMailer {
         <div class='footer'>
             MDO Services - Notification automatique<br>
             Système de gestion newsletter
+        </div>
+    </div>
+</body>
+</html>";
+    }
+
+    /**
+     * Template de confirmation de création de ticket pour le client
+     */
+    private function getTicketCreationClientTemplate($ticketData, $clientName) {
+        $ticketNumber = htmlspecialchars($ticketData['ticket_number']);
+        $title = htmlspecialchars($ticketData['title']);
+        $description = htmlspecialchars($ticketData['description']);
+        $category = htmlspecialchars($ticketData['category']);
+        $priority = htmlspecialchars($ticketData['priority']);
+
+        $priorityLabels = [
+            'low' => 'Basse',
+            'normal' => 'Normale',
+            'high' => 'Haute',
+            'urgent' => 'Urgente'
+        ];
+        $priorityLabel = $priorityLabels[$priority] ?? $priority;
+
+        $categoryLabels = [
+            'technique' => 'Problème Technique',
+            'facturation' => 'Facturation',
+            'compte' => 'Gestion de Compte',
+            'reseau' => 'Réseau & Connectivité',
+            'email' => 'Email & Messagerie',
+            'securite' => 'Sécurité',
+            'cloud' => 'Services Cloud',
+            'telephonie' => 'Téléphonie',
+            'autre' => 'Autre'
+        ];
+        $categoryLabel = $categoryLabels[$category] ?? $category;
+
+        return "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; padding: 40px 20px; text-align: center; }
+        .content { background: #f9fafb; padding: 30px 20px; }
+        .ticket-box { background: white; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #2563eb; }
+        .ticket-number { font-size: 24px; font-weight: bold; color: #2563eb; margin: 10px 0; }
+        .field { margin: 15px 0; }
+        .label { font-weight: bold; color: #6b7280; font-size: 14px; margin-bottom: 5px; }
+        .value { color: #1f2937; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 14px; }
+        .button { display: inline-block; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; margin: 20px 0; }
+        .info-box { background: #e0e7ff; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1 style='margin: 0; font-size: 28px;'>🎫 Ticket de Support Créé</h1>
+        </div>
+        <div class='content'>
+            <div class='ticket-box'>
+                <h2 style='color: #1f2937; margin-top: 0;'>Bonjour " . htmlspecialchars($clientName) . ",</h2>
+                <p style='font-size: 16px;'>
+                    Votre demande de support a bien été enregistrée. Notre équipe technique va l'examiner dans les plus brefs délais.
+                </p>
+
+                <div class='ticket-number'>
+                    Numéro de ticket : $ticketNumber
+                </div>
+
+                <div class='field'>
+                    <div class='label'>TITRE</div>
+                    <div class='value'>$title</div>
+                </div>
+
+                <div class='field'>
+                    <div class='label'>DESCRIPTION</div>
+                    <div class='value' style='white-space: pre-wrap;'>$description</div>
+                </div>
+
+                <div style='display: flex; gap: 20px; margin-top: 20px;'>
+                    <div class='field' style='flex: 1;'>
+                        <div class='label'>CATÉGORIE</div>
+                        <div class='value'>$categoryLabel</div>
+                    </div>
+                    <div class='field' style='flex: 1;'>
+                        <div class='label'>PRIORITÉ</div>
+                        <div class='value'>$priorityLabel</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='info-box'>
+                <h3 style='margin-top: 0; color: #1f2937;'>⏱️ Prochaines étapes</h3>
+                <ul style='margin: 10px 0; padding-left: 20px;'>
+                    <li>Notre équipe va analyser votre demande</li>
+                    <li>Vous recevrez une réponse sous <strong>24 heures ouvrées</strong></li>
+                    <li>Vous pouvez suivre l'avancement de votre ticket dans votre espace client</li>
+                    <li>Vous serez notifié par email de toute mise à jour</li>
+                </ul>
+            </div>
+
+            <div style='text-align: center; margin: 30px 0;'>
+                <a href='https://mdoservices.fr/client/tickets' class='button' style='color: white;'>Voir mes tickets</a>
+            </div>
+
+            <div style='background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b;'>
+                <h3 style='margin-top: 0; color: #92400e;'>🚨 Urgence ?</h3>
+                <p style='margin-bottom: 0; color: #78350f;'>
+                    <strong>Téléphone :</strong> 05.82.95.22.77<br>
+                    <strong>Mobile :</strong> 06.66.03.03.61<br>
+                    <strong>Email :</strong> contact@mdoservices.fr
+                </p>
+            </div>
+        </div>
+        <div class='footer'>
+            <p style='margin: 5px 0;'><strong>MDO Services</strong></p>
+            <p style='margin: 5px 0;'>Support Technique Expert</p>
+            <p style='margin: 5px 0;'>27 rue Pierre Mazaud, 09200 Saint-Girons</p>
+            <p style='margin: 15px 0 5px 0;'>
+                <a href='https://mdoservices.fr' style='color: #60a5fa; text-decoration: none;'>www.mdoservices.fr</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>";
+    }
+
+    /**
+     * Template de notification de nouveau ticket pour l'équipe support
+     */
+    private function getTicketCreationSupportTemplate($ticketData, $clientName, $clientEmail) {
+        $ticketNumber = htmlspecialchars($ticketData['ticket_number']);
+        $title = htmlspecialchars($ticketData['title']);
+        $description = htmlspecialchars($ticketData['description']);
+        $category = htmlspecialchars($ticketData['category']);
+        $priority = htmlspecialchars($ticketData['priority']);
+        $clientName = htmlspecialchars($clientName);
+        $clientEmail = htmlspecialchars($clientEmail);
+
+        $priorityLabels = [
+            'low' => 'Basse',
+            'normal' => 'Normale',
+            'high' => 'Haute',
+            'urgent' => 'Urgente'
+        ];
+        $priorityLabel = $priorityLabels[$priority] ?? $priority;
+
+        $priorityColors = [
+            'low' => '#6b7280',
+            'normal' => '#2563eb',
+            'high' => '#f59e0b',
+            'urgent' => '#ef4444'
+        ];
+        $priorityColor = $priorityColors[$priority] ?? '#6b7280';
+
+        return "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; }
+        .ticket-info { margin-bottom: 15px; padding: 20px; background: white; border-left: 4px solid $priorityColor; border-radius: 4px; }
+        .ticket-number { font-size: 20px; font-weight: bold; color: #2563eb; margin-bottom: 15px; }
+        .field { margin: 10px 0; }
+        .label { font-weight: bold; color: #6b7280; font-size: 12px; text-transform: uppercase; }
+        .value { color: #1f2937; margin-top: 5px; }
+        .priority-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; background-color: $priorityColor; }
+        .footer { background: #1f2937; color: #9ca3af; padding: 15px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h2 style='margin: 0;'>🎫 Nouveau Ticket de Support</h2>
+        </div>
+        <div class='content'>
+            <div class='ticket-info'>
+                <div class='ticket-number'>$ticketNumber</div>
+
+                <div class='field'>
+                    <div class='label'>Client</div>
+                    <div class='value'>
+                        <strong>$clientName</strong><br>
+                        <a href='mailto:$clientEmail'>$clientEmail</a>
+                    </div>
+                </div>
+
+                <div class='field'>
+                    <div class='label'>Titre</div>
+                    <div class='value' style='font-size: 16px; font-weight: bold;'>$title</div>
+                </div>
+
+                <div class='field'>
+                    <div class='label'>Description</div>
+                    <div class='value' style='white-space: pre-wrap; background: #f9fafb; padding: 15px; border-radius: 4px; border: 1px solid #e5e7eb;'>$description</div>
+                </div>
+
+                <div style='display: flex; gap: 20px; margin-top: 15px;'>
+                    <div class='field'>
+                        <div class='label'>Catégorie</div>
+                        <div class='value'>$category</div>
+                    </div>
+                    <div class='field'>
+                        <div class='label'>Priorité</div>
+                        <div class='value'>
+                            <span class='priority-badge'>$priorityLabel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='field' style='margin-top: 15px;'>
+                    <div class='label'>Date de création</div>
+                    <div class='value'>" . date('d/m/Y à H:i') . "</div>
+                </div>
+            </div>
+
+            <div style='background: #e0e7ff; padding: 20px; border-radius: 8px; margin-top: 20px;'>
+                <h3 style='margin-top: 0; color: #1f2937;'>Actions à effectuer</h3>
+                <ul style='margin: 10px 0; color: #1f2937;'>
+                    <li>✅ Accuser réception auprès du client</li>
+                    <li>🔍 Analyser la demande et identifier la solution</li>
+                    <li>💬 Communiquer l'avancement via l'espace client</li>
+                    <li>⏱️ Respecter le délai de réponse : 24h ouvrées</li>
+                </ul>
+            </div>
+
+            <div style='text-align: center; margin: 20px 0;'>
+                <a href='https://mdoservices.fr/client/tickets' style='display: inline-block; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px;'>
+                    Voir le ticket
+                </a>
+            </div>
+        </div>
+        <div class='footer'>
+            MDO Services - " . date('d/m/Y à H:i') . "<br>
+            Système de gestion des tickets de support
         </div>
     </div>
 </body>

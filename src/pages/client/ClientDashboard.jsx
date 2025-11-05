@@ -84,10 +84,10 @@ export default function ClientDashboard() {
       icon: BarChart3,
       title: "Statistiques SharePoint",
       description: "Visualisez l'utilisation de votre SharePoint et OneDrive",
-      url: "#",
+      url: "/client/sharepoint",
       color: "from-purple-500 to-purple-600",
-      available: false,
-      comingSoon: true
+      available: true,
+      external: false
     },
     {
       icon: FileText,
@@ -329,14 +329,14 @@ export default function ClientDashboard() {
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
-                  onClick={() => window.open('https://support.mdoservices.fr', '_blank')}
+                  onClick={() => navigate('/client/tickets')}
                   className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-6"
                 >
                   <Headphones className="h-4 w-4 mr-2" />
                   Ouvrir un ticket
                 </Button>
                 <Button
-                  onClick={() => window.location.href = '/contact'}
+                  onClick={() => navigate('/contact')}
                   variant="outline"
                   className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6"
                 >

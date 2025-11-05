@@ -44,6 +44,7 @@ import BlogImport from "@/pages/partner/BlogImport"
 import ClientUsersAdmin from "@/pages/client/UsersAdmin"
 import PartnerUsersAdmin from "@/pages/partner/UsersAdmin"
 import Tickets from "@/pages/client/Tickets"
+import SharePointStats from "@/pages/client/SharePointStats"
 
 export function AppRoutes() {
   return (
@@ -103,6 +104,7 @@ export function AppRoutes() {
       <Route path="/partner/users" element={<PartnerUsersAdmin />} />
       <Route path="/client/users" element={<ClientUsersAdmin />} />
       <Route path="/client/tickets" element={<Tickets />} />
+      <Route path="/client/sharepoint" element={<SharePointStats />} />
       <Route path="/partner/forgot-password" element={<ForgotPassword />} />
       <Route path="/partner/reset-password" element={<ResetPassword />} />
     </Routes>

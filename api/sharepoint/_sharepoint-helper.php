@@ -3,7 +3,7 @@
  * Fonctions utilitaires pour l'API SharePoint Statistics
  */
 
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../config/config.php';
 
 // Gestionnaires d'erreurs globaux
 set_error_handler(function($errno, $errstr, $errfile, $errline) {

@@ -12,6 +12,39 @@
  * }
  */
 
+// Capturer toutes les erreurs PHP
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+// Gestionnaire d'erreurs global
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'error' => 'PHP Error',
+        'message' => $errstr,
+        'file' => basename($errfile),
+        'line' => $errline
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+});
+
+// Gestionnaire d'exceptions global
+set_exception_handler(function($exception) {
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'error' => 'Exception',
+        'message' => $exception->getMessage(),
+        'file' => basename($exception->getFile()),
+        'line' => $exception->getLine()
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+});
+
 header('Access-Control-Allow-Origin: ' . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');

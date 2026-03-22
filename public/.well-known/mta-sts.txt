@@ -1,5 +1,0 @@
-version: STSv1
-mode: testing
-mx: mail.mdoservices.fr
-mx: alt1.mail.mdoservices.fr
-max_age: 86400

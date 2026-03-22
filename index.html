@@ -611,11 +611,6 @@ footer { background: var(--navy); padding: 56px 0 32px; }
 </head>
 <body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKCZKZJS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
 <!-- COOKIE CONSENT BANNER -->
 <div class="cookie-banner" id="cookieBanner">
   <div class="cookie-inner">
@@ -1294,23 +1289,28 @@ document.querySelector('.form-submit').addEventListener('click', e => {
   }, 3000);
 });
 
-// Cookie consent & GTM
-function loadGTM() {
-  if (document.getElementById('gtm-script')) return;
+// Cookie consent & Google Analytics (gtag.js)
+function loadGA() {
+  if (document.getElementById('ga-script')) return;
   var s = document.createElement('script');
-  s.id = 'gtm-script';
+  s.id = 'ga-script';
   s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NKCZKZJS';
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9K5R18JM8J';
   document.head.appendChild(s);
+  s.onload = function() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-9K5R18JM8J');
+  };
 }
 
 function cookieConsent(accepted) {
   var expires = new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toUTCString();
   document.cookie = 'mdo_cookie_consent=' + (accepted ? 'accepted' : 'refused') + ';expires=' + expires + ';path=/;SameSite=Lax';
   document.getElementById('cookieBanner').classList.remove('show');
-  if (accepted) loadGTM();
+  if (accepted) loadGA();
 }
 
 (function() {
@@ -1318,7 +1318,7 @@ function cookieConsent(accepted) {
   if (!consent) {
     document.getElementById('cookieBanner').classList.add('show');
   } else if (consent[1] === 'accepted') {
-    loadGTM();
+    loadGA();
   }
 })();
 </script>

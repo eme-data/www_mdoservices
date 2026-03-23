@@ -169,10 +169,17 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<!-- Google Tag Manager (chargé uniquement après consentement cookies) -->
 <style>
+/* —— POLICES LOCALES —— */
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 400; font-display: swap; src: url('public/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500; font-display: swap; src: url('public/fonts/SpaceGrotesk-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 600; font-display: swap; src: url('public/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: swap; src: url('public/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('public/fonts/Inter-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('public/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('public/fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('public/fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('public/fonts/Inter-Bold.woff2') format('woff2'); }
 :root {
   --navy: #0A1628;
   --navy2: #0F1E38;
@@ -561,6 +568,19 @@ footer { background: var(--navy); padding: 56px 0 32px; }
 .fade-up-3 { animation-delay: 0.3s; }
 .fade-up-4 { animation-delay: 0.4s; }
 
+/* —— HAMBURGER MENU —— */
+.nav-hamburger {
+  display: none; background: none; border: none; cursor: pointer; padding: 6px;
+  flex-direction: column; gap: 5px; z-index: 200;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px; background: white; border-radius: 2px;
+  transition: all 0.3s;
+}
+.nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
 /* —— RESPONSIVE —— */
 @media (max-width: 900px) {
   .hero-inner, .nis2-inner, .soc-inner, .coverage-inner, .contact-inner { grid-template-columns: 1fr; }
@@ -568,9 +588,18 @@ footer { background: var(--navy); padding: 56px 0 32px; }
   .offers-grid, .services-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2,1fr); }
   .footer-inner { grid-template-columns: 1fr 1fr; }
-  .nav-links { display: none; }
   .form-row { grid-template-columns: 1fr; }
   .trust-inner { gap: 14px; }
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    display: none; position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; padding: 16px 24px 24px; gap: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 12px 16px; font-size: 1rem; border-radius: 8px; }
+  .nav-cta { display: none; }
 }
 
 /* —— UTILITY —— */
@@ -639,6 +668,9 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="nav-cta">Demander un audit &rarr;</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu de navigation">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -1081,14 +1113,14 @@ footer { background: var(--navy); padding: 56px 0 32px; }
             <div class="contact-item-icon">&#128222;</div>
             <div>
               <h4>T&eacute;l&eacute;phone</h4>
-              <p>05 82 95 22 77<br>Astreinte urgences 24/7</p>
+              <p><a href="tel:+33582952277" style="color:var(--text); text-decoration:none;">05 82 95 22 77</a><br>Astreinte urgences 24/7</p>
             </div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon">&#9993;&#65039;</div>
             <div>
               <h4>Email</h4>
-              <p>contact@mdoservices.fr</p>
+              <p><a href="mailto:contact@mdoservices.fr" style="color:var(--text); text-decoration:none;">contact@mdoservices.fr</a></p>
             </div>
           </div>
           <div class="contact-item">
@@ -1100,31 +1132,36 @@ footer { background: var(--navy); padding: 56px 0 32px; }
           </div>
         </div>
       </div>
-      <div class="contact-form">
+      <form class="contact-form" action="https://formsubmit.co/contact@mdoservices.fr" method="POST">
         <h3 style="margin-bottom:20px;">Demande de contact / Audit NIS2</h3>
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="Nouvelle demande depuis mdoservices.fr">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://www.mdoservices.fr/?merci=1">
+        <input type="text" name="_honey" style="display:none">
         <div class="form-row">
           <div class="form-group">
-            <label>Pr&eacute;nom &amp; Nom</label>
-            <input type="text" placeholder="Jean Dupont">
+            <label for="name">Pr&eacute;nom &amp; Nom</label>
+            <input type="text" id="name" name="name" placeholder="Jean Dupont" required>
           </div>
           <div class="form-group">
-            <label>Entreprise / Organisation</label>
-            <input type="text" placeholder="Mairie de XX / SAS Dupont">
+            <label for="company">Entreprise / Organisation</label>
+            <input type="text" id="company" name="company" placeholder="Mairie de XX / SAS Dupont" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Email professionnel</label>
-            <input type="email" placeholder="j.dupont@entreprise.fr">
+            <label for="email">Email professionnel</label>
+            <input type="email" id="email" name="email" placeholder="j.dupont@entreprise.fr" required>
           </div>
           <div class="form-group">
-            <label>T&eacute;l&eacute;phone</label>
-            <input type="tel" placeholder="06 XX XX XX XX">
+            <label for="phone">T&eacute;l&eacute;phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX">
           </div>
         </div>
         <div class="form-group">
-          <label>Type de structure</label>
-          <select>
+          <label for="structure">Type de structure</label>
+          <select id="structure" name="structure" required>
             <option value="">S&eacute;lectionner...</option>
             <option>PME / TPE</option>
             <option>Collectivit&eacute; / Mairie</option>
@@ -1134,8 +1171,8 @@ footer { background: var(--navy); padding: 56px 0 32px; }
           </select>
         </div>
         <div class="form-group">
-          <label>Votre besoin</label>
-          <select>
+          <label for="need">Votre besoin</label>
+          <select id="need" name="need" required>
             <option value="">S&eacute;lectionner...</option>
             <option>Audit NIS2 (gratuit)</option>
             <option>Offre MDO Essentiel</option>
@@ -1147,12 +1184,12 @@ footer { background: var(--navy); padding: 56px 0 32px; }
           </select>
         </div>
         <div class="form-group">
-          <label>Message (optionnel)</label>
-          <textarea placeholder="D&eacute;crivez votre situation, votre nombre d'utilisateurs, vos besoins sp&eacute;cifiques..."></textarea>
+          <label for="message">Message (optionnel)</label>
+          <textarea id="message" name="message" placeholder="D&eacute;crivez votre situation, votre nombre d'utilisateurs, vos besoins sp&eacute;cifiques..."></textarea>
         </div>
-        <button class="form-submit">Envoyer ma demande &rarr;</button>
+        <button type="submit" class="form-submit">Envoyer ma demande &rarr;</button>
         <p style="font-size:0.75rem; color:var(--gray); margin-top:12px; text-align:center;">R&eacute;ponse garantie sous 4h en jours ouvr&eacute;s &middot; Donn&eacute;es trait&eacute;es en France &middot; Conformit&eacute; RGPD</p>
-      </div>
+      </form>
     </div>
   </div>
 </section>
@@ -1199,7 +1236,7 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 MDO Services &mdash; Occitanie &middot; SIRET : 514 099 076 00028 &middot; Tous droits r&eacute;serv&eacute;s</p>
+      <p>&copy; 2025&ndash;2026 MDO Services &mdash; Occitanie &middot; SIRET : 514 099 076 00028 &middot; Tous droits r&eacute;serv&eacute;s</p>
       <div class="footer-badges">
         <span class="footer-badge">Donn&eacute;es h&eacute;berg&eacute;es en France</span>
         <span class="footer-badge">RGPD conforme</span>
@@ -1209,6 +1246,12 @@ footer { background: var(--navy); padding: 56px 0 32px; }
 </footer>
 
 <script>
+// Accessibilité : masquer les icônes emoji pour les lecteurs d'écran
+document.querySelectorAll('.service-icon, .contact-item-icon, .cert-icon, .soc-chain-icon, .trust-logo-icon, .offer-feat-icon, .hero-label-dot, .nis2-step-num').forEach(function(el) {
+  el.setAttribute('aria-hidden', 'true');
+  el.setAttribute('role', 'presentation');
+});
+
 // Smooth nav highlight on scroll
 const sections = document.querySelectorAll('section[id], .hero');
 const navLinks = document.querySelectorAll('.nav-links a');
@@ -1241,11 +1284,13 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const stats = entry.target.querySelectorAll('.stat-val');
-      stats.forEach(stat => {
-        const text = stat.innerHTML;
-        if (text.includes('50')) animateCount(stat, 50, '+');
-        if (text.includes('15')) animateCount(stat, 15, '+');
-        if (text.includes('99')) {
+      stats.forEach((stat, i) => {
+        const text = stat.textContent;
+        if (i === 0) { // +50
+          animateCount({ set textContent(v) { stat.innerHTML = '<span>+</span>' + v; } }, 50, '');
+        } else if (i === 1) { // 15+
+          animateCount({ set textContent(v) { stat.innerHTML = v + '<span>+</span>'; } }, 15, '');
+        } else if (i === 2) { // 99.9%
           let start = null;
           const step = ts => {
             if (!start) start = ts;
@@ -1255,8 +1300,9 @@ const observer = new IntersectionObserver(entries => {
             if (p < 1) requestAnimationFrame(step);
           };
           requestAnimationFrame(step);
+        } else if (i === 3) { // 13
+          animateCount(stat, 13, '');
         }
-        if (text === '13') animateCount(stat, 13, '');
       });
       observer.unobserve(entry.target);
     }
@@ -1266,15 +1312,29 @@ const observer = new IntersectionObserver(entries => {
 const statsSection = document.querySelector('.stats');
 if (statsSection) observer.observe(statsSection);
 
-// Form submission
-document.querySelector('.form-submit').addEventListener('click', e => {
-  e.target.textContent = '\u2713 Demande envoy\u00e9e \u2014 r\u00e9ponse sous 4h';
-  e.target.style.background = '#00C9A7';
-  setTimeout(() => {
-    e.target.textContent = 'Envoyer ma demande \u2192';
-    e.target.style.background = '';
-  }, 3000);
+// Hamburger menu
+var hamburger = document.getElementById('navHamburger');
+var navLinksEl = document.querySelector('.nav-links');
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  navLinksEl.classList.toggle('open');
 });
+navLinksEl.querySelectorAll('a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    hamburger.classList.remove('active');
+    navLinksEl.classList.remove('open');
+  });
+});
+
+// Thank you message after form submission (redirect with ?merci=1)
+if (window.location.search.includes('merci=1')) {
+  var btn = document.querySelector('.form-submit');
+  if (btn) {
+    btn.textContent = '\u2713 Demande envoy\u00e9e \u2014 r\u00e9ponse sous 4h';
+    btn.style.background = '#00C9A7';
+    btn.disabled = true;
+  }
+}
 
 // Cookie consent & Google Analytics (gtag.js)
 function loadGA() {

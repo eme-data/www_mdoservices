@@ -1137,7 +1137,7 @@ footer { background: var(--navy); padding: 56px 0 32px; }
         <!-- FormSubmit config -->
         <input type="hidden" name="_subject" value="Nouvelle demande depuis mdoservices.fr">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://www.mdoservices.fr/?merci=1">
+        <input type="hidden" name="_next" value="https://www.mdoservices.fr/merci.html">
         <input type="text" name="_honey" style="display:none">
         <div class="form-row">
           <div class="form-group">
@@ -1325,16 +1325,6 @@ navLinksEl.querySelectorAll('a').forEach(function(link) {
     navLinksEl.classList.remove('open');
   });
 });
-
-// Thank you message after form submission (redirect with ?merci=1)
-if (window.location.search.includes('merci=1')) {
-  var btn = document.querySelector('.form-submit');
-  if (btn) {
-    btn.textContent = '\u2713 Demande envoy\u00e9e \u2014 r\u00e9ponse sous 4h';
-    btn.style.background = '#00C9A7';
-    btn.disabled = true;
-  }
-}
 
 // Cookie consent & Google Analytics (gtag.js)
 function loadGA() {

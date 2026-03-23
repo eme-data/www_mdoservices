@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demande envoy&eacute;e &mdash; MDO Services</title>
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/png" href="public/images/IconOnly_Transparent_NoBuffer.png">
+<style>
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: swap; src: url('public/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('public/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('public/fonts/Inter-Medium.woff2') format('woff2'); }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0A1628;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 520px;
+  width: 100%;
+  backdrop-filter: blur(20px);
+}
+.icon {
+  width: 72px; height: 72px;
+  background: rgba(0,201,167,0.15);
+  border: 2px solid rgba(0,201,167,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 24px;
+}
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+p {
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+.highlight {
+  color: #00C9A7;
+  font-weight: 500;
+}
+.details {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.5);
+}
+.detail-icon {
+  width: 32px; height: 32px;
+  background: rgba(26,95,255,0.1);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  background: #1A5FFF;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn:hover {
+  background: #3B7DFF;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(26,95,255,0.35);
+}
+.logo {
+  margin-bottom: 32px;
+}
+.logo img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <img src="public/images/IconOnly_Transparent_NoBuffer.png" alt="MDO Services">
+  </div>
+  <div class="icon" aria-hidden="true">&#10003;</div>
+  <h1>Demande bien re&ccedil;ue !</h1>
+  <p>Merci pour votre confiance. Votre message a &eacute;t&eacute; transmis &agrave; notre &eacute;quipe.</p>
+  <p>Nous vous r&eacute;pondrons <span class="highlight">sous 24 heures ouvr&eacute;es</span>.</p>
+  <div class="details">
+    <div class="detail-item">
+      <div class="detail-icon" aria-hidden="true">&#128222;</div>
+      <span>Urgence ? Appelez-nous au <a href="tel:+33582952277" style="color:#3B7DFF; text-decoration:none;">05 82 95 22 77</a></span>
+    </div>
+    <div class="detail-item">
+      <div class="detail-icon" aria-hidden="true">&#9993;&#65039;</div>
+      <span>Un email de confirmation vous sera envoy&eacute;</span>
+    </div>
+  </div>
+  <a href="index.html" class="btn">Retour au site &rarr;</a>
+</div>
+
+</body>
+</html>

@@ -1,66 +1,22 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Dependencies
-node_modules
-dist
-dist-ssr
-*.local
-
-# Environment variables
-.env
-.env.local
-.env.production
-.env.development
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# API Configuration (IMPORTANT - Never commit!)
-api/config/config.local.php
-
-# API Logs
-api/logs/
-*.log
-
-# Build artifacts
-dist/
-build/
-
-# Database exports (may contain sensitive data)
-database/data-export.sql
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
 # IDE
 .vscode/
 .idea/
-*.sublime-*
 *.swp
 *.swo
 *~
 
-# Testing
-coverage/
-.nyc_output/
+# Env
+.env
+.env.*
 
-# Temp files
+# Logs
+*.log
+
+# Temp
 tmp/
 temp/
 *.tmp

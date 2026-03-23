@@ -125,7 +125,7 @@
     "name": "Services IT",
     "itemListElement": [
       { "@type": "Service", "name": "Infogérance MSP", "description": "Supervision proactive, helpdesk illimité, maintenance préventive et corrective" },
-      { "@type": "Service", "name": "Cybersécurité managée", "description": "SOC 24/7 via Cyna, Microsoft Defender, audit NIS2, conformité RGPD" },
+      { "@type": "Service", "name": "Cybersécurité managée", "description": "SOC 24/7 via Cyna, EDR managé (Defender ou SentinelOne), audit NIS2, conformité RGPD" },
       { "@type": "Service", "name": "Microsoft 365 & Cloud", "description": "Migration, déploiement et administration Microsoft 365 en tant que CSP Partner" },
       { "@type": "Service", "name": "Téléphonie IP, VoIP, Mobile & IoT", "description": "IPBX 3CX et Wazo, téléphonie mobile professionnelle, connectivité IoT/M2M" },
       { "@type": "Service", "name": "Cloud souverain", "description": "Hébergement Jotelulu en France, PRA, données 100% européennes" },
@@ -720,11 +720,6 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       <div class="trust-logo-icon" style="background:rgba(244,161,30,0.15); font-size:14px;">&#9889;</div>
       <span class="trust-logo-name">Jotelulu Cloud Souverain</span>
     </div>
-    <div class="trust-divider"></div>
-    <div class="trust-logo">
-      <div class="trust-logo-icon" style="background:rgba(244,161,30,0.15); font-size:14px;">&#128272;</div>
-      <span class="trust-logo-name">Label ExpertCyber (en cours)</span>
-    </div>
   </div>
 </div>
 
@@ -748,7 +743,7 @@ footer { background: var(--navy); padding: 56px 0 32px; }
         <div class="offer-divider"></div>
         <div class="offer-feat"><span class="offer-feat-icon">&check;</span>Microsoft 365 Business Standard inclus</div>
         <div class="offer-feat"><span class="offer-feat-icon">&check;</span>RMM &amp; supervision 24h/7j</div>
-        <div class="offer-feat"><span class="offer-feat-icon">&check;</span>Antivirus manag&eacute; (Defender)</div>
+        <div class="offer-feat"><span class="offer-feat-icon">&check;</span>Antivirus manag&eacute; (Defender ou SentinelOne)</div>
         <div class="offer-feat"><span class="offer-feat-icon">&check;</span>Patch management automatis&eacute;</div>
         <div class="offer-feat"><span class="offer-feat-icon">&check;</span>Helpdesk illimit&eacute; (9h&ndash;18h)</div>
         <div class="offer-feat"><span class="offer-feat-icon">&check;</span>Sauvegarde postes cloud 7j</div>
@@ -814,8 +809,8 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       <div class="service-card">
         <div class="service-icon teal">&#128274;</div>
         <h3>Cybers&eacute;curit&eacute; manag&eacute;e</h3>
-        <p>SOC 24/7 via Cyna, Microsoft Defender, gestion des identit&eacute;s Entra ID, audit et rem&eacute;diation NIS2. Protection endpoint + cloud M365.</p>
-        <div class="service-tags"><span class="service-tag">SOC 24/7</span><span class="service-tag">Defender</span><span class="service-tag">NIS2</span><span class="service-tag">RGPD</span></div>
+        <p>SOC 24/7 via Cyna, EDR manag&eacute; (Defender ou SentinelOne), gestion des identit&eacute;s Entra ID, audit et rem&eacute;diation NIS2. Protection endpoint + cloud M365.</p>
+        <div class="service-tags"><span class="service-tag">SOC 24/7</span><span class="service-tag">EDR</span><span class="service-tag">NIS2</span><span class="service-tag">RGPD</span></div>
       </div>
       <div class="service-card">
         <div class="service-icon blue">&#9729;&#65039;</div>
@@ -926,7 +921,7 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       <div>
         <span class="section-tag">Architecture s&eacute;curit&eacute;</span>
         <h2 style="margin: 14px 0 20px;">Votre bouclier<br>&agrave; 3 niveaux</h2>
-        <p>MDO Services op&egrave;re une architecture de s&eacute;curit&eacute; co-manag&eacute;e : d&eacute;tection automatique via Defender, analyse 24/7 par le SOC Cyna, rem&eacute;diation terrain par nos experts. Alertes visibles par vous et par nous en temps r&eacute;el.</p>
+        <p>MDO Services op&egrave;re une architecture de s&eacute;curit&eacute; co-manag&eacute;e : d&eacute;tection automatique via EDR (Defender ou SentinelOne), analyse 24/7 par le SOC Cyna, rem&eacute;diation terrain par nos experts. Alertes visibles par vous et par nous en temps r&eacute;el.</p>
         <div style="margin-top:28px; display:flex; flex-direction:column; gap:12px;">
           <div style="display:flex; gap:10px; align-items:center; font-size:0.875rem; color:var(--text2);">
             <span style="width:20px; height:20px; background:rgba(0,201,167,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--teal); flex-shrink:0;">&check;</span>
@@ -950,7 +945,7 @@ footer { background: var(--navy); padding: 56px 0 32px; }
         <div class="soc-chain-item">
           <div class="soc-chain-icon" style="background:rgba(26,95,255,0.1);">&#128421;&#65039;</div>
           <div class="soc-chain-content">
-            <h4>Microsoft Defender for Business</h4>
+            <h4>EDR &mdash; Defender / SentinelOne</h4>
             <p>D&eacute;tection en temps r&eacute;el sur chaque poste &amp; M365</p>
           </div>
           <span class="soc-label partner">Inclus M365 BP</span>
@@ -1047,13 +1042,6 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       <div>
         <span class="section-tag">Certifications &amp; labels</span>
         <h2 style="margin:14px 0 28px;">Vos garanties<br>de confiance</h2>
-        <div class="cert-item" style="margin-bottom:20px; padding:16px; background:white; border-radius:12px; border:1px solid var(--gray-light);">
-          <div class="cert-icon gov">&#128272;</div>
-          <div class="cert-content">
-            <h4>Label ExpertCyber &mdash; Cybermalveillance.gouv.fr</h4>
-            <p>R&eacute;f&eacute;renc&eacute; prestataire de confiance. D&eacute;marche AFNOR en cours. Crit&egrave;re exig&eacute; dans les appels d'offres publics.</p>
-          </div>
-        </div>
         <div class="cert-item" style="margin-bottom:20px; padding:16px; background:white; border-radius:12px; border:1px solid var(--gray-light);">
           <div class="cert-icon ms">&#128170;</div>
           <div class="cert-content">
@@ -1180,7 +1168,6 @@ footer { background: var(--navy); padding: 56px 0 32px; }
         </a>
         <p>Expert IT, Cloud &amp; Cybers&eacute;curit&eacute; pour les PME et collectivit&eacute;s en Occitanie depuis 2008.</p>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <span class="footer-badge">&#128272; ExpertCyber</span>
           <span class="footer-badge">&#128170; Microsoft CSP</span>
 
         </div>

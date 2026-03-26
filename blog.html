@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blog MDO Services &mdash; Actualit&eacute;s IT, Cybers&eacute;curit&eacute; &amp; NIS2 en Occitanie</title>
+<meta name="description" content="Conseils, guides et actualit&eacute;s sur l'infog&eacute;rance, la cybers&eacute;curit&eacute;, NIS2, Microsoft 365 et la t&eacute;l&eacute;phonie IP. Par MDO Services, MSP expert en Occitanie.">
+<meta name="keywords" content="blog IT, cybers&eacute;curit&eacute;, NIS2, infog&eacute;rance, Microsoft 365, t&eacute;l&eacute;phonie IP, Occitanie, PME, collectivit&eacute;s">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.mdoservices.fr/blog.html">
+<link rel="icon" type="image/png" href="public/images/IconOnly_Transparent_NoBuffer.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog MDO Services &mdash; IT, Cyber &amp; NIS2">
+<meta property="og:description" content="Guides pratiques et actualit&eacute;s sur la cybers&eacute;curit&eacute;, NIS2 et l'IT pour PME et collectivit&eacute;s d'Occitanie.">
+<meta property="og:url" content="https://www.mdoservices.fr/blog.html">
+
+<style>
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 400; font-display: swap; src: url('public/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500; font-display: swap; src: url('public/fonts/SpaceGrotesk-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 600; font-display: swap; src: url('public/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: swap; src: url('public/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('public/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('public/fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('public/fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('public/fonts/Inter-Bold.woff2') format('woff2'); }
+
+:root {
+  --navy: #0A1628; --navy2: #0F1E38; --blue: #1A5FFF; --blue-light: #3B7DFF;
+  --teal: #00C9A7; --amber: #F4A11E; --white: #FFFFFF; --off-white: #F8F9FC;
+  --gray: #64748B; --gray-light: #E2E8F0; --text: #1A2332; --text2: #4A5568;
+  --section-bg: #F4F7FB;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+p { font-size: 1rem; color: var(--text2); line-height: 1.7; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,22,40,0.96); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.07); padding: 0 24px;
+  height: 64px; display: flex; align-items: center;
+}
+.nav-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark { width: 36px; height: 36px; object-fit: contain; }
+.nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: white; }
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-links a { font-size: 0.875rem; color: rgba(255,255,255,0.7); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: white; background: rgba(255,255,255,0.08); }
+.nav-cta {
+  background: var(--blue); color: white; border: none; border-radius: 8px;
+  padding: 8px 18px; font-size: 0.875rem; font-weight: 500; font-family: 'Inter', sans-serif;
+  cursor: pointer; text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--blue-light); }
+
+.page-hero {
+  background: var(--navy); padding: 140px 0 80px; position: relative; overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(26,95,255,0.12) 0%, transparent 60%),
+    linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+}
+.page-hero-inner { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; }
+.page-hero-inner h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: white; line-height: 1.15; margin-bottom: 16px; }
+.page-hero-inner p { font-size: 1.1rem; color: rgba(255,255,255,0.6); }
+
+section { padding: 80px 0; }
+
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.blog-card {
+  background: white; border: 1px solid var(--gray-light); border-radius: 14px;
+  overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column;
+}
+.blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+.blog-card-thumb {
+  height: 180px; background: var(--section-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+}
+.blog-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.blog-tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 3px 8px; border-radius: 4px;
+  background: rgba(26,95,255,0.08); color: var(--blue); margin-bottom: 10px; width: fit-content;
+}
+.blog-tag.nis2 { background: rgba(0,201,167,0.1); color: var(--teal); }
+.blog-tag.telecom { background: rgba(244,161,30,0.1); color: var(--amber); }
+.blog-card-body h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+.blog-card-body h3 a { color: var(--text); text-decoration: none; }
+.blog-card-body h3 a:hover { color: var(--blue); }
+.blog-card-body p { font-size: 0.875rem; flex: 1; }
+.blog-meta { font-size: 0.75rem; color: var(--gray); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gray-light); }
+
+.blog-cta {
+  text-align: center; margin-top: 48px; padding: 40px; background: var(--section-bg);
+  border-radius: 16px; border: 1px solid var(--gray-light);
+}
+.blog-cta h3 { font-size: 1.3rem; margin-bottom: 8px; }
+.blog-cta p { margin-bottom: 20px; }
+.btn-primary {
+  background: var(--blue); color: white; border: none; border-radius: 10px;
+  padding: 14px 28px; font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  cursor: pointer; text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+footer { background: var(--navy); padding: 40px 0 24px; }
+.footer-simple { text-align: center; }
+.footer-simple a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; margin: 0 12px; transition: color 0.2s; }
+.footer-simple a:hover { color: white; }
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.3); margin-top: 16px; }
+
+@media (max-width: 900px) {
+  .blog-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="public/images/IconOnly_Transparent_NoBuffer.png" alt="MDO Services" class="nav-logo-mark">
+      <span class="nav-logo-text">MDO SERVICES</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#offres">Offres</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#nis2">NIS2</a>
+      <a href="blog.html" style="color:white;">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <a href="index.html#contact" class="nav-cta">Demander un audit &rarr;</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <h1>Blog &mdash; Actualit&eacute;s IT &amp; Cybers&eacute;curit&eacute;</h1>
+    <p>Guides pratiques, d&eacute;cryptages r&eacute;glementaires et retours d'exp&eacute;rience pour les PME et collectivit&eacute;s d'Occitanie.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="blog-grid">
+
+      <!-- Article 1 -->
+      <div class="blog-card">
+        <div class="blog-card-thumb" aria-hidden="true">&#128737;&#65039;</div>
+        <div class="blog-card-body">
+          <span class="blog-tag nis2">NIS2</span>
+          <h3><a href="blog/nis2-pme-collectivites-occitanie.html">Directive NIS2 : ce que les PME et collectivit&eacute;s d'Occitanie doivent savoir</a></h3>
+          <p>Qui est concern&eacute; ? Quelles obligations ? Quelles sanctions ? Guide complet pour comprendre NIS2 et se mettre en conformit&eacute;.</p>
+          <div class="blog-meta">Par MDO Services &middot; Mars 2026 &middot; 8 min de lecture</div>
+        </div>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="blog-card">
+        <div class="blog-card-thumb" aria-hidden="true">&#128274;</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Cybers&eacute;curit&eacute;</span>
+          <h3><a href="blog/soc-24-7-pourquoi-pme.html">Pourquoi un SOC 24/7 n'est plus r&eacute;serv&eacute; aux grandes entreprises</a></h3>
+          <p>Les cyberattaques ciblent de plus en plus les PME. D&eacute;couvrez comment un SOC manag&eacute; prot&egrave;ge votre entreprise sans exploser votre budget.</p>
+          <div class="blog-meta">Par MDO Services &middot; Mars 2026 &middot; 6 min de lecture</div>
+        </div>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="blog-card">
+        <div class="blog-card-thumb" aria-hidden="true">&#128222;</div>
+        <div class="blog-card-body">
+          <span class="blog-tag telecom">T&eacute;l&eacute;com</span>
+          <h3><a href="blog/telephonie-ip-vs-classique-entreprise.html">T&eacute;l&eacute;phonie IP vs classique : le comparatif pour les entreprises en 2026</a></h3>
+          <p>Co&ucirc;ts, fonctionnalit&eacute;s, mobilit&eacute; : pourquoi 80% des PME ont d&eacute;j&agrave; migr&eacute; vers la VoIP et comment bien choisir sa solution.</p>
+          <div class="blog-meta">Par MDO Services &middot; F&eacute;vrier 2026 &middot; 5 min de lecture</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA lead magnet -->
+    <div class="blog-cta" id="guide-nis2">
+      <h3>Guide gratuit : &laquo; NIS2 pour les collectivit&eacute;s d'Occitanie &raquo;</h3>
+      <p>T&eacute;l&eacute;chargez notre guide pratique de 12 pages : obligations, &eacute;ch&eacute;ances, &eacute;tapes de mise en conformit&eacute; et checklist actionnable.</p>
+      <a href="index.html#contact" class="btn-primary">Demander le guide (gratuit) &rarr;</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-simple">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#offres">Offres</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="mentions-legales.html">Mentions l&eacute;gales</a>
+      <a href="politique-rgpd.html">Politique RGPD</a>
+    </div>
+    <p class="footer-copy">&copy; 2025&ndash;2026 MDO Services &mdash; Occitanie &middot; SIRET : 514 099 076 00028</p>
+  </div>
+</footer>
+
+</body>
+</html>

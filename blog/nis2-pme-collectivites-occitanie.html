@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Directive NIS2 : guide complet pour PME et collectivit&eacute;s d'Occitanie | MDO Services</title>
+<meta name="description" content="Tout savoir sur la directive NIS2 : qui est concern&eacute;, quelles obligations, quelles sanctions, et comment se mettre en conformit&eacute;. Guide complet par MDO Services, MSP expert en Occitanie.">
+<meta name="keywords" content="NIS2, directive europ&eacute;enne, cybers&eacute;curit&eacute;, PME, collectivit&eacute;s, Occitanie, conformit&eacute;, audit, ANSSI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.mdoservices.fr/blog/nis2-pme-collectivites-occitanie.html">
+<link rel="icon" type="image/png" href="../public/images/IconOnly_Transparent_NoBuffer.png">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Directive NIS2 : guide complet pour PME et collectivit&eacute;s d'Occitanie">
+<meta property="og:description" content="Qui est concern&eacute; par NIS2 ? Quelles obligations ? Quelles sanctions ? Guide pratique par MDO Services.">
+<meta property="og:url" content="https://www.mdoservices.fr/blog/nis2-pme-collectivites-occitanie.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Directive NIS2 : ce que les PME et collectivités d'Occitanie doivent savoir",
+  "description": "Guide complet sur la directive NIS2 pour les PME et collectivités : obligations, sanctions, étapes de mise en conformité.",
+  "author": { "@type": "Organization", "name": "MDO Services", "url": "https://www.mdoservices.fr" },
+  "publisher": { "@type": "Organization", "name": "MDO Services" },
+  "datePublished": "2026-03-15",
+  "dateModified": "2026-03-15"
+}
+</script>
+
+<style>
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 400; font-display: swap; src: url('../public/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 600; font-display: swap; src: url('../public/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: swap; src: url('../public/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('../public/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('../public/fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('../public/fonts/Inter-SemiBold.woff2') format('woff2'); }
+
+:root {
+  --navy: #0A1628; --navy2: #0F1E38; --blue: #1A5FFF; --blue-light: #3B7DFF;
+  --teal: #00C9A7; --amber: #F4A11E; --white: #FFFFFF; --off-white: #F8F9FC;
+  --gray: #64748B; --gray-light: #E2E8F0; --text: #1A2332; --text2: #4A5568;
+  --section-bg: #F4F7FB;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+p { font-size: 1rem; color: var(--text2); line-height: 1.8; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,22,40,0.96); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.07); padding: 0 24px;
+  height: 64px; display: flex; align-items: center;
+}
+.nav-inner { max-width: 1120px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark { width: 36px; height: 36px; object-fit: contain; }
+.nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: white; }
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-links a { font-size: 0.875rem; color: rgba(255,255,255,0.7); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: white; background: rgba(255,255,255,0.08); }
+.nav-cta {
+  background: var(--blue); color: white; border: none; border-radius: 8px;
+  padding: 8px 18px; font-size: 0.875rem; font-weight: 500; font-family: 'Inter', sans-serif;
+  cursor: pointer; text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--blue-light); }
+
+.article-hero {
+  background: var(--navy); padding: 140px 0 60px; position: relative; overflow: hidden;
+}
+.article-hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,201,167,0.1) 0%, transparent 60%),
+    linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+}
+.article-hero-inner { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; padding: 0 24px; }
+.article-tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 4px 12px; border-radius: 100px;
+  background: rgba(0,201,167,0.15); color: var(--teal); margin-bottom: 16px;
+}
+.article-hero-inner h1 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 16px; }
+.article-meta { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+.article-content { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+.article-content h2 { font-size: 1.4rem; font-weight: 600; margin: 40px 0 16px; color: var(--text); }
+.article-content h3 { font-size: 1.1rem; font-weight: 600; margin: 28px 0 12px; color: var(--text); }
+.article-content p { margin-bottom: 16px; }
+.article-content ul, .article-content ol { margin: 12px 0 20px 24px; color: var(--text2); }
+.article-content li { margin-bottom: 8px; font-size: 0.95rem; line-height: 1.7; }
+.article-content strong { color: var(--text); }
+
+.callout {
+  background: var(--section-bg); border-left: 4px solid var(--blue);
+  border-radius: 0 10px 10px 0; padding: 20px 24px; margin: 24px 0;
+}
+.callout p { margin-bottom: 0; font-size: 0.9rem; }
+.callout.warning { border-left-color: var(--amber); background: rgba(244,161,30,0.06); }
+.callout.success { border-left-color: var(--teal); background: rgba(0,201,167,0.06); }
+
+.article-cta {
+  background: var(--navy); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0;
+}
+.article-cta h3 { color: white; font-size: 1.3rem; margin-bottom: 8px; }
+.article-cta p { color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+.btn-primary {
+  background: var(--blue); color: white; border: none; border-radius: 10px;
+  padding: 14px 28px; font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  cursor: pointer; text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: var(--blue-light); }
+
+footer { background: var(--navy); padding: 40px 0 24px; }
+.footer-simple { text-align: center; }
+.footer-simple a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; margin: 0 12px; transition: color 0.2s; }
+.footer-simple a:hover { color: white; }
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.3); margin-top: 16px; }
+
+@media (max-width: 900px) { .nav-links { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <img src="../public/images/IconOnly_Transparent_NoBuffer.png" alt="MDO Services" class="nav-logo-mark">
+      <span class="nav-logo-text">MDO SERVICES</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#offres">Offres</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../blog.html" style="color:white;">Blog</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+    <a href="../index.html#contact" class="nav-cta">Audit NIS2 gratuit &rarr;</a>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-inner">
+    <span class="article-tag">NIS2 &middot; Conformit&eacute;</span>
+    <h1>Directive NIS2 : ce que les PME et collectivit&eacute;s d'Occitanie doivent savoir</h1>
+    <div class="article-meta">Par MDO Services &middot; 15 mars 2026 &middot; 8 min de lecture</div>
+  </div>
+</div>
+
+<article class="article-content">
+
+  <p>La <strong>directive europ&eacute;enne NIS2</strong> (Network and Information Security 2) renforce consid&eacute;rablement les obligations de cybers&eacute;curit&eacute; pour des milliers d'organisations en France. Si vous dirigez une PME, une collectivit&eacute; territoriale ou un &eacute;tablissement de sant&eacute; en Occitanie, il est probable que vous soyez concern&eacute;.</p>
+
+  <h2>1. Qu'est-ce que NIS2 ?</h2>
+  <p>NIS2 est la mise &agrave; jour de la directive NIS1 de 2016. Adopt&eacute;e en janvier 2023, elle &eacute;largit consid&eacute;rablement le p&eacute;rim&egrave;tre des organisations concern&eacute;es et durcit les sanctions en cas de non-conformit&eacute;.</p>
+  <p>L'objectif : &eacute;lever le niveau global de cybers&eacute;curit&eacute; en Europe, face &agrave; une menace qui ne cesse de cro&icirc;tre. Les ransomwares ont co&ucirc;t&eacute; plus de 2 milliards d'euros aux entreprises fran&ccedil;aises en 2024.</p>
+
+  <h2>2. Qui est concern&eacute; en Occitanie ?</h2>
+  <p>NIS2 s'applique d&eacute;sormais &agrave; 18 secteurs d'activit&eacute;, r&eacute;partis en deux cat&eacute;gories :</p>
+
+  <h3>Entit&eacute;s essentielles (obligations renforc&eacute;es)</h3>
+  <ul>
+    <li>&Eacute;nergie, transports, eau potable</li>
+    <li>Sant&eacute; (h&ocirc;pitaux, cliniques, laboratoires)</li>
+    <li>Administrations publiques (collectivit&eacute;s &gt;30 000 habitants)</li>
+    <li>Infrastructures num&eacute;riques</li>
+  </ul>
+
+  <h3>Entit&eacute;s importantes (obligations standard)</h3>
+  <ul>
+    <li>Services postaux, gestion des d&eacute;chets</li>
+    <li>Industrie manufacturi&egrave;re, agroalimentaire</li>
+    <li><strong>Sous-traitants et prestataires</strong> des entit&eacute;s essentielles</li>
+    <li>PME de &gt;50 salari&eacute;s ou &gt;10M&euro; de CA dans les secteurs vis&eacute;s</li>
+  </ul>
+
+  <div class="callout warning">
+    <p><strong>Point cl&eacute; :</strong> si vous &ecirc;tes sous-traitant d'une collectivit&eacute; ou d'un h&ocirc;pital, vous &ecirc;tes probablement concern&eacute; par NIS2, m&ecirc;me si votre activit&eacute; propre n'est pas dans un secteur vis&eacute;. La directive couvre la <strong>cha&icirc;ne d'approvisionnement</strong>.</p>
+  </div>
+
+  <h2>3. Quelles obligations concr&egrave;tes ?</h2>
+  <p>NIS2 impose un socle minimal de mesures de cybers&eacute;curit&eacute; :</p>
+  <ol>
+    <li><strong>Analyse des risques</strong> &mdash; cartographie des actifs, &eacute;valuation des menaces</li>
+    <li><strong>Gestion des incidents</strong> &mdash; proc&eacute;dure de d&eacute;tection, notification sous 24h &agrave; l'ANSSI</li>
+    <li><strong>Continuit&eacute; d'activit&eacute;</strong> &mdash; PCA/PRA, sauvegardes test&eacute;es</li>
+    <li><strong>S&eacute;curit&eacute; de la cha&icirc;ne d'approvisionnement</strong> &mdash; audit de vos prestataires</li>
+    <li><strong>Gestion des acc&egrave;s</strong> &mdash; MFA, gestion des identit&eacute;s, principe du moindre privil&egrave;ge</li>
+    <li><strong>Chiffrement &amp; politique de s&eacute;curit&eacute;</strong> &mdash; politique formalis&eacute;e, r&eacute;vis&eacute;e r&eacute;guli&egrave;rement</li>
+    <li><strong>Formation du personnel</strong> &mdash; sensibilisation r&eacute;guli&egrave;re &agrave; la cybers&eacute;curit&eacute;</li>
+  </ol>
+
+  <h2>4. Quelles sanctions ?</h2>
+  <p>Les sanctions sont significativement renforc&eacute;es par rapport &agrave; NIS1 :</p>
+  <ul>
+    <li><strong>Entit&eacute;s essentielles :</strong> jusqu'&agrave; 10 millions d'euros ou 2% du CA mondial</li>
+    <li><strong>Entit&eacute;s importantes :</strong> jusqu'&agrave; 7 millions d'euros ou 1,4% du CA mondial</li>
+    <li><strong>Responsabilit&eacute; personnelle</strong> du dirigeant en cas de n&eacute;gligence av&eacute;r&eacute;e</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>Bon &agrave; savoir :</strong> l'ANSSI privil&eacute;gie l'accompagnement avant la sanction. Les organisations qui d&eacute;montrent une d&eacute;marche proactive de mise en conformit&eacute; b&eacute;n&eacute;ficient g&eacute;n&eacute;ralement d'un traitement favorable.</p>
+  </div>
+
+  <h2>5. Comment se mettre en conformit&eacute; ?</h2>
+  <p>La mise en conformit&eacute; NIS2 n'est pas un projet ponctuel &mdash; c'est une d&eacute;marche continue. Voici les &eacute;tapes cl&eacute;s :</p>
+
+  <h3>&Eacute;tape 1 : Diagnostic initial (1 journ&eacute;e)</h3>
+  <p>Qualifier votre assujettissement, inventorier vos actifs critiques, &eacute;valuer votre posture de s&eacute;curit&eacute; actuelle. C'est exactement ce que couvre notre <strong>audit NIS2 gratuit</strong>.</p>
+
+  <h3>&Eacute;tape 2 : Plan d'action prioris&eacute; (30 jours)</h3>
+  <p>Corriger les vuln&eacute;rabilit&eacute;s critiques en urgence (MFA, sauvegardes, droits AD), puis d&eacute;ployer les mesures structurelles sur 3 &agrave; 12 mois.</p>
+
+  <h3>&Eacute;tape 3 : Mise en &oelig;uvre technique</h3>
+  <p>D&eacute;ploiement du SOC 24/7, configuration des sauvegardes et du PRA, mise en place du MFA sur tous les acc&egrave;s, formalisation des politiques de s&eacute;curit&eacute;.</p>
+
+  <h3>&Eacute;tape 4 : Suivi continu</h3>
+  <p>Rapports mensuels de s&eacute;curit&eacute;, tests de restauration, campagnes de sensibilisation, veille r&eacute;glementaire.</p>
+
+  <div class="callout success">
+    <p><strong>L'approche MDO Services :</strong> notre offre <strong>MDO Souverain</strong> (139&euro; HT/user/mois) couvre nativement les exigences NIS2 : SOC 24/7, sauvegardes avec PRA test&eacute;, cloud souverain Jotelulu (donn&eacute;es en France), rapports de conformit&eacute;. Le co&ucirc;t de l'audit est int&eacute;gralement d&eacute;duit du premier mois.</p>
+  </div>
+
+  <h2>6. Sp&eacute;cificit&eacute;s pour les collectivit&eacute;s d'Occitanie</h2>
+  <p>Les collectivit&eacute;s territoriales font face &agrave; des d&eacute;fis sp&eacute;cifiques :</p>
+  <ul>
+    <li><strong>Budgets contraints</strong> &mdash; n&eacute;cessit&eacute; de mutualiser les co&ucirc;ts via des contrats MSP tout inclus</li>
+    <li><strong>Obligation de souverainet&eacute;</strong> &mdash; h&eacute;bergement des donn&eacute;es en France (cloud souverain Jotelulu)</li>
+    <li><strong>March&eacute;s publics</strong> &mdash; les labels comme ExpertCyber deviennent des crit&egrave;res de s&eacute;lection</li>
+    <li><strong>Sensibilisation des agents</strong> &mdash; formation r&eacute;guli&egrave;re aux bonnes pratiques</li>
+  </ul>
+  <p>En Occitanie, de nombreuses communaut&eacute;s de communes et mairies n'ont aucun r&eacute;f&eacute;rent informatique interne. C'est pr&eacute;cis&eacute;ment l&agrave; qu'un MSP de proximit&eacute; comme MDO Services fait la diff&eacute;rence : un prestataire unique qui g&egrave;re l'ensemble du SI, de la t&eacute;l&eacute;phonie &agrave; la cybers&eacute;curit&eacute;.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Pr&ecirc;t &agrave; &eacute;valuer votre conformit&eacute; NIS2 ?</h3>
+    <p>Notre diagnostic initial est gratuit et sans engagement. 1h d'entretien, un premier scoring et un plan d'action.</p>
+    <a href="../index.html#contact" class="btn-primary">Demander un audit NIS2 gratuit &rarr;</a>
+  </div>
+
+</article>
+
+<footer>
+  <div class="container">
+    <div class="footer-simple">
+      <a href="../index.html">Accueil</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+      <a href="../politique-rgpd.html">Politique RGPD</a>
+    </div>
+    <p class="footer-copy">&copy; 2025&ndash;2026 MDO Services &mdash; Occitanie &middot; SIRET : 514 099 076 00028</p>
+  </div>
+</footer>
+
+</body>
+</html>

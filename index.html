@@ -448,6 +448,55 @@ nav {
 .nis2-tarif-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--teal); }
 .nis2-note { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 14px; }
 
+/* —— COMPARATIF COUT —— */
+.cost-compare {
+  margin-top: 48px; background: white; border: 2px solid var(--blue);
+  border-radius: 16px; padding: 32px; position: relative;
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: center;
+}
+.cost-compare-side { text-align: center; }
+.cost-compare-side h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+.cost-compare-price { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1.2; }
+.cost-compare-price.diy { color: var(--red); }
+.cost-compare-price.mdo { color: var(--teal); }
+.cost-compare-detail { font-size: 0.78rem; color: var(--gray); margin-top: 4px; }
+.cost-compare-vs {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 700; color: white;
+}
+.cost-compare-saving {
+  text-align: center; margin-top: 16px; grid-column: 1 / -1;
+  font-size: 0.9rem; font-weight: 600; color: var(--blue);
+  background: rgba(26,95,255,0.06); padding: 10px; border-radius: 8px;
+}
+@media (max-width: 600px) {
+  .cost-compare { grid-template-columns: 1fr; gap: 16px; }
+  .cost-compare-vs { margin: 0 auto; }
+  .cost-compare-saving { grid-column: auto; }
+}
+
+/* —— TEMOIGNAGES —— */
+.testimonials { background: var(--white); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testimonial-card {
+  background: var(--section-bg); border: 1px solid var(--gray-light);
+  border-radius: 14px; padding: 28px; position: relative;
+}
+.testimonial-stars { color: var(--amber); font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 2px; }
+.testimonial-text { font-size: 0.9rem; color: var(--text2); font-style: italic; line-height: 1.7; margin-bottom: 16px; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 700; color: white;
+}
+.testimonial-info h4 { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.testimonial-info p { font-size: 0.75rem; color: var(--gray); }
+@media (max-width: 900px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
+
 /* —— SOC SECTION —— */
 .soc { background: var(--section-bg); }
 .soc-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
@@ -665,6 +714,8 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       <a href="#services">Services</a>
       <a href="#nis2">NIS2</a>
       <a href="#couverture">Territoire</a>
+      <a href="#temoignages">T&eacute;moignages</a>
+      <a href="blog.html">Blog</a>
       <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="nav-cta">Demander un audit &rarr;</a>
@@ -820,6 +871,67 @@ footer { background: var(--navy); padding: 56px 0 32px; }
         <div class="offer-onboarding">Onboarding : 2 500 &euro; HT</div>
       </div>
     </div>
+    <!-- Comparatif coût -->
+    <div class="cost-compare">
+      <div class="cost-compare-side">
+        <h4>Faire soi-m&ecirc;me</h4>
+        <div class="cost-compare-price diy">~3 500&euro;</div>
+        <div class="cost-compare-detail">Admin sys mi-temps + licences M365<br>+ antivirus + sauvegarde + astreinte<br><strong>pour 15 utilisateurs/mois</strong></div>
+      </div>
+      <div class="cost-compare-vs">VS</div>
+      <div class="cost-compare-side">
+        <h4>MDO Pro &mdash; tout inclus</h4>
+        <div class="cost-compare-price mdo">1 485&euro;</div>
+        <div class="cost-compare-detail">15 users &times; 99&euro; HT/mois<br>M365 + SOC 24/7 + helpdesk illimit&eacute;<br><strong>+ interventions on-site Occitanie</strong></div>
+      </div>
+      <div class="cost-compare-saving">&darr; &Eacute;conomisez plus de 2 000&euro;/mois avec un vrai MSP, et gagnez un SOC 24/7 en prime</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="testimonials" id="temoignages">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Ils nous font confiance</span>
+      <h2>Ce que disent nos clients</h2>
+      <p>Des PME, collectivit&eacute;s et professionnels de sant&eacute; en Occitanie qui nous font confiance au quotidien.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">&laquo; Depuis qu'on a confi&eacute; notre informatique &agrave; MDO Services, on ne se pose plus de questions. Ils g&egrave;rent tout, du poste de travail &agrave; la messagerie. Et quand on a un probl&egrave;me, quelqu'un r&eacute;pond vraiment. &raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PM</div>
+          <div class="testimonial-info">
+            <h4>Pierre M.</h4>
+            <p>G&eacute;rant &mdash; PME industrielle, Ari&egrave;ge</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">&laquo; L'audit NIS2 nous a ouvert les yeux sur nos failles. MDO a corrig&eacute; les urgences en 48h et mis en place un plan structur&eacute;. On se sent enfin en conformit&eacute;. Le SOC 24/7 nous rassure &eacute;norm&eacute;ment. &raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SL</div>
+          <div class="testimonial-info">
+            <h4>Sophie L.</h4>
+            <p>DGS &mdash; Communaut&eacute; de communes, Haute-Garonne</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">&laquo; La migration vers la t&eacute;l&eacute;phonie IP 3CX s'est faite sans aucune coupure. On a aussi centralis&eacute; nos mobiles pros chez MDO. Un seul interlocuteur pour tout, c'est ce qui nous manquait. &raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JD</div>
+          <div class="testimonial-info">
+            <h4>Jean-Marc D.</h4>
+            <p>Directeur &mdash; Cabinet m&eacute;dical, H&eacute;rault</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -833,37 +945,37 @@ footer { background: var(--navy); padding: 56px 0 32px; }
     </div>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon blue">&#128421;&#65039;</div>
+        <div class="service-icon blue" aria-hidden="true">&#128421;&#65039;</div>
         <h3>Infog&eacute;rance MSP</h3>
-        <p>Supervision proactive, helpdesk illimit&eacute;, maintenance pr&eacute;ventive et corrective. Vos syst&egrave;mes entre les mains d'experts locaux.</p>
+        <p>Supervision proactive, helpdesk illimit&eacute;, maintenance pr&eacute;ventive et corrective. Vos syst&egrave;mes entre les mains d'experts locaux en Occitanie.</p>
         <div class="service-tags"><span class="service-tag">RMM</span><span class="service-tag">Helpdesk</span><span class="service-tag">Patch management</span></div>
       </div>
       <div class="service-card">
-        <div class="service-icon teal">&#128274;</div>
+        <div class="service-icon amber" aria-hidden="true">&#128222;</div>
+        <h3>T&eacute;l&eacute;phonie &amp; Communications Unifi&eacute;es</h3>
+        <p>Solutions de t&eacute;l&eacute;phonie IP (3CX, Wazo), trunk SIP, softphones et messagerie unifi&eacute;e. Forfaits mobiles professionnels, gestion de flotte, num&eacute;ros virtuels et connectivit&eacute; IoT/M2M. Un seul interlocuteur pour le fixe, le mobile et l'IoT.</p>
+        <div class="service-tags"><span class="service-tag">3CX</span><span class="service-tag">Wazo</span><span class="service-tag">Mobile pro</span><span class="service-tag">IoT/M2M</span><span class="service-tag">SIP</span><span class="service-tag">Num&eacute;ros virtuels</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon teal" aria-hidden="true">&#128274;</div>
         <h3>Cybers&eacute;curit&eacute; manag&eacute;e</h3>
         <p>SOC 24/7 via Cyna, EDR manag&eacute; (Defender ou SentinelOne), gestion des identit&eacute;s Entra ID, audit et rem&eacute;diation NIS2. Protection endpoint + cloud M365.</p>
         <div class="service-tags"><span class="service-tag">SOC 24/7</span><span class="service-tag">EDR</span><span class="service-tag">NIS2</span><span class="service-tag">RGPD</span></div>
       </div>
       <div class="service-card">
-        <div class="service-icon blue">&#9729;&#65039;</div>
+        <div class="service-icon blue" aria-hidden="true">&#9729;&#65039;</div>
         <h3>Microsoft 365 &amp; Cloud</h3>
         <p>Migration, d&eacute;ploiement, administration multi-tenant. CSP Microsoft direct. Exchange Online, Teams, SharePoint, Azure AD.</p>
         <div class="service-tags"><span class="service-tag">CSP Partner</span><span class="service-tag">Exchange</span><span class="service-tag">Teams</span><span class="service-tag">Azure</span></div>
       </div>
       <div class="service-card">
-        <div class="service-icon amber">&#128222;</div>
-        <h3>T&eacute;l&eacute;phonie IP, VoIP, Mobile &amp; IoT</h3>
-        <p>D&eacute;ploiement et administration IPBX 3CX et Wazo. Trunk SIP, num&eacute;ros virtuels, softphone, messagerie unifi&eacute;e. Forfaits mobiles professionnels, gestion de flotte et connectivit&eacute; IoT/M2M.</p>
-        <div class="service-tags"><span class="service-tag">3CX</span><span class="service-tag">Wazo</span><span class="service-tag">Mobile pro</span><span class="service-tag">IoT/M2M</span><span class="service-tag">SIP</span></div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon teal">&#128225;</div>
+        <div class="service-icon teal" aria-hidden="true">&#128225;</div>
         <h3>Cloud souverain (Jotelulu)</h3>
         <p>Infrastructure h&eacute;berg&eacute;e en France sur Jotelulu. Serveurs virtuels, stockage, PRA cloud. 100% donn&eacute;es en Europe, id&eacute;al collectivit&eacute;s et sant&eacute;.</p>
         <div class="service-tags"><span class="service-tag">Jotelulu</span><span class="service-tag">IAAS</span><span class="service-tag">PRA</span><span class="service-tag">Souverain</span></div>
       </div>
       <div class="service-card">
-        <div class="service-icon amber">&#128225;</div>
+        <div class="service-icon amber" aria-hidden="true">&#128225;</div>
         <h3>R&eacute;seaux &amp; Infrastructure</h3>
         <p>Conception, d&eacute;ploiement et administration de r&eacute;seaux professionnels. WiFi haute performance, VPN, firewalls, supervision r&eacute;seau.</p>
         <div class="service-tags"><span class="service-tag">LAN/WAN</span><span class="service-tag">WiFi</span><span class="service-tag">Firewall</span><span class="service-tag">VPN</span></div>
@@ -1093,6 +1205,17 @@ footer { background: var(--navy); padding: 56px 0 32px; }
   </div>
 </section>
 
+<!-- LEAD MAGNET NIS2 -->
+<section style="background: var(--navy); padding: 64px 0;">
+  <div class="container" style="text-align: center; max-width: 700px;">
+    <span class="section-tag" style="background:rgba(0,201,167,0.1); border-color:rgba(0,201,167,0.2); color:var(--teal);">Guide gratuit</span>
+    <h2 style="color:white; margin: 14px 0 12px;">Guide NIS2 pour les collectivit&eacute;s d'Occitanie</h2>
+    <p style="color:rgba(255,255,255,0.6); margin-bottom: 24px;">12 pages : obligations, &eacute;ch&eacute;ances, checklist de mise en conformit&eacute; et erreurs &agrave; &eacute;viter. T&eacute;l&eacute;chargement gratuit contre votre email professionnel.</p>
+    <a href="#contact" class="btn-primary" style="font-size:0.9rem;">Recevoir le guide NIS2 &rarr;</a>
+    <p style="font-size:0.75rem; color:rgba(255,255,255,0.35); margin-top:12px;">Aucun spam &middot; D&eacute;sinscription en un clic &middot; Donn&eacute;es trait&eacute;es en France</p>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
@@ -1178,6 +1301,7 @@ footer { background: var(--navy); padding: 56px 0 32px; }
             <option>Offre MDO Essentiel</option>
             <option>Offre MDO Pro</option>
             <option>Offre MDO Souverain</option>
+            <option>T&eacute;l&eacute;phonie &amp; Communications</option>
             <option>Migration Microsoft 365</option>
             <option>Urgence cybers&eacute;curit&eacute;</option>
             <option>Renseignements</option>
@@ -1226,8 +1350,8 @@ footer { background: var(--navy); padding: 56px 0 32px; }
       </div>
       <div class="footer-col">
         <h4>MDO Services</h4>
-        <a href="#">&Agrave; propos</a>
-        <a href="#">Nos partenaires</a>
+        <a href="a-propos.html">&Agrave; propos</a>
+        <a href="blog.html">Blog</a>
         <a href="#couverture">Territoire</a>
         <a href="#contact">Contact</a>
         <a href="mentions-legales.html">Mentions l&eacute;gales</a>
